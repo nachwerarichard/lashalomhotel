@@ -29,18 +29,46 @@ body {
 }
 
 /* Hide the hamburger menu by default */
+/* Add this to your existing CSS file (styles.css) */
 
 /* Hamburger icon styles */
 .hamburger {
     display: none;
     font-size: 2rem;
     cursor: pointer;
-    transition: transform 0.3s ease;
+    transition: all 0.3s ease;
 }
 
-.hamburger.active {
-    transform: rotate(45deg);
+.hamburger .bar {
+    display: block;
+    width: 25px;
+    height: 3px;
+    margin: 5px auto;
+    background-color: #fff;
+    transition: all 0.3s ease;
 }
+
+.hamburger.active .bar1 {
+    transform: rotate(45deg) translate(5px, 5px);
+}
+
+.hamburger.active .bar2 {
+    opacity: 0;
+}
+
+.hamburger.active .bar3 {
+    transform: rotate(-45deg) translate(5px, -5px);
+}
+
+/* Show the hamburger menu on smaller screens */
+@media (max-width: 768px) {
+    .hamburger {
+        display: block;
+    }
+}
+
+/* Hamburger icon styles */
+
 
 .hamburger.active::before {
     content: '';
