@@ -1,0 +1,104 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    background: #f4f4f4;
+}
+
+.navbar {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    background: #333;
+    color: #fff;
+}
+
+.logo img {
+    height: 50px;
+}
+
+.menu-list {
+    display: flex;
+    list-style: none;
+}
+
+.menu-list li {
+    margin: 0 15px;
+}
+
+.menu-list a {
+    color: #fff;
+    text-decoration: none;
+}
+
+.hamburger-menu {
+    display: none;
+    flex-direction: column;
+    cursor: pointer;
+}
+
+.hamburger-menu span {
+    height: 3px;
+    width: 25px;
+    background: #fff;
+    margin: 4px 0;
+}
+
+.hero {
+    text-align: center;
+    padding: 100px 20px;
+    background: url('hero-image.jpg') no-repeat center center/cover;
+    color: #fff;
+}
+
+.hero h1 {
+    font-size: 3em;
+    margin-bottom: 20px;
+}
+
+.hero p {
+    font-size: 1.2em;
+    margin-bottom: 30px;
+}
+
+.cta-buttons {
+    display: flex;
+    gap: 20px;
+}
+
+.cta-buttons .btn {
+    padding: 10px 20px;
+    border: none;
+    color: #fff;
+    background: #ff5733;
+    text-decoration: none;
+    border-radius: 5px;
+}
+
+@media (max-width: 768px) {
+    .menu-list {
+        display: none;
+        flex-direction: column;
+        width: 100%;
+        text-align: center;
+    }
+
+    .menu-list.active {
+        display: flex;
+    }
+
+    .hamburger-menu {
+        display: flex;
+    }
+}
