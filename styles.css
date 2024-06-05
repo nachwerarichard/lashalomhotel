@@ -29,11 +29,30 @@ body {
 }
 
 /* Hide the hamburger menu by default */
+
+/* Hamburger icon styles */
 .hamburger {
     display: none;
     font-size: 2rem;
     cursor: pointer;
+    transition: transform 0.3s ease;
 }
+
+.hamburger.active {
+    transform: rotate(45deg);
+}
+
+.hamburger.active::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: currentColor;
+    transform: rotate(-90deg);
+}
+
 
 /* Responsive styles */
 @media (max-width: 768px) {
