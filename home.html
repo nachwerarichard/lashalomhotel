@@ -5,10 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Five Star Hotel</title>
     <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap" rel="stylesheet">
+
 </head>
 <body>
     <nav class="navbar">
-        <div class="logo">Hotel Logo</div>
+        <div class="logo"><img src="hotelpics/svg/icon01.png">Visitors Hotel</div>
         <div class="nav-links" id="navLinks">
             <a href="#home">Home</a>
             <a href="#about">About</a>
@@ -21,6 +23,247 @@
             <div class="bar bar3"></div>
         </div>
     </nav>
+
+    <div class="hero">
+        <div class="hero-content">
+            <h1>Welcome to Visitors Hotel</h1>
+            <p>Experience luxury and comfort at its finest.</p>
+            <div class="cta-buttons">
+                <button>Book Now</button>
+                <button>Learn More</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="content-section">
+        <div class="text-content">
+            <h2>About Our Hotel</h2>
+            <p>At Visitors Hotel, we blend contemporary elegance with traditional hospitality to offer an unparalleled experience. Established in 2005, our hotel is dedicated to providing exceptional service and luxurious comfort to our guests. Nestled in the heart of the city, Visitors Hotel boasts a unique architectural design that combines modern aesthetics with classic touches. Our mission is to create memorable stays by ensuring every detail meets our guests' highest expectations. Our dedicated management team and staff are committed to upholding the values of hospitality, excellence, and personalized service.</p>            
+        </div>
+        <div class="image-content">
+            <img src="hotelpics/img000100.webp" alt="Large Image" class="large-image">
+            <img src="hotelpics/img000101.webp" alt="Small Image" class="small-image">
+        </div>
+    </div>
+    <h2 style="text-align: center;">Rooms</h2>
+
+    <div class="cards">
+        <div class="card">
+            <img src="hotelpics/hero_image01.webp" alt="Card Image 1">
+            <h4>Luxury Rooms</h4>
+            <p>Our rooms offer the best in comfort and luxury.</p>
+            <button>Details</button>
+            <button>Book </button>
+
+        </div>
+        <div class="card">
+            <img src="hotelpics/img000100.webp" alt="Card Image 2">
+            <h4>Double Rooms</h4>
+            <p>Experience exquisite dining with our gourmet chefs.</p>
+            <button>Details</button>
+            <button>Book </button>
+        </div>
+        <div class="card">
+            <img src="hotelpics/img000102.webp" alt="Card Image 3">
+            <h4>Single Rooms</h4>
+            <p>Relax and rejuvenate with our top-notch spa services.</p>
+            <button>Details</button>
+            <button>Book </button>
+        </div>
+        
+    </div>
+
+    <div class="amenities-section">
+        <h2>Amenities</h2>
+        <div class="amenities">
+            <div class="amenity">
+                <img src="hotelpics/svg/wifi_24dp_FILL0_wght400_GRAD0_opsz24.svg" alt="Spa">
+                <h4>Wifi</h4>
+                <p>A luxurious hotel offers high-speed WiFi to ensure seamless connectivity for all guests. </p>
+            </div>
+            
+            <div class="amenity">
+                <img src="hotelpics/svg/exercise_24dp_FILL0_wght400_GRAD0_opsz24.svg" alt="Gym">
+                <h4>Fully Equipped Gym</h4>
+                <p>The gym in a luxurious hotel is equipped with state-of-the-art fitness equipment and offers a range of workout options</p>
+            </div>
+            <div class="amenity">
+                <img src="hotelpics/svg/restaurant_24dp_FILL0_wght400_GRAD0_opsz24.svg" alt="Restaurant">
+                <h4>Gourmet Restaurant</h4>
+                <p>The restaurant in a luxurious hotel provides a fine dining experience with a diverse menu curated by renowned chefs</p>
+            </div>
+        </div>
+    </div>
+    <div class="carousel">
+        <div class="carousel-slide" id="slide1">
+            <img src="multimedia/pics/slider_1.jpg" alt="Slide 1">
+        </div>
+        <div class="carousel-slide" id="slide2">
+            <img src="multimedia/pics/slider_2.jpg" alt="Slide 2">
+        </div>
+        <div class="carousel-slide" id="slide3">
+            <img src="multimedia/pics/img_3.jpg" alt="Slide 3">
+        </div>
+        <div class="dots">
+            <span class="dot" onclick="currentSlide(1)"></span>
+            <span class="dot" onclick="currentSlide(2)"></span>
+            <span class="dot" onclick="currentSlide(3)"></span>
+        </div>
+    </div>
+    <div class="content-section">
+        <div class="text-content">
+            <h2>Meetings and conferences</h2>
+            <p>Visitors Hotel offers state-of-the-art facilities for meetings and conferences, making it the ideal venue for business events. Our versatile conference rooms and meeting spaces are equipped with the latest audio-visual technology, high-speed internet, and flexible seating arrangements to accommodate various event sizes and formats. We provide comprehensive services, including event planning assistance, catering options tailored to your needs, and on-site technical support to ensure your event runs smoothly. Whether it's a small board meeting or a large corporate seminar, Visitors Hotel is dedicated to making your business gatherings a success with professionalism and efficiency.</p>
+        </div>
+        <div class="image-content">
+            <img src="hotelpics/hotel_conference00101.webp" alt="Large Image" class="large-image">
+            <img src="hotelpics/hotel_conference00100.webp" alt="Small Image" class="small-image">
+        </div>
+    </div>
+    <div class="video-section">
+        <video controls poster="hotelpics/hero_image01.webp" width="100%">
+            <source src="multimedia/video01.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+    </div>
+    
+    <div class="content-section">
+        <div class="text-content">
+            <h2>Dining</h2>
+            <p>Dining at Visitors Hotel is an experience in itself, offering a range of culinary delights to satisfy every palate. Our signature restaurant presents an exquisite menu featuring both local and international cuisine, prepared by our renowned chefs. For a more casual dining experience, guests can enjoy our cozy café, which serves light meals, snacks, and a variety of beverages throughout the day. Our elegant bar and lounge provide the perfect setting for unwinding with a cocktail or a fine wine. Whether you're in the mood for a gourmet dinner, a quick bite, or a relaxing drink, Visitors Hotel promises a dining experience that is both delightful and unforgettable.</p>
+        </div>
+        <div class="image-content">
+            <img src="hotelpics/dining0100.avif" alt="Large Image" class="large-image">
+            <img src="hotelpics/dinning002.webp" alt="Small Image" class="small-image">
+        </div>
+    </div>
+
+    
+    <div class="testimonial-carousel">
+        <h2>Testimonials</h2>
+        <div class="carousel-slide01 active" id="slide1">
+            <img src="multimedia/pics/person_1.jpg" alt="Slide 1">
+            <div class="testimonial">
+                <p>"Amazing experience! The staff was incredibly friendly and the amenities were top-notch."</p>
+                <p>- John Doe</p>
+            </div>
+        </div>
+        <div class="carousel-slide01" id="slide2">
+            <img src="multimedia/pics/person_2.jpg" alt="Slide 2">
+            <div class="testimonial">
+                <p>"The rooms were spacious and the view was breathtaking. Highly recommended!"</p>
+                <p>- Jane Smith</p>
+            </div>
+        </div>
+        <div class="carousel-slide01" id="slide3">
+            <img src="multimedia/pics/person_3_sm.jpg" alt="Slide 3">
+            <div class="testimonial">
+                <p>"A perfect getaway! The food was delicious and the service was impeccable."</p>
+                <p>- Robert Brown</p>
+            </div>
+        </div>
+        <div class="dots01">
+            <span class="dot01 active" onclick="currentSlide(1)"></span>
+            <span class="dot01" onclick="currentSlide(2)"></span>
+            <span class="dot01" onclick="currentSlide(3)"></span>
+        </div>
+    </div>
+    
+    <div class="experiences-section">
+        <h2>Explore Our Surroundings</h2>
+        <p>Discover the amazing experiences our hotel has to offer, from hiking trails to cultural tours.</p>
+        <div class="experiences-cards">
+            <div class="experience-card">
+                <img src="multimedia/pics/hiking0001000.avif" alt="Hiking">
+                <div class="card-content">
+                    <h4>Hiking</h4>
+                    <p>Explore the beautiful hiking trails surrounding our hotel.</p>
+                </div>
+            </div>
+
+            <div class="experience-card">
+                <img src="multimedia/pics/sipi03.avif" alt="Touring">
+                <div class="card-content">
+                    <h4>Touring</h4>
+                    <p>Take guided tours to discover the best places around the hotel.</p>
+                </div>
+            </div>
+            
+            <div class="experience-card">
+                <img src="multimedia/pics/culture02.jpg" alt="Culture">
+                <div class="card-content">
+                    <h4>Culture</h4>
+                    <p>Immerse yourself in the local culture and traditions.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <h2 style="text-align:center;">Gallery</h2>
+    <div class="gallery">
+        <div class="gallery-item">
+            <img src="hotelpics/hero_image01.webp" alt="Gallery Image 1">
+        </div>
+        <div class="gallery-item">
+            <img src="multimedia/pics/room_1_a.jpg" alt="Gallery Image 2">
+        </div>
+        <div class="gallery-item">
+            <img src="multimedia/pics/room_1_b.jpg" alt="Gallery Image 3">
+        </div>
+        <div class="gallery-item">
+            <img src="multimedia/pics/room_2_a.jpg" alt="Gallery Image 4">
+        </div>
+        <div class="gallery-item">
+            <img src="multimedia/pics/room_2_b.jpg" alt="Gallery Image 5">
+        </div>
+        <div class="gallery-item">
+            <img src="hotelpics/img000100.webp" alt="Gallery Image 6">
+        </div>
+    </div>
+    <div class="newsletter-section">
+        <h3>Subscribe to Our Newsletter</h3>
+        <p>Get the latest updates and offers from our hotel.</p>
+        <div class="newsletter-form">
+            <input type="email" placeholder="Enter your email" required>
+            <button type="submit">Subscribe</button>
+        </div>
+    </div>
+    
+    <div class="footer">
+        <div class="footer-container">
+            <div class="footer-section">
+                <h4>Contact Us</h4>
+                <p>123 Luxury St, Suite 100</p>
+                <p>Lux City, LX 12345</p>
+                <p>Email: info@luxuryhotel.com</p>
+                <p>Phone: (123) 456-7890</p>
+            </div>
+            <div class="footer-section">
+                <h4>Follow Us</h4>
+                <ul>
+                   <li> <a href="#"><img src="facebook-icon.png" alt="">Facebook</a></li>
+                   </li> <a href="#"><img src="twitter-icon.png" alt=""></a>Twitter</li>
+                    <li><a href="#"><img src="instagram-icon.png" alt=""></a>Instagram</li>
+                    <li><a href="#"><img src="linkedin-icon.png" alt=""></a>LinkedIn</li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#about">About Us</a></li>
+                    <li><a href="#services">Services</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                    <li><a href="#gallery">Gallery</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2023 Luxury Hotel. All rights reserved.</p>
+        </div>
+    </div>
+        
+       
+
     <script src="script.js"></script>
 </body>
 </html>
