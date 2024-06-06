@@ -121,9 +121,32 @@ body {
     cursor: pointer;
     transition: background-color 0.3s ease;
 }
+.roombutton {
+    background-color: #dfdbdb;
+    color: #fff;
+    border-radius:10px;
+    border: none;
+    padding: 1rem 2rem;
+    margin-left: 75%;
+    cursor: pointer;
+    margin-bottom: 20px;
+    transition: background-color 0.3s ease;
+}
 
 .cta-buttons button:hover {
     background-color: #555;
+}
+.explore-button {
+    position: absolute;
+    bottom: 10px;
+    right: 20px;
+    padding: 0.5rem 1rem;
+    background-color: #333;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    border-radius: 4px;
+    font-size: 1rem;
 }
 
 @media (max-width: 768px) {
@@ -142,6 +165,10 @@ body {
     .hero{
         height:auto;
         }
+        .explore-button {
+            position: static;
+            margin-top: 1rem;
+        }
 }
 
 /* Content section styles */
@@ -154,8 +181,8 @@ body {
     justify-content: left;
     padding-top:200px;
     padding-bottom: 200px;
-    margin-left:20%;
-    margin-right:20%;
+    margin-left:10%;
+    margin-right:10%;
 }
 
 
@@ -163,12 +190,22 @@ body {
     flex: 1;
     min-width: 100px;
 }
+.text-content button{
+    background-color: #333;
+    color: #fff;
+    border-radius:10px;
+    border: none;
+    padding: 1rem 2rem;
+    margin-right: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
 
 .image-content {
     flex: 1;
     position: relative;
     min-width: 100px;
-    height:500px;
+    height:auto;
 }
 
 .image-content .large-image {
@@ -200,6 +237,10 @@ body {
     .text-content h2{
         text-align: center;
     }
+    .image-content{
+        width:100%;
+        
+    }
 }
 
 /* Amenities section styles */
@@ -207,6 +248,7 @@ body {
     padding: 2rem;
     background-color: #f8f8f8;
     padding-bottom: 200px;
+    padding-top: 200px;
 }
 
 .amenities-section h2 {
@@ -384,7 +426,6 @@ body {
     gap: 2rem;
     padding: 2rem;
     justify-content: center;
-    padding-bottom: 200px;
     
 }
 
@@ -478,8 +519,8 @@ body {
     text-align: center;
     padding-top:200px;
     padding-bottom: 200px;
-    margin-left: 20%;
-    margin-right: 20%;
+    margin-left: 5%;
+    margin-right: 5%;
     
 }
 
@@ -510,7 +551,7 @@ body {
     overflow: hidden;
     background-color: #fff;
     transition: transform 0.3s;
-    padding-bottom: 10px;
+    padding-bottom: 50px;
 
 }
 .experience-card h3{
@@ -535,6 +576,7 @@ body {
 
 .card-content {
     padding: 1rem;
+    padding-bottom: 20px;
 }
 
 .card-content h3 {
@@ -555,13 +597,17 @@ body {
     .experiences-section p {
 margin-top: 0px;    }
 
+    
+    .experiences-cards{
+        justify-content: center;
+    }
+}
+@media (max-width: 774px) {
     .experience-card {
         flex: 1 1 100%;
         max-width: 100%;
-        height:500px;
-    }
-    .experiences-cards{
-        justify-content: center;
+        height:auto;
+        padding-bottom: 50%;
     }
 }
 
@@ -574,8 +620,8 @@ margin-top: 0px;    }
     padding: 2rem;
     justify-content: center;
     padding-bottom: 200px;
-    margin-left:20%;
-    margin-right:20%;
+    margin-left:10%;
+    margin-right:10%;
 }
 
 .gallery-item {
