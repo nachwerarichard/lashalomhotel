@@ -2,13 +2,14 @@
 body {
     margin: 0;
     font-family: "Open Sans", sans-serif;
+    background-color: #fffdf6;
 }
 
 .navbar {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background-color: #333;
+    background-color: #494949;
     padding: 1rem;
     color: #fff;
 }
@@ -88,7 +89,7 @@ body {
 /* Hero section styles */
 .hero {
     background: url('hotelpics/hero_image002.webp') no-repeat center center/cover;
-    height: 100vh;
+    height: 80vh;
     display: flex;
     align-items: flex-end;
     justify-content: flex-start;
@@ -112,7 +113,7 @@ body {
 }
 
 .cta-buttons button {
-    background-color: #333;
+    background-color: #494949;
     color: #fff;
     border-radius:10px;
     border: none;
@@ -122,32 +123,25 @@ body {
     transition: background-color 0.3s ease;
 }
 .roombutton {
-    background-color: #dfdbdb;
+    
+    min-width:100px;
+    background-color: #494949;
     color: #fff;
     border-radius:10px;
     border: none;
     padding: 1rem 2rem;
-    margin-left: 75%;
+    
     cursor: pointer;
     margin-bottom: 20px;
+    height:fit-content;
     transition: background-color 0.3s ease;
 }
+
 
 .cta-buttons button:hover {
     background-color: #555;
 }
-.explore-button {
-    position: absolute;
-    bottom: 10px;
-    right: 20px;
-    padding: 0.5rem 1rem;
-    background-color: #333;
-    color: #fff;
-    border: none;
-    cursor: pointer;
-    border-radius: 4px;
-    font-size: 1rem;
-}
+
 
 @media (max-width: 768px) {
     .hero h1 {
@@ -191,7 +185,7 @@ body {
     min-width: 100px;
 }
 .text-content button{
-    background-color: #333;
+    background-color: #494949;
     color: #fff;
     border-radius:10px;
     border: none;
@@ -246,7 +240,7 @@ body {
 /* Amenities section styles */
 .amenities-section {
     padding: 2rem;
-    background-color: #f8f8f8;
+    background-color: #ece8d9;
     padding-bottom: 200px;
     padding-top: 200px;
 }
@@ -348,7 +342,7 @@ body {
     max-width: 100%;
     margin: 0px;
     padding: 2rem;
-    background-color: #f9f9f9;
+    background-color: #faf6e9;
     overflow: hidden;
 }
 .testimonial-carousel h2 {
@@ -432,7 +426,6 @@ body {
 .card {
     flex: 1 1 200px;
     max-width: 300px;
-    background-color: #fff;
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     overflow: hidden;
@@ -518,7 +511,6 @@ body {
     padding: 2rem 1rem;
     text-align: center;
     padding-top:200px;
-    padding-bottom: 200px;
     margin-left: 5%;
     margin-right: 5%;
     
@@ -549,7 +541,6 @@ body {
     max-width: 200px;
     height:auto;
     overflow: hidden;
-    background-color: #fff;
     transition: transform 0.3s;
     padding-bottom: 50px;
 
@@ -619,10 +610,20 @@ margin-top: 0px;    }
     gap: 1rem;
     padding: 2rem;
     justify-content: center;
-    padding-bottom: 200px;
+    padding-top: 200px;
     margin-left:10%;
     margin-right:10%;
 }
+.galleryhd{
+width:100%;
+text-align: right;
+min-width:100px;
+}
+.galhead{
+    width:100%;
+    text-align: center;
+    min-width:100px;
+    }
 
 .gallery-item {
     flex: 1 1 calc(33.333% - 1rem);
@@ -662,7 +663,8 @@ margin-top: 0px;    }
     align-items: center;
     text-align: center;
     padding: 2rem 1rem;
-    background-color: #f8f8f8;
+    background-color: #ece8d9;
+    
 }
 
 .newsletter-section h1 {
