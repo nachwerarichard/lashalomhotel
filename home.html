@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Five Star Hotel</title>
+    <title>VisitorsHotel</title>
+    <link rel="shortcut icon" type="image/x-icon" href="hotelpics/svg/icon01.png" />
     <link rel="stylesheet" href="styles.css">
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap" rel="stylesheet">
 
@@ -30,7 +31,7 @@
             <p>Experience luxury and comfort at its finest.</p>
             <div class="cta-buttons">
                 <button>Book Now</button>
-                <button>Discover  More</button>
+                <button>Explore  More</button>
             </div>
         </div>
     </div>
@@ -38,12 +39,11 @@
     <div class="content-section">
         <div class="text-content">
             <h2>About Our Hotel</h2>
-            <p>At Visitors Hotel, we blend contemporary elegance with traditional hospitality to offer an unparalleled experience. Established in 2005, our hotel is dedicated to providing exceptional service and luxurious comfort to our guests. Nestled in the heart of the city, Visitors Hotel boasts a unique architectural design that combines modern aesthetics with classic touches. Our mission is to create memorable stays by ensuring every detail meets our guests' highest expectations. Our dedicated management team and staff are committed to upholding the values of hospitality, excellence, and personalized service.</p>            
+            <p>At Visitors Hotel, we blend contemporary elegance with traditional hospitality to offer an unparalleled experience. Established in 2005, our hotel is dedicated to providing exceptional service and luxurious comfort to our guests. Nestled in the heart of the city, Visitors Hotel boasts a unique architectural design that combines modern aesthetics with classic touches. </p>            
             <button>Explore More</button>
         </div>
         <div class="image-content">
             <img src="hotelpics/img000100.webp" alt="Large Image" class="large-image">
-            <img src="hotelpics/img000101.webp" alt="Small Image" class="small-image">
         </div>
     </div>
 <div style="background-color: #faf6e9;">
@@ -73,10 +73,12 @@
             <button>Book Now</button>
         </div>
         <div class="galleryhd">
-         <button class="roombutton">More Rooms</button>
+         <button class="roombutton">Explore More</button>
         </div>
     </div>
 </div>
+<section class="parallax parallax-2">
+  </section>
     <div class="amenities-section">
         <h2>Amenities</h2>
         <div class="amenities">
@@ -114,37 +116,41 @@
             <span class="dot" onclick="currentSlide(3)"></span>
         </div>
     </div>
+    <div style="background-color:#faf6e9 ;">
     <div class="content-section">
         <div class="text-content">
             <h2>Meetings and conferences</h2>
-            <p>Visitors Hotel offers state-of-the-art facilities for meetings and conferences, making it the ideal venue for business events. Our versatile conference rooms and meeting spaces are equipped with the latest audio-visual technology, high-speed internet, and flexible seating arrangements to accommodate various event sizes and formats. We provide comprehensive services, including event planning assistance, catering options tailored to your needs, and on-site technical support to ensure your event runs smoothly. Whether it's a small board meeting or a large corporate seminar, Visitors Hotel is dedicated to making your business gatherings a success with professionalism and efficiency.</p>
+            <p>Visitors Hotel offers state-of-the-art facilities for meetings and conferences, making it the ideal venue for business events. Our versatile conference rooms and meeting spaces are equipped with the latest audio-visual technology, high-speed internet, and flexible seating arrangements to accommodate various event sizes and formats. </p>
+            <button>Explore More</button>
 
         </div>
         <div class="image-content">
             <img src="hotelpics/hotel_conference00101.webp" alt="Large Image" class="large-image">
-            <img src="hotelpics/hotel_conference00100.webp" alt="Small Image" class="small-image">
         </div>
     </div>
-    <div class="video-section">
-        <video controls poster="hotelpics/hero_image01.webp" width="100%">
-            <source src="multimedia/video01.mp4" type="video/mp4">
-            Your browser does not support the video tag.
-        </video>
     </div>
+    <div class="video-section">
+        <video id="video"  poster="multimedia/pics/slider_1.jpg" width="100%" >
+          <source src="multimedia/video01.mp4" type="video/mp4">
+          Your browser does not support the video tag.
+        </video>
+        <button id="playButton" class="play-button">►</button>
+      </div>
+      
     
     <div class="content-section">
         <div class="text-content">
             <h2>Dining</h2>
-            <p>Dining at Visitors Hotel is an experience in itself, offering a range of culinary delights to satisfy every palate. Our signature restaurant presents an exquisite menu featuring both local and international cuisine, prepared by our renowned chefs. For a more casual dining experience, guests can enjoy our cozy café, which serves light meals, snacks, and a variety of beverages throughout the day. Our elegant bar and lounge provide the perfect setting for unwinding with a cocktail or a fine wine. Whether you're in the mood for a gourmet dinner, a quick bite, or a relaxing drink, Visitors Hotel promises a dining experience that is both delightful and unforgettable.</p>
+            <p>Dining at Visitors Hotel is an experience in itself, offering a range of culinary delights to satisfy every palate. Our signature restaurant presents an exquisite menu featuring both local and international cuisine, prepared by our renowned chefs. For a more casual dining experience, guests can enjoy our cozy café, which serves light meals, snacks, and a variety of beverages throughout the day. </p>
             <button>Explore More</button>
 
         </div>
         <div class="image-content">
             <img src="hotelpics/dining0100.avif" alt="Large Image" class="large-image">
-            <img src="hotelpics/dinning002.webp" alt="Small Image" class="small-image">
         </div>
     </div>
-
+    <section class="parallax parallax-2">
+    </section>
     
     <div class="testimonial-carousel">
         <h2>Testimonials</h2>
@@ -176,6 +182,7 @@
         </div>
     </div>
     
+    
     <div class="experiences-section">
         <h2>Explore Our Surroundings</h2>
         <p>Discover the amazing experiences our hotel has to offer, from hiking trails to cultural tours.</p>
@@ -200,11 +207,11 @@
                 <img src="multimedia/pics/mt.elgonpic.jpg" alt="Culture">
                 <div class="card-content">
                     <h4>Mount. Elgon</h4>
-                    <p>Explore the beauty of this mountain.</p>
+                    <p>Explore one of the highest mountains .</p>
                 </div>
             </div>
             <div class="galleryhd">
-                <button class="roombutton">Discover More</button>
+                <button class="roombutton">Explore More</button>
                </div>
         </div>
 
@@ -233,10 +240,11 @@
             <img src="hotelpics/img000100.webp" alt="Gallery Image 6">
         </div>
         <div class="galleryhd">
-            <button class="roombutton">Discover More</button>
+            <button class="roombutton">Explore More</button>
            </div>
     </div>
 </div>
+
 
     <div class="newsletter-section">
         <h3>Subscribe to Our Newsletter</h3>

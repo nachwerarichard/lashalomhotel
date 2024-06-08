@@ -63,3 +63,81 @@ document.addEventListener('DOMContentLoaded', () => {
     }, 5000); // Change slide every 5 seconds
 });
 
+
+// script.js
+document.addEventListener("DOMContentLoaded", function() {
+    const slideInElements = document.querySelectorAll('.cards,.content-section,.gallery,.experiences-section,.amenities-section,.video-section');
+  
+    const observer = new IntersectionObserver((entries, observer) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, {
+      threshold: 0.1
+    });
+  
+    slideInElements.forEach(element => {
+      observer.observe(element);
+    });
+  });
+  
+
+  // script.js
+document.addEventListener("DOMContentLoaded", function() {
+    const elementsToAnimate = document.querySelectorAll('.hero-content, .cta-buttons');
+  
+    const observer = new IntersectionObserver((entries, observer) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, {
+      threshold: 0.1
+    });
+  
+    elementsToAnimate.forEach(element => {
+      observer.observe(element);
+    });
+  });
+  
+
+  // script.js
+// script.js
+document.addEventListener('DOMContentLoaded', function() {
+    const video = document.getElementById('video');
+    const playButton = document.getElementById('playButton');
+  
+    playButton.addEventListener('click', function() {
+      if (video.paused) {
+        video.play();
+      } else {
+        video.pause();
+      }
+    });
+  
+    video.addEventListener('play', function() {
+      playButton.style.display = 'none';
+      video.setAttribute('controls', 'controls');
+    });
+  
+    video.addEventListener('pause', function() {
+      playButton.style.display = 'block';
+    });
+  
+    // Show play button initially if the video is paused
+    if (video.paused) {
+      playButton.style.display = 'block';
+    }
+  });
+  
+  
+  
+  
+  
+  
+
