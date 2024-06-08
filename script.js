@@ -66,7 +66,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 // script.js
 document.addEventListener("DOMContentLoaded", function() {
-    const slideInElements = document.querySelectorAll('.cards,.content-section,.gallery,.experiences-section,.amenities-section,.video-section');
+    const slideInElements = document.querySelectorAll('.cards,.hero01,.contact-us,.content-section,.gallery,.experiences-section,.amenities-section,.video-section,.testimonial-carousel,.carousel');
   
     const observer = new IntersectionObserver((entries, observer) => {
       entries.forEach(entry => {
@@ -87,7 +87,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
   // script.js
 document.addEventListener("DOMContentLoaded", function() {
-    const elementsToAnimate = document.querySelectorAll('.hero-content, .cta-buttons');
+    const elementsToAnimate = document.querySelectorAll('.hero-content,.hero01-content, .cta-buttons');
   
     const observer = new IntersectionObserver((entries, observer) => {
       entries.forEach(entry => {
