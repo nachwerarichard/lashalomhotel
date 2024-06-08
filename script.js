@@ -87,7 +87,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
   // script.js
 document.addEventListener("DOMContentLoaded", function() {
-    const elementsToAnimate = document.querySelectorAll('.hero-content,.hero01-content, .cta-buttons');
+    const elementsToAnimate = document.querySelectorAll('.hero-content,.hero01-content, .cta-buttons,.room-info');
   
     const observer = new IntersectionObserver((entries, observer) => {
       entries.forEach(entry => {
