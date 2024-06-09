@@ -158,6 +158,9 @@ document.getElementById('room100').addEventListener('click', function() {
 document.getElementById('exeperience100').addEventListener('click', function() {
   window.location.href = 'experience.html';
 });
+document.getElementById('gallery01').addEventListener('click', function() {
+  window.location.href = 'gallery.html';
+});
   
   
   

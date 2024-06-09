@@ -79,6 +79,7 @@ body {
         top: 60px;
         left: 0;
         text-align: center;
+        opacity:1;
     }
 
     .nav-links a {
