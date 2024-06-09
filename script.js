@@ -87,7 +87,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
   // script.js
 document.addEventListener("DOMContentLoaded", function() {
-    const elementsToAnimate = document.querySelectorAll('.hero-content,.hero01-content, .cta-buttons,.room-info');
+    const elementsToAnimate = document.querySelectorAll('.booking-container,.hero-content,.hero01-content, .cta-buttons,.room-info');
   
     const observer = new IntersectionObserver((entries, observer) => {
       entries.forEach(entry => {
@@ -135,8 +135,29 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   });
   
-  
-  
+  document.getElementById('booknow').addEventListener('click', function() {
+    window.location.href = 'booking.html';
+});
+
+document.getElementById('about0123').addEventListener('click', function() {
+  window.location.href = 'rooms.html';
+});
+
+document.getElementById('about0100').addEventListener('click', function() {
+  window.location.href = 'about.html';
+});
+document.getElementById('booknow').addEventListener('click', function() {
+  window.location.href = 'booking.html';
+});
+document.getElementById('details').addEventListener('click', function() {
+  window.location.href = 'details.html';
+});
+document.getElementById('room100').addEventListener('click', function() {
+  window.location.href = 'rooms.html';
+});
+document.getElementById('exeperience100').addEventListener('click', function() {
+  window.location.href = 'experience.html';
+});
   
   
   

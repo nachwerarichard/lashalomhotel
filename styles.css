@@ -14,6 +14,9 @@ body {
     color: #fff;
     z-index:2000;
 }
+.navbar a {
+    z-index:2000;
+}
 
 .logo {
     font-size: 1.5rem;
@@ -99,7 +102,7 @@ body {
     display: flex;
     align-items: flex-end;
     justify-content: flex-start;
-    color: #494949;
+    color: #fff;
     padding: 2rem;
     z-index:1000;
 }
@@ -118,6 +121,7 @@ body {
    
   .cta-buttons {
     transform: translateY(10px);
+    z-index:1002;
   }
   
   .hero-content.visible, .cta-buttons.visible {
@@ -143,11 +147,11 @@ body {
     justify-content: flex-start;
     color: #494949;
     padding: 2rem;
-    z-index:1000;
+    z-index:1001;
 }
 
 .hero01-content {
-    max-width: 600px;
+    min-width: 100px;
     
 }
 .hero01-content ,.cta-buttons{
@@ -156,10 +160,15 @@ body {
 }
 .hero01-content {
     transform: translateX(-50%);
+    z-index: 1002;
+  }
+  .hero01-content h1{
+    z-index:1003;
   }
    
   .cta-buttons01 {
     transform: translateY(10px);
+    z-index: 1002;
   }
   
   .hero01-content.visible, .cta-buttons01.visible {
@@ -206,7 +215,6 @@ body {
     border: none;
     padding: 1rem 2rem;
     box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2); /* Initial box-shadow */
-
     cursor: pointer;
     margin-bottom: 20px;
     height:fit-content;
@@ -705,10 +713,7 @@ body {
     .video-section {
         padding: 1rem 0;
     }
-    .play-button{
-        width:40px;
-        height:40px;
-    }
+    
 }
 
 /* Experiences section styles */
@@ -742,7 +747,8 @@ body {
     flex-wrap: wrap;
     gap: 2rem;
     justify-content: center;
-    
+    margin-left: 10%;
+    margin-right: 10%;
 }
 
 .experience-card {
@@ -753,6 +759,7 @@ body {
     overflow: hidden;
     transition: transform 0.3s;
     padding-bottom: 50px;
+
 
 }
 .experience-card h3{
@@ -1079,10 +1086,9 @@ section{
     margin: 20px;
     border-radius: 8px;
     box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
-    max-width: 800px;
-    width: 90%;
-    margin-left: auto;
-    margin-right: auto;
+    min-width: 100px;
+    margin-left: 10%;
+    margin-right: 10%;
     display: flex;
     flex-direction: column;
     align-items: left;  /* Center horizontally */
@@ -1152,7 +1158,6 @@ section{
     border-radius: 4px;
     font-size: 18px;
     cursor: pointer;
-    width: 15%;
   }
   
   button[type="submit"]:hover {
@@ -1341,3 +1346,121 @@ section{
     margin-top: 10px; /* Adjust vertical alignment */
   }
   
+
+  
+.booking-container {
+    background-color: #fff;
+    padding: 40px;
+    min-width: 100px;
+    margin-top: 10%;
+    margin-bottom: 10%;
+    align-items: left;  
+    display: flex;
+    flex-direction: column;
+    border-radius: 8px;
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+    min-width: 100px;
+    margin-left: 10%;
+    margin-right: 10%;
+    opacity: 0;
+    transform: translateY(+20%);
+    transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+}
+.booking-container.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  
+
+.booking-container h2 {
+    text-align: left;
+    margin-bottom: 1.5rem;
+    font-size: 2rem;
+    padding-left:2%;
+}
+
+.booking-form .form-group {
+    margin-bottom: 1rem;
+
+}
+
+.booking-form label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: bold;
+}
+
+.booking-form input,
+.booking-form select,
+.booking-form textarea {
+    width: 100%;
+    padding: 0.5rem;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.booking-form .form-group-row {
+    display: flex;
+    gap: 0.1rem;
+}
+.form-group{
+    padding-left:20px;
+    width:100%;
+
+}
+.form-group-row01 {
+    display: flex;
+    gap: 1rem;
+}
+.form-group-row{
+    width:90%;
+}
+.form-group-row01{
+    width:90%;
+}
+
+.form-group-row button {
+    padding: 0.75rem;
+    background-color: #494949;
+    border: none;
+    margin-left:2%;
+
+    color: #fff;
+    font-size: 1rem;
+    padding: 1rem 2rem;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2); /* Initial box-shadow */
+
+}
+.form-group-row button:hover {
+    background-color:#333; /* Slightly darker gold on hover */
+    box-shadow: 0 12px 20px rgba(0, 0, 0, 0.3); /* Deeper shadow on hover */
+  }
+  .form-group-row button:active {
+    background-color: #333; /* Even darker gold on click */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Reduced shadow on click */
+    transform: translateY(2px); /* Slightly depress the button on click */
+  }
+
+
+
+@media (max-width: 768px) {
+    .booking-section {
+        padding: 2rem 1rem;
+    }
+
+    .booking-container {
+        padding: 1.5rem;
+    }
+
+    .booking-container h2 {
+        font-size: 1.5rem;
+    }
+
+    .booking-form .form-group-row {
+        flex-direction: column;
+    }
+}
+
