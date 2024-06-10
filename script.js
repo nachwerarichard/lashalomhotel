@@ -142,18 +142,44 @@ document.addEventListener('DOMContentLoaded', function() {
   document.getElementById('booknow').addEventListener('click', function() {
     window.location.href = 'booking.html';
 });
-
+document.getElementById('booknow01').addEventListener('click', function() {
+  window.location.href = 'booking.html';
+});
+document.getElementById('booknow02').addEventListener('click', function() {
+  window.location.href = 'booking.html';
+});
+document.getElementById('booknow03').addEventListener('click', function() {
+  window.location.href = 'booking.html';
+});
+document.getElementById('booknow11').addEventListener('click', function() {
+  window.location.href = 'booking.html';
+});
+document.getElementById('booknow12').addEventListener('click', function() {
+  window.location.href = 'booking.html';
+});
+document.getElementById('booknow13').addEventListener('click', function() {
+  window.location.href = 'booking.html';
+});
+document.getElementById('booknow14').addEventListener('click', function() {
+  window.location.href = 'booking.html';
+});
+document.getElementById('booknow15').addEventListener('click', function() {
+  window.location.href = 'booking.html';
+});
+document.getElementById('booknow16').addEventListener('click', function() {
+  window.location.href = 'booking.html';
+});
 document.getElementById('about0123').addEventListener('click', function() {
   window.location.href = 'rooms.html';
 });
 
-document.getElementById('about0100').addEventListener('click', function() {
-  window.location.href = 'about.html';
-});
-document.getElementById('booknow').addEventListener('click', function() {
-  window.location.href = 'booking.html';
-});
 document.getElementById('details').addEventListener('click', function() {
+  window.location.href = 'details.html';
+});
+document.getElementById('details01').addEventListener('click', function() {
+  window.location.href = 'details.html';
+});
+document.getElementById('details02').addEventListener('click', function() {
   window.location.href = 'details.html';
 });
 document.getElementById('room100').addEventListener('click', function() {

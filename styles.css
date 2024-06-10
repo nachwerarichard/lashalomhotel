@@ -119,6 +119,7 @@ body {
 
     .hamburger {
         display: block;
+        z-index: 4000;
     }
 }
 
