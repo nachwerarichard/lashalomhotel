@@ -2,6 +2,7 @@
 document.addEventListener('DOMContentLoaded', () => {
     const hamburger = document.getElementById('hamburger');
     const navLinks = document.getElementById('navLinks');
+    document.querySelector('.hero').classList.toggle('blurred');
 
     hamburger.addEventListener('click', () => {
         navLinks.classList.toggle('active');
@@ -9,7 +10,6 @@ document.addEventListener('DOMContentLoaded', () => {
         document.querySelector('.hero').classList.toggle('blurred');
     });
 });
-
 
 
 let currentSlideIndex = 0;
