@@ -124,6 +124,7 @@ body {
 
 .nav-links.active {
     display: flex;
+    z-index: 3000;
 }
 
 .parent {

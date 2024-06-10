@@ -2,13 +2,16 @@
 document.addEventListener('DOMContentLoaded', () => {
     const hamburger = document.getElementById('hamburger');
     const navLinks = document.getElementById('navLinks');
-    document.querySelector('.hero').classList.toggle('blurred');
 
     hamburger.addEventListener('click', () => {
         navLinks.classList.toggle('active');
         hamburger.classList.toggle('active');
-        document.querySelector('.hero').classList.toggle('blurred');
     });
+});
+document.addEventListener('DOMContentLoaded', () => {
+hamburger.addEventListener('click', () => {
+document.querySelector('.hero').classList.toggle('blurred');
+  });
 });
 
 
