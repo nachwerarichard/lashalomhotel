@@ -677,7 +677,7 @@ body {
     overflow: hidden;
     text-align: center;
     padding-bottom: 10px;
-    background-color: #fff;
+    background-color: #faf6e9;
 }
 .card:hover{
     transform: translateY(-10px);
@@ -942,7 +942,7 @@ min-width:100px;
   color:#fff;
 }
 .galleryhd_100{
-    width:90%;
+    width:92%;
     text-align: right;
     min-width:100px;
     }
