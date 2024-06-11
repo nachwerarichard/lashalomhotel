@@ -677,7 +677,7 @@ body {
     overflow: hidden;
     text-align: center;
     padding-bottom: 10px;
-    background-color: #faf6e9;
+    background-color: #fffdf6;
 }
 .card:hover{
     transform: translateY(-10px);
