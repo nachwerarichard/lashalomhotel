@@ -447,8 +447,8 @@ body {
     padding-bottom: 200px;
     padding-top: 200px;
     opacity: 0;
-    transform: translateY(+2%);
-    transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+    transform: translateY(+10%);
+    transition: opacity 0.2s ease-out, transform 0.2s ease-out;
 }
 .amenities-section.visible {
     opacity: 1;
@@ -660,8 +660,8 @@ body {
     padding: 2rem;
     justify-content: center;
     opacity: 0;
-    transform: translateY(+0%);
-    transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+    transform: translateY(+10%);
+    transition: opacity 0.1s ease-out, transform 0.1s ease-out;
     background-color: #faf6e9;
 }
 .cards.visible {
