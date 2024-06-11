@@ -574,15 +574,10 @@ body {
     padding: 2rem;
     background-color: #faf6e9;
     overflow: hidden;
-     opacity: 0;
-    transform: translateY(+0%);
-    transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+     
     
 }
-.testimonial-carousel.visible {
-    opacity: 1;
-    transform: translateY(0);
-  }
+
 
 .testimonial-carousel h2 {
     text-align:center
@@ -659,15 +654,10 @@ body {
     gap: 2rem;
     padding: 2rem;
     justify-content: center;
-    opacity: 0;
-    transform: translateY(+10%);
-    transition: opacity 0.1s ease-out, transform 0.1s ease-out;
+    
     background-color: #faf6e9;
 }
-.cards.visible {
-    opacity: 1;
-    transform: translateY(0);
-  }
+
 
 .card {
     flex: 1 1 200px;
