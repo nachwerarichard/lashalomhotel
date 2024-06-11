@@ -353,7 +353,7 @@ body {
     margin-left:10%;
     margin-right:10%;
     opacity: 0;
-    transform: translateY(+20%);
+    transform: translateY(+10%);
     transition: opacity 0.5s ease-out, transform 0.5s ease-out;
 }
 
@@ -511,7 +511,7 @@ body {
     padding-top:100px;
     padding-bottom: 100px;
      opacity: 0;
-    transform: translateY(+20%);
+    transform: translateY(+10%);
     transition: opacity 0.5s ease-out, transform 0.5s ease-out;
     
 }
@@ -575,7 +575,7 @@ body {
     background-color: #faf6e9;
     overflow: hidden;
      opacity: 0;
-    transform: translateY(+20%);
+    transform: translateY(+10%);
     transition: opacity 0.5s ease-out, transform 0.5s ease-out;
     
 }
@@ -660,7 +660,7 @@ body {
     padding: 2rem;
     justify-content: center;
     opacity: 0;
-    transform: translateY(+20%);
+    transform: translateY(+10%);
     transition: opacity 0.5s ease-out, transform 0.5s ease-out;
     background-color: #faf6e9;
 }
@@ -758,7 +758,7 @@ body {
     align-items: center;
     padding: 2rem 0;
     opacity: 0;
-    transform: translateY(+20%);
+    transform: translateY(+10%);
     transition: opacity 0.5s ease-out, transform 0.5s ease-out;
     padding-top: 150px;
 }
@@ -812,7 +812,7 @@ body {
     text-align: center;
     padding-top:200px;
     opacity: 0;
-    transform: translateY(+20%);
+    transform: translateY(+10%);
     transition: opacity 0.5s ease-out, transform 0.5s ease-out;
     
 }
@@ -921,7 +921,7 @@ margin-top: 0px;    }
     margin-left:10%;
     margin-right:10%;
     opacity: 0;
-    transform: translateY(+20%);
+    transform: translateY(+10%);
     transition: opacity 0.5s ease-out, transform 0.5s ease-out;
 }
 .gallery.visible {
@@ -937,6 +937,15 @@ width:100%;
 text-align: right;
 min-width:100px;
 }
+.galleryhd_100 a{
+  text-decoration: none;
+  color:#fff;
+}
+.galleryhd_100{
+    width:90%;
+    text-align: right;
+    min-width:100px;
+    }
 .galleryhd0011 a {
     text-decoration: none;
     color:#fff;
@@ -1200,7 +1209,7 @@ section{
     opacity: 0;
     margin-top:20px;
     margin-bottom: 20px;
-    transform: translateY(+20%);
+    transform: translateY(+10%);
     transition: opacity 0.5s ease-out, transform 0.5s ease-out;
     justify-content: center;
     margin-left:10%;
@@ -1352,7 +1361,7 @@ section{
     margin-left:10%;
     margin-right:10%;
     opacity: 0;
-    transform: translateY(+20%);
+    transform: translateY(+10%);
     transition: opacity 0.5s ease-out, transform 0.5s ease-out;
   }
   .room-info.visible {
@@ -1491,7 +1500,7 @@ section{
     margin-left: 10%;
     margin-right: 10%;
     opacity: 0;
-    transform: translateY(+20%);
+    transform: translateY(+10%);
     transition: opacity 0.5s ease-out, transform 0.5s ease-out;
 }
 .booking-container.visible {
@@ -1595,6 +1604,52 @@ section{
 
     .booking-form .form-group-row {
         flex-direction: column;
+    }
+}
+
+
+.menu {
+    max-width: 100%;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width:80%;
+}
+.menu h2 {
+    text-align: center;
+    color: #333;
+}
+.menu-category {
+    margin-bottom: 20px;
+    margin-left:10%;
+    margin-right:10%;
+}
+.menu-category h3 {
+    border-bottom: 2px solid #333;
+    padding-bottom: 10px;
+    margin-bottom: 10px;
+    color: #555;
+}
+.menu-item {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+.menu-item span {
+    font-size: 1.2em;
+    color: #333;
+}
+.menu-item .price {
+    color: #888;
+}
+@media (max-width: 768px) {
+    .menu-item {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    .menu-item .price {
+        margin-top: 5px;
     }
 }
 

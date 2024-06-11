@@ -68,7 +68,7 @@ document.addEventListener('DOMContentLoaded', () => {
 });
   // script.js
   document.addEventListener("DOMContentLoaded", function() {
-    const elementsToAnimate = document.querySelectorAll('.experiences-section,.hero-content,.cards,.amenities-section,.booking-container,.hero01-content, .cta-buttons,.room-info');
+    const elementsToAnimate = document.querySelectorAll('.hero01-content, .cta-buttons,.gallery,.testimonial-carousel');
   
     const observer = new IntersectionObserver((entries, observer) => {
       entries.forEach(entry => {
@@ -85,11 +85,29 @@ document.addEventListener('DOMContentLoaded', () => {
       observer.observe(element);
     });
   });
+   // script.js
+   document.addEventListener("DOMContentLoaded", function() {
+    const elementsToAnimate = document.querySelectorAll('.experiences-section,.hero-content,.cards,.amenities-section');
   
+    const observer = new IntersectionObserver((entries, observer) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, {
+      threshold: 0.1
+    });
+  
+    elementsToAnimate.forEach(element => {
+      observer.observe(element);
+    });
+  });
 
 // script.js
 document.addEventListener("DOMContentLoaded", function() {
-    const slideInElements = document.querySelectorAll('.content-section,.carousel,.hero01,.contact-us,.gallery,.video-section,.testimonial-carousel');
+    const slideInElements = document.querySelectorAll('.content-section,.carousel,.hero01,.contact-us,.video-section');
   
     const observer = new IntersectionObserver((entries, observer) => {
       entries.forEach(entry => {
@@ -108,7 +126,26 @@ document.addEventListener("DOMContentLoaded", function() {
   });
   
   document.addEventListener("DOMContentLoaded", function() {
-    const slideInElements = document.querySelectorAll('.content-section,.amenities-section,.cards,.carousel,.hero01,.contact-us,.gallery,.experiences-section,.video-section,.testimonial-carousel');
+    const slideInElements = document.querySelectorAll('.room-info,.carousel,.experiences-section,.video-section,.testimonial-carousel');
+  
+    const observer = new IntersectionObserver((entries, observer) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, {
+      threshold: 0.1
+    });
+  
+    slideInElements.forEach(element => {
+      observer.observe(element);
+    });
+  });
+  
+  document.addEventListener("DOMContentLoaded", function() {
+    const slideInElements = document.querySelectorAll('.content-section,.booking-container,.hero01,.contact-us');
   
     const observer = new IntersectionObserver((entries, observer) => {
       entries.forEach(entry => {
