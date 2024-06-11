@@ -191,6 +191,10 @@ body {
 .hero-content {
     transform: translateX(-50%);
   }
+  .cta-buttons a{
+    text-decoration: none;
+    color:#fff;
+  }
    
   .cta-buttons {
     transform: translateY(10px);
@@ -265,6 +269,7 @@ body {
 }
 
 .cta-buttons button {
+    text-decoration: none;
     background-color: #494949;
     color: #fff;
     border-radius:10px;
@@ -285,8 +290,8 @@ body {
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Reduced shadow on click */
     transform: translateY(2px); /* Slightly depress the button on click */
   }
+  
 .roombutton {
-    
     min-width:100px;
     background-color: #494949;
     color: #fff;
@@ -367,6 +372,10 @@ body {
     transform: translateY(-10px);
 
 }
+.text-content button a{
+    text-decoration: none;
+    color:#fff;
+}
 .text-content button{
     background-color: #494949;
     color: #fff;
@@ -438,7 +447,7 @@ body {
     padding-bottom: 200px;
     padding-top: 200px;
     opacity: 0;
-    transform: translateY(+20%);
+    transform: translateY(+0%);
     transition: opacity 0.5s ease-out, transform 0.5s ease-out;
 }
 .amenities-section.visible {
@@ -679,6 +688,10 @@ body {
     height: 200px;
     object-fit: cover;
 }
+.card button a{
+    text-decoration: none;
+    color:#fff;
+}
 .card button{
     background-color: #494949;
     color: #fff;
@@ -915,10 +928,22 @@ margin-top: 0px;    }
     opacity: 1;
     transform: translateY(0);
   }
+  .gallery button a{
+    text-decoration: none;
+    color:#fff;
+  }
 .galleryhd{
 width:100%;
 text-align: right;
 min-width:100px;
+}
+.galleryhd0011 a {
+    text-decoration: none;
+    color:#fff;
+}
+.galleryhd001 a{
+    text-decoration: none;
+    color:#fff;
 }
 .galleryhd001{
     width:90%;
@@ -926,6 +951,7 @@ min-width:100px;
     min-width:100px;
     }
     .galleryhd0011{
+        
         width:75%;
         text-align: right;
         min-width:100px;
@@ -1479,6 +1505,10 @@ section{
     margin-bottom: 1.5rem;
     font-size: 2rem;
     
+}
+.button a{
+    text-decoration: none;
+    color:#fff;
 }
 
 .booking-form .form-group {
