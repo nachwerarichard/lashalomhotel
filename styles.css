@@ -447,7 +447,7 @@ body {
     padding-bottom: 200px;
     padding-top: 200px;
     opacity: 0;
-    transform: translateY(+0%);
+    transform: translateY(+2%);
     transition: opacity 0.5s ease-out, transform 0.5s ease-out;
 }
 .amenities-section.visible {
@@ -660,7 +660,7 @@ body {
     padding: 2rem;
     justify-content: center;
     opacity: 0;
-    transform: translateY(+10%);
+    transform: translateY(+5%);
     transition: opacity 0.5s ease-out, transform 0.5s ease-out;
     background-color: #faf6e9;
 }
@@ -812,7 +812,7 @@ body {
     text-align: center;
     padding-top:200px;
     opacity: 0;
-    transform: translateY(+10%);
+    transform: translateY(+5%);
     transition: opacity 0.5s ease-out, transform 0.5s ease-out;
     
 }
