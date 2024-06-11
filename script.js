@@ -68,7 +68,7 @@ document.addEventListener('DOMContentLoaded', () => {
 });
   // script.js
   document.addEventListener("DOMContentLoaded", function() {
-    const elementsToAnimate = document.querySelectorAll('.hero01-content, .cta-buttons,.gallery,.testimonial-carousel');
+    const elementsToAnimate = document.querySelectorAll('.hero01-content, .cta-buttons');
   
     const observer = new IntersectionObserver((entries, observer) => {
       entries.forEach(entry => {
@@ -87,7 +87,7 @@ document.addEventListener('DOMContentLoaded', () => {
   });
    // script.js
    document.addEventListener("DOMContentLoaded", function() {
-    const elementsToAnimate = document.querySelectorAll('.experiences-section,.hero-content,.cards,.amenities-section');
+    const elementsToAnimate = document.querySelectorAll('.gallery,.testimonial-carousel');
   
     const observer = new IntersectionObserver((entries, observer) => {
       entries.forEach(entry => {
@@ -104,7 +104,44 @@ document.addEventListener('DOMContentLoaded', () => {
       observer.observe(element);
     });
   });
+   // script.js
+   document.addEventListener("DOMContentLoaded", function() {
+    const elementsToAnimate = document.querySelectorAll('.cards,.amenities-section');
+  
+    const observer = new IntersectionObserver((entries, observer) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, {
+      threshold: 0.1
+    });
+  
+    elementsToAnimate.forEach(element => {
+      observer.observe(element);
+    });
+  });
+ // script.js
+ document.addEventListener("DOMContentLoaded", function() {
+  const elementsToAnimate = document.querySelectorAll('.experiences-section,.hero-content');
 
+  const observer = new IntersectionObserver((entries, observer) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, {
+    threshold: 0.1
+  });
+
+  elementsToAnimate.forEach(element => {
+    observer.observe(element);
+  });
+});
 // script.js
 document.addEventListener("DOMContentLoaded", function() {
     const slideInElements = document.querySelectorAll('.content-section,.carousel,.hero01,.contact-us,.video-section');

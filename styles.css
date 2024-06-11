@@ -575,7 +575,7 @@ body {
     background-color: #faf6e9;
     overflow: hidden;
      opacity: 0;
-    transform: translateY(+10%);
+    transform: translateY(+0%);
     transition: opacity 0.5s ease-out, transform 0.5s ease-out;
     
 }
@@ -660,7 +660,7 @@ body {
     padding: 2rem;
     justify-content: center;
     opacity: 0;
-    transform: translateY(+5%);
+    transform: translateY(+0%);
     transition: opacity 0.5s ease-out, transform 0.5s ease-out;
     background-color: #faf6e9;
 }
