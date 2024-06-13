@@ -231,9 +231,73 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   });
   
-  
 
 
-  
-  
 
+  document.addEventListener('DOMContentLoaded', function() {
+    const searchBar = document.getElementById('searchBar');
+    const searchResults = document.getElementById('searchResults');
+
+    const rooms = [
+        {
+            name: 'Deluxe Suite',
+            price: '$299 per night',
+            amenities: ['Free Wi-Fi', 'King-size bed', 'En-suite bathroom', '24-hour room service', 'Complimentary breakfast', '2 people'],
+            image: 'multimedia/pics/slider_1.jpg',
+            id: 'content1'
+        },
+        {
+            name: 'Executive Suite',
+            price: '$299 per night',
+            amenities: ['Free Wi-Fi', 'King-size bed', 'En-suite bathroom', '24-hour room service', 'Complimentary breakfast', '3 people'],
+            image: 'multimedia/pics/slider_1.jpg',
+            id: 'content2'
+        },
+        {
+            name: 'Presidential Suite',
+            price: '$299 per night',
+            amenities: ['Free Wi-Fi', 'King-size bed', 'En-suite bathroom', '24-hour room service', 'Complimentary breakfast', '1 person'],
+            image: 'multimedia/pics/slider_1.jpg',
+            id: 'content3'
+        },
+        {
+            name: 'Double Room',
+            price: '$299 per night',
+            amenities: ['Free Wi-Fi', 'King-size bed', 'En-suite bathroom', '24-hour room service', 'Complimentary breakfast', '2 people'],
+            image: 'multimedia/pics/slider_1.jpg',
+            id: 'content4'
+        }
+    ];
+
+    searchBar.addEventListener('input', function() {
+        const query = searchBar.value.toLowerCase();
+        searchResults.innerHTML = '';
+
+        if (query) {
+            const filteredRooms = rooms.filter(room => 
+                room.name.toLowerCase().includes(query) ||
+                room.amenities.some(amenity => amenity.toLowerCase().includes(query))
+            );
+
+            filteredRooms.forEach(room => {
+                const roomElement = document.createElement('div');
+                roomElement.classList.add('room-info');
+                roomElement.innerHTML = `
+                    <div class="room-details">
+                      <h2>${room.name}</h2>
+                      <p class="price">${room.price}</p>
+                      <p class="description">Experience the ultimate in luxury and comfort in our ${room.name}, featuring stunning views and top-of-the-line amenities.</p>
+                      <ul class="amenities01">
+                        ${room.amenities.map(amenity => `<li>${amenity}</li>`).join('')}
+                      </ul>
+                      <button class="book-now"><a href="booking.html">Book Now</a></button>
+                    </div>
+                    <div class="room-image">
+                      <img src="${room.image}" alt="${room.name}">
+                    </div>
+                `;
+                searchResults.appendChild(roomElement);
+            });
+        }
+    });
+});

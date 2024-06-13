@@ -98,7 +98,7 @@ body {
     transform: rotate(-45deg) translate(5px, -5px);
 }
 
-@media (max-width: 768px) {
+@media (max-width: 805px) {
     .nav-links {
         display: none;
         flex-direction: column;
@@ -495,11 +495,14 @@ body {
     font-size: 1rem;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 500px) {
     .amenities {
         flex-direction: column;
         gap: 1rem;
         margin-bottom: 10px;
+    }
+    .amenity{
+        width:100%;
     }
 }
 /* Carousel section styles */
@@ -654,13 +657,12 @@ body {
     gap: 2rem;
     padding: 2rem;
     justify-content: center;
-    
     background-color: #faf6e9;
 }
 
 
 .card {
-    flex: 1 1 200px;
+    flex: 1 1 300px;
     max-width: 300px;
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -717,9 +719,9 @@ body {
     padding: 0 1rem 1rem 1rem;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 1027px) {
     .card {
-        flex: 1 1 100%;
+        flex: 1 1 80%;
         max-width: 100%;
         
     }
@@ -932,10 +934,16 @@ min-width:100px;
   color:#fff;
 }
 .galleryhd_100{
-    width:92%;
+    width:100%;
     text-align: right;
     min-width:100px;
     }
+    @media (min-width: 1035px) {
+        .galleryhd0011 {
+            margin-left:10%;
+            margin-right:10%;
+        }
+    } 
 .galleryhd0011 a {
     text-decoration: none;
     color:#fff;
@@ -956,13 +964,17 @@ min-width:100px;
         min-width:100px;
         }
 .galhead{
-    width:100%;
+    width:80%;
     text-align: center;
     min-width:100px;
+    margin-left:10%;
+    margin-right:10%;
     }
 
+
+
 .gallery-item {
-    flex: 1 1 calc(33.333% - 1rem);
+    flex: 1 1 300px;
     max-width: calc(33.333% - 1rem);
     overflow: hidden;
     border-radius: 10px;
@@ -1202,8 +1214,8 @@ section{
     transform: translateY(+10%);
     transition: opacity 0.5s ease-out, transform 0.5s ease-out;
     justify-content: center;
-    margin-left:10%;
-    margin-right: 10%;
+    margin-left:25%;
+    margin-right: 25%;
   }
   .contact-us.visible {
     opacity: 1;
@@ -1220,14 +1232,14 @@ section{
   
   .form-group01{
     margin-bottom: 20px;
-    width:80%;
+    width:100%;
     margin-bottom: 20px;
     padding-left: 0px;
   }
   
   
   #contactForm{
-    width:80%;
+    width:100%;
     justify-content: center;
   }
   
@@ -1238,8 +1250,16 @@ section{
     color: #555;
   }
   
-  .form-group01 input, .form-group01 textarea {
+  .form-group01 input {
     width: 70%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+    padding-left:0px;
+  }
+   .form-group01 textarea {
+    width: 100%;
     padding: 12px;
     border: 1px solid #ccc;
     border-radius: 4px;
@@ -1350,13 +1370,6 @@ section{
     padding: 20px;
     margin-left:10%;
     margin-right:10%;
-    opacity: 0;
-    transform: translateY(+10%);
-    transition: opacity 0.5s ease-out, transform 0.5s ease-out;
-  }
-  .room-info.visible {
-    opacity: 1;
-    transform: translateY(0);
   }
   .room-info:hover{
     transform: translateY(-10px);
@@ -1643,3 +1656,70 @@ section{
     }
 }
 
+
+#blue-underline {
+    position: relative;
+    display: inline-block;
+    
+}
+
+#blue-underline::before {
+    content: "";
+    position: absolute;
+    bottom: 0px; /* Adjust this value to move the line closer or further from the text */
+    width:60%;
+    height: 3px; /* Adjust this value to change the thickness of the line */
+    background-color: #f5b042;
+    margin-left:20%;
+    margin-right:20%;
+}
+#blue-underline01 {
+    position: relative;
+    display: inline-block;
+    width:100%;
+}
+
+#blue-underline01::after {
+    content: "";
+    position: absolute;
+    bottom: 0px; /* Adjust this value to move the line closer or further from the text */
+    width:10%;
+    margin-left:45%;
+    margin-right:30%;
+    height: 3px; /* Adjust this value to change the thickness of the line */
+    background-color: #f5b042;
+}
+
+
+
+
+.search-container {
+    margin: 20px;
+    text-align: left;
+    justify-content:center;
+    margin-left:10%;
+    margin-right:10%;
+    width:80%;
+}
+
+#searchBar {
+    width: 50%;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin-bottom: 20px;
+    margin-left:0px;
+}
+
+.search-results {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    
+}
+
+.search-results .room-info {
+    margin-bottom: 20px;
+    width: 100%;
+}

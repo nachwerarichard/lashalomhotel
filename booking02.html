@@ -60,20 +60,29 @@
              </div>
                 <div class="form-group-row">
                     <div class="form-group">
-                        <label for="room-type">Food Type</label>
+                        <label for="checkin">Check-In Date</label>
+                        <input type="date" id="checkin" name="checkin" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="checkout">Check-Out Date</label>
+                        <input type="date" id="checkout" name="checkout" required>
+                    </div>
+                   
+
+                </div>
+                <div class="form-group-row">
+                    <div class="form-group">
+                        <label for="room-type">Destination</label>
                         <select id="room-type"  name="room-type" required>
-                            <option value="single">Drinks</option>
-                            <option value="deluxe">Food</option>
-                            <option value="executive">Other Items</option>
+                            <option value="single">Sipi Falls</option>
+                            <option value="deluxe">Mt. Elgon </option>
+                            <option value="executive">Hiking</option>
+                            <option value="presidential">Mt.Elgon National Park</option>
                         </select>
                     </div>
-                  <div  class="form-group">
-                    <label for="room-type">Location</label>
-                    <input type="text" id="location" name="location" required>
-
-                  </div>
+                
                   <div  class="form-group" >
-                    <label for="room-type">Number</label>
+                    <label for="room-type">Number of Guests</label>
                     <input type="number" style="width:85%; " name="number-of-rooms">
 
                   </div>

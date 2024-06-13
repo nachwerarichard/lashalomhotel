@@ -7,19 +7,47 @@
     <link rel="shortcut icon" type="image/x-icon" href="hotelpics/svg/icon01.png" />
     <link rel="stylesheet" href="styles.css">
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap" rel="stylesheet">
+    <style>
+.search-container {
+    text-align: left;
+    margin-bottom: 20px;
+}
 
+#searchBar {
+    width: 40%;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.search-results {
+    margin-bottom: 20px;
+}
+
+.search-results .menu-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    margin-bottom: 5px;
+    width:100%;
+}
+
+    </style>
 </head>
 <body>
     <nav class="navbar">
         <div class="logo"><img src="hotelpics/svg/icon01.png">Richy Hotel</div>
         <div class="nav-links" id="navLinks">
-            <a href="home.html">Home</a>
+            <a href="home.html" class="active">Home</a>
             <a href="about.html">About Us</a>
-            <a href="rooms.html" class="active">Accommodation</a>
+            <a href="rooms.html">Accommodation</a>
             <a href="experience.html">Experiences</a>
             <a href="gallery.html">Gallery</a>
             <a href="contact.html">ContactUs </a>
-
         </div>
         <div class="hamburger" id="hamburger">
             <div class="bar bar1"></div>
@@ -29,14 +57,17 @@
     </nav>
     <div class="hero01">
         <div class="hero01-content">
-            <h1>Our Menu</h1>
-            
+            <h1 id="blue-underline">Our Menu</h1>
         </div>
     </div>
     <div class="menu">
-        <h2>Richy Hotel Menu</h2>
+        <!-- Search Bar Section -->
+        <div class="search-container">
+            <input type="text" id="searchBar" placeholder="Search for menu items...">
+            <div id="searchResults" class="search-results"></div>
+        </div>
 
-        <div class="menu-category">
+        <div class="menu-category" data-category="Drinks">
             <h3>Drinks</h3>
             <div class="menu-item">
                 <span>Champagne</span>
@@ -56,7 +87,7 @@
             </div>
         </div>
 
-        <div class="menu-category">
+        <div class="menu-category" data-category="Food">
             <h3>Food</h3>
             <div class="menu-item">
                 <span>Grilled Salmon</span>
@@ -76,7 +107,7 @@
             </div>
         </div>
 
-        <div class="menu-category">
+        <div class="menu-category" data-category="Other Items">
             <h3>Other Items</h3>
             <div class="menu-item">
                 <span>Cheese Platter</span>
@@ -95,11 +126,10 @@
                 <span class="price">Ugsh.2000</span>
             </div>
         </div>
-        
-    </div> 
+    </div>
     <div class="galleryhd_100">
         <button id="gallery01" class="roombutton"><a href="menu_booking.html">Order Now</a></button>
-       </div>
+    </div>
     <div class="newsletter-section">
         <h3>Subscribe to Our Newsletter</h3>
         <p>Get the latest updates and offers from our hotel.</p>
@@ -112,8 +142,8 @@
         <a href="https://api.whatsapp.com/send?phone=1234567890" target="_blank" rel="noopener noreferrer">
           <img src="hotelpics/svg/vecteezy_whatsapp-logo-png-whatsapp-icon-png-whatsapp-transparent_18930748.png" alt="WhatsApp">
         </a>
-      </div>
-      <div class="footer">
+    </div>
+    <div class="footer">
         <div class="footer-container">
             <div class="footer-section">
                 <h4>Contact Us</h4>
@@ -147,8 +177,50 @@
         </div>
     </div>
         
-       
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const searchBar = document.getElementById('searchBar');
+            const searchResults = document.getElementById('searchResults');
 
-    <script src="script.js"></script>
+            const menuItems = [
+                { name: 'Champagne', price: 'Ugsh.15,000', category: 'Drinks' },
+                { name: 'Red Wine', price: 'Ugsh.25,000', category: 'Drinks' },
+                { name: 'White Wine', price: 'Ugsh.30,000', category: 'Drinks' },
+                { name: 'Cocktail', price: 'Ugsh.5000', category: 'Drinks' },
+                { name: 'Grilled Salmon', price: 'Ugsh.20,000', category: 'Food' },
+                { name: 'Steak', price: 'Ugsh.6000', category: 'Food' },
+                { name: 'Caesar Salad', price: 'Ugsh.7000', category: 'Food' },
+                { name: 'Pasta', price: 'Ugsh.3000', category: 'Food' },
+                { name: 'Cheese Platter', price: 'Ugsh.10,000', category: 'Other Items' },
+                { name: 'Fruit Platter', price: 'Ugsh.5000', category: 'Other Items' },
+                { name: 'Chocolate Cake', price: 'Ugsh.4000', category: 'Other Items' },
+                { name: 'Ice Cream', price: 'Ugsh.2000', category: 'Other Items' }
+            ];
+
+            searchBar.addEventListener('input', function() {
+                const query = searchBar.value.toLowerCase();
+                searchResults.innerHTML = '';
+
+                if (query) {
+                    const filteredItems = menuItems.filter(item => 
+                        item.name.toLowerCase().includes(query) ||
+                        item.category.toLowerCase().includes(query)
+                    );
+
+                    filteredItems.forEach(item => {
+                        const itemElement = document.createElement('div');
+                        itemElement.classList.add('menu-item');
+                        itemElement.innerHTML = `
+                            <span>${item.name}</span>
+                            <span class="price">${item.price}</span>
+                        `;
+                        searchResults.appendChild(itemElement);
+                    });
+                }
+            });
+        });
+    </script>
+        <script src="script.js"></script>
+
 </body>
 </html>
