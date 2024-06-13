@@ -840,7 +840,7 @@ body {
     height:auto;
     overflow: hidden;
     transition: transform 0.3s;
-    padding-bottom: 50px;
+    padding-bottom: 10px;
 
 
 }
@@ -929,6 +929,7 @@ width:100%;
 text-align: right;
 min-width:100px;
 }
+
 .galleryhd_100 a{
   text-decoration: none;
   color:#fff;
@@ -971,7 +972,10 @@ min-width:100px;
     margin-right:10%;
     }
 
-
+.galhead button a{
+    text-decoration:none;
+    color:#fff;
+}
 
 .gallery-item {
     flex: 1 1 300px;
