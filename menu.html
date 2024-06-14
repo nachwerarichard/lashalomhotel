@@ -8,44 +8,75 @@
     <link rel="stylesheet" href="styles.css">
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap" rel="stylesheet">
     <style>
-.search-container {
-    text-align: left;
-    margin-bottom: 20px;
-}
+        .search-container {
+            text-align: left;
+            margin-bottom: 20px;
+        }
 
-#searchBar {
-    width: 40%;
-    padding: 10px;
-    font-size: 16px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-}
+        #searchBar {
+            width: 40%;
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
 
-.search-results {
-    margin-bottom: 20px;
-}
+        .search-results {
+            margin-bottom: 20px;
+        }
 
-.search-results .menu-item {
-    display: flex;
-    justify-content: space-between;
-    padding: 10px;
-    background-color: #f9f9f9;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    margin-bottom: 5px;
-    width: 100%;
-}
+        .search-results .menu-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px;
+            background-color: #f9f9f9;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            margin-bottom: 5px;
+            width: 100%;
+            cursor: pointer;
+        }
 
-.search-results .header {
-    display: flex;
-    justify-content: space-between;
-    padding: 10px;
-    background-color: #ddd;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    margin-bottom: 5px;
-    font-weight: bold;
-}
+        .search-results .header {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px;
+            background-color: #ddd;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        .cart-icon {
+            cursor: pointer;
+            position: relative;
+            color:#fff;
+        }
+
+        .cart-count {
+            position: absolute;
+            top: -10px;
+            right: -10px;
+            background-color: red;
+            color: white;
+            border-radius: 50%;
+            padding: 2px 6px;
+            font-size: 12px;
+        }
+        .menu-category :hover{
+            background-color: #ddd;
+        }
+        .menu-category {
+cursor:pointer;        }
+        .menu-category  h3:active{
+            background-color: #fff;
+
+        }
+        .menu-category h3:hover{
+    background-color: #fff;
+
+        }
     </style>
 </head>
 <body>
@@ -59,6 +90,10 @@
             <a href="gallery.html">Gallery</a>
             <a href="contact.html">Contact Us</a>
         </div>
+        <div class="cart-icon" id="cartIcon">
+            <img src="multimedia/pics/svg/shopping_cart_24dp_FILL0_wght400_GRAD0_opsz24.svg" alt="Cart">
+            <div class="cart-count" id="cartCount">0</div>
+        </div>
         <div class="hamburger" id="hamburger">
             <div class="bar bar1"></div>
             <div class="bar bar2"></div>
@@ -66,11 +101,14 @@
         </div>
     </nav>
     <div class="hero01">
-        <div class="hero02-content">
+        <div class="hero01-content">
             <h1 id="blue-underline">Our Menu</h1>
         </div>
     </div>
     <div class="menu">
+        <div class="search-container">
+        <p> To purchase an item,click on it to add it to the shopping cart</p>
+        </div>
         <!-- Search Bar Section -->
         <div class="search-container">
             <input type="text" id="searchBar" placeholder="Search for menu items...">
@@ -79,19 +117,19 @@
 
         <div class="menu-category" data-category="Drinks">
             <h3>Drinks</h3>
-            <div class="menu-item">
+            <div class="menu-item" data-name="Champagne" data-price="15000">
                 <span>Champagne</span>
                 <span class="price">Ugsh.15,000</span>
             </div>
-            <div class="menu-item">
+            <div class="menu-item" data-name="Red Wine" data-price="25000">
                 <span>Red Wine</span>
                 <span class="price">Ugsh.25,000</span>
             </div>
-            <div class="menu-item">
+            <div class="menu-item" data-name="White Wine" data-price="30000">
                 <span>White Wine</span>
                 <span class="price">Ugsh.30,000</span>
             </div>
-            <div class="menu-item">
+            <div class="menu-item" data-name="Cocktail" data-price="5000">
                 <span>Cocktail</span>
                 <span class="price">Ugsh.5000</span>
             </div>
@@ -99,19 +137,19 @@
 
         <div class="menu-category" data-category="Food">
             <h3>Food</h3>
-            <div class="menu-item">
+            <div class="menu-item" data-name="Grilled Salmon" data-price="20000">
                 <span>Grilled Salmon</span>
                 <span class="price">Ugsh.20,000</span>
             </div>
-            <div class="menu-item">
+            <div class="menu-item" data-name="Steak" data-price="6000">
                 <span>Steak</span>
                 <span class="price">Ugsh.6000</span>
             </div>
-            <div class="menu-item">
+            <div class="menu-item" data-name="Caesar Salad" data-price="7000">
                 <span>Caesar Salad</span>
                 <span class="price">Ugsh.7000</span>
             </div>
-            <div class="menu-item">
+            <div class="menu-item" data-name="Pasta" data-price="3000">
                 <span>Pasta</span>
                 <span class="price">Ugsh.3000</span>
             </div>
@@ -119,26 +157,24 @@
 
         <div class="menu-category" data-category="Other Items">
             <h3>Other Items</h3>
-            <div class="menu-item">
+            <div class="menu-item" data-name="Cheese Platter" data-price="10000">
                 <span>Cheese Platter</span>
                 <span class="price">Ugsh.10,000</span>
             </div>
-            <div class="menu-item">
+            <div class="menu-item" data-name="Fruit Platter" data-price="5000">
                 <span>Fruit Platter</span>
                 <span class="price">Ugsh.5000</span>
             </div>
-            <div class="menu-item">
+            <div class="menu-item" data-name="Chocolate Cake" data-price="4000">
                 <span>Chocolate Cake</span>
                 <span class="price">Ugsh.4000</span>
             </div>
-            <div class="menu-item">
+            <div class="menu-item" data-name="Ice Cream" data-price="2000">
                 <span>Ice Cream</span>
                 <span class="price">Ugsh.2000</span>
             </div>
         </div>
-        <div class="galleryhd_100">
-            <button id="gallery01" class="roombutton"><a href="menu_booking.html">Order Now</a></button>
-        </div>
+       
     </div>
     
     <div class="newsletter-section">
@@ -154,51 +190,6 @@
           <img src="hotelpics/svg/vecteezy_whatsapp-logo-png-whatsapp-icon-png-whatsapp-transparent_18930748.png" alt="WhatsApp">
         </a>
     </div>
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const searchBar = document.getElementById('searchBar');
-            const searchResults = document.getElementById('searchResults');
-
-            const menuItems = [
-                { name: 'Champagne', price: 'Ugsh.15,000', category: 'Drinks' },
-                { name: 'Red Wine', price: 'Ugsh.25,000', category: 'Drinks' },
-                { name: 'White Wine', price: 'Ugsh.30,000', category: 'Drinks' },
-                { name: 'Cocktail', price: 'Ugsh.5000', category: 'Drinks' },
-                { name: 'Grilled Salmon', price: 'Ugsh.20,000', category: 'Food' },
-                { name: 'Steak', price: 'Ugsh.6000', category: 'Food' },
-                { name: 'Caesar Salad', price: 'Ugsh.7000', category: 'Food' },
-                { name: 'Pasta', price: 'Ugsh.3000', category: 'Food' },
-                { name: 'Cheese Platter', price: 'Ugsh.10,000', category: 'Other Items' },
-                { name: 'Fruit Platter', price: 'Ugsh.5000', category: 'Other Items' },
-                { name: 'Chocolate Cake', price: 'Ugsh.4000', category: 'Other Items' },
-                { name: 'Ice Cream', price: 'Ugsh.2000', category: 'Other Items' }
-            ];
-
-            searchBar.addEventListener('input', function() {
-                const query = searchBar.value.toLowerCase();
-                searchResults.innerHTML = '';
-
-                if (query) {
-                    const filteredItems = menuItems.filter(item => 
-                        item.name.toLowerCase().includes(query) ||
-                        item.category.toLowerCase().includes(query)
-                    );
-
-                    
-
-                    filteredItems.forEach(item => {
-                        const itemElement = document.createElement('div');
-                        itemElement.classList.add('menu-item');
-                        itemElement.innerHTML = `
-                            <span>${item.name}</span>
-                            <span class="price">${item.price}</span>
-                        `;
-                        searchResults.appendChild(itemElement);
-                    });
-                }
-            });
-        });
-    </script>
     <div class="footer">
         <div class="footer-container">
             <div class="footer-section">
@@ -232,7 +223,80 @@
         </div>
     </div>
         
-   
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const searchBar = document.getElementById('searchBar');
+            const searchResults = document.getElementById('searchResults');
+            const cartIcon = document.getElementById('cartIcon');
+            const cartCount = document.getElementById('cartCount');
 
+            const menuItems = [
+                { name: 'Champagne', price: 15000, category: 'Drinks' },
+                { name: 'Red Wine', price: 25000, category: 'Drinks' },
+                { name: 'White Wine', price: 30000, category: 'Drinks' },
+                { name: 'Cocktail', price: 5000, category: 'Drinks' },
+                { name: 'Grilled Salmon', price: 20000, category: 'Food' },
+                { name: 'Steak', price: 6000, category: 'Food' },
+                { name: 'Caesar Salad', price: 7000, category: 'Food' },
+                { name: 'Pasta', price: 3000, category: 'Food' },
+                { name: 'Cheese Platter', price: 10000, category: 'Other Items' },
+                { name: 'Fruit Platter', price: 5000, category: 'Other Items' },
+                { name: 'Chocolate Cake', price: 4000, category: 'Other Items' },
+                { name: 'Ice Cream', price: 2000, category: 'Other Items' }
+            ];
+
+            let cart = [];
+
+            searchBar.addEventListener('input', function() {
+                const query = searchBar.value.toLowerCase();
+                searchResults.innerHTML = '';
+
+                if (query) {
+                    const filteredItems = menuItems.filter(item => 
+                        item.name.toLowerCase().includes(query) ||
+                        item.category.toLowerCase().includes(query)
+                    );
+
+                    
+
+                    filteredItems.forEach(item => {
+                        const itemElement = document.createElement('div');
+                        itemElement.classList.add('menu-item');
+                        itemElement.innerHTML = `
+                            <span>${item.name}</span>
+                            <span class="price">Ugsh.${item.price.toLocaleString()}</span>
+                        `;
+                        itemElement.dataset.name = item.name;
+                        itemElement.dataset.price = item.price;
+                        itemElement.addEventListener('click', addToCart);
+                        searchResults.appendChild(itemElement);
+                    });
+                }
+            });
+
+            document.querySelectorAll('.menu-item').forEach(item => {
+                item.addEventListener('click', addToCart);
+            });
+
+            cartIcon.addEventListener('click', function() {
+                window.location.href = 'cart.html';
+            });
+
+            function addToCart(event) {
+                const name = event.currentTarget.dataset.name;
+                const price = event.currentTarget.dataset.price;
+
+                const existingItem = cart.find(item => item.name === name);
+                if (existingItem) {
+                    existingItem.quantity += 1;
+                } else {
+                    cart.push({ name, price: parseInt(price), quantity: 1 });
+                }
+
+                cartCount.textContent = cart.reduce((total, item) => total + item.quantity, 0);
+                localStorage.setItem('cart', JSON.stringify(cart));
+            }
+        });
+    </script>
 </body>
 </html>

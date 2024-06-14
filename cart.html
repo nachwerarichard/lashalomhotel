@@ -1,0 +1,221 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RichyHotel</title>
+    <link rel="shortcut icon" type="image/x-icon" href="hotelpics/svg/icon01.png" />
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap" rel="stylesheet">
+    <style>
+        .cart-container {
+            width: 80%;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f9f9f9;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            margin-top:100px;
+            margin-bottom: 100px;
+        }
+
+        .cart-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center; /* Center align items vertically */
+            padding: 10px;
+            border-bottom: 1px solid #ccc;
+        }
+
+        .cart-item:last-child {
+            border-bottom: none;
+        }
+
+        .cart-item input {
+            width: 50px;
+            text-align: center;
+        }
+
+        .total {
+            text-align: right;
+            padding: 10px;
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        .payment-methods {
+            padding: 10px;
+        }
+
+        .payment-methods label {
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        .payment-methods button {
+            padding: 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        /* Style for delete button */
+        .delete-button {
+            background-color: #f44336;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 50%;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logo"><img src="hotelpics/svg/icon01.png">Richy Hotel</div>
+        <div class="nav-links" id="navLinks">
+            <a href="home.html">Home</a>
+            <a href="about.html">About Us</a>
+            <a href="rooms.html">Accommodation</a>
+            <a href="experience.html">Experiences</a>
+            <a href="gallery.html">Gallery</a>
+            <a href="contact.html" class="active">ContactUs </a>
+        </div>
+        <div class="hamburger" id="hamburger">
+            <div class="bar bar1"></div>
+            <div class="bar bar2"></div>
+            <div class="bar bar3"></div>
+        </div>
+    </nav>
+    <div class="hero01">
+        <div class="hero01-content">
+            <h1 id="blue-underline">Shopping Cart</h1>
+            
+        </div>
+    </div>
+<body>
+    <div class="cart-container">
+        <div id="cartItems"></div>
+        <div class="total" id="totalPrice">Total: Ugsh. 0</div>
+        <div class="payment-methods">
+            <h3>Payment Methods</h3>
+            <label>
+                <input type="radio" name="payment" value="Credit Card" checked> Credit Card
+            </label>
+            <label>
+                <input type="radio" name="payment" value="Mobile Money"> Mobile Money
+            </label>
+            <label>
+                <input type="radio" name="payment" value="Cash on Delivery"> Cash on Delivery
+            </label>
+            <button id="checkoutButton">Checkout</button>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const cartItemsContainer = document.getElementById('cartItems');
+            const totalPriceElement = document.getElementById('totalPrice');
+            let cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+            function renderCart() {
+                cartItemsContainer.innerHTML = '';
+                let totalPrice = 0;
+
+                cart.forEach(item => {
+                    totalPrice += item.price * item.quantity;
+                    const itemElement = document.createElement('div');
+                    itemElement.classList.add('cart-item');
+                    itemElement.innerHTML = `
+                        <span>${item.name}</span>
+                        <input type="number" value="${item.quantity}" min="1" data-name="${item.name}">
+                        <span class="price">Ugsh.${(item.price * item.quantity).toLocaleString()}</span>
+                        <button class="delete-button" data-name="${item.name}">&times;</button>
+                    `;
+                    cartItemsContainer.appendChild(itemElement);
+
+                    // Add event listener for delete button
+                    const deleteButton = itemElement.querySelector('.delete-button');
+                    deleteButton.addEventListener('click', function() {
+                        deleteCartItem(item.name);
+                    });
+                });
+
+                totalPriceElement.textContent = `Total: Ugsh. ${totalPrice.toLocaleString()}`;
+            }
+
+            function deleteCartItem(name) {
+                cart = cart.filter(item => item.name !== name);
+                localStorage.setItem('cart', JSON.stringify(cart));
+                renderCart();
+            }
+
+            cartItemsContainer.addEventListener('input', function(event) {
+                if (event.target.type === 'number') {
+                    const name = event.target.dataset.name;
+                    const quantity = parseInt(event.target.value);
+                    const item = cart.find(item => item.name === name);
+                    if (item) {
+                        item.quantity = quantity;
+                        localStorage.setItem('cart', JSON.stringify(cart));
+                        renderCart();
+                    }
+                }
+            });
+
+            document.getElementById('checkoutButton').addEventListener('click', function() {
+                alert('Proceeding to payment...');
+            });
+
+            renderCart();
+        });
+    </script>
+      <script src="script.js"></script>
+      <div class="newsletter-section">
+        <h3>Subscribe to Our Newsletter</h3>
+        <p>Get the latest updates and offers from our hotel.</p>
+        <div class="newsletter-form">
+            <input type="email" placeholder="Enter your email" required>
+            <button type="submit">Subscribe</button>
+        </div>
+    </div>
+    <div class="footer">
+      <div class="footer-container">
+          <div class="footer-section">
+              <h4>Contact Us</h4>
+              <p>Mbale City</p>
+              <p>Email: info@richyhotel.com</p>
+              <p>Phone: +256 706732078</p>
+          </div>
+          <div class="footer-section">
+              <h4>Follow Us</h4>
+              <ul>
+                  <li> <a href="https://twitter.com/HeritanceHotels"><img src="twitter-icon.png" alt="">Twitter</a></li>
+                 <li> <a href="https://www.facebook.com/SrilankanHotels/"><img src="facebook-icon.png" alt="">Facebook</a></li>
+                  <li><a href="https://www.instagram.com/srilanka.hotels/"><img src="instagram-icon.png" alt="">Instagram</a></li>
+                  <li><a href="https://lk.linkedin.com/company/cinnamon-hotels-resorts"><img src="linkedin-icon.png" alt="">LinkedIn</a></li>
+              </ul>
+          </div>
+          <div class="footer-section">
+              <h4>Quick Links</h4>
+              <ul>
+                  <li><a href="about.html">About Us</a></li>
+                  <li><a href="home.html">Home</a></li>
+                  <li><a href="rooms.html">Accommodation</a></li>
+                  <li><a href="contact.html">Contact</a></li>
+                  <li><a href="gallery.html">Gallery</a></li>
+              </ul>
+          </div>
+      </div>
+      <div class="footer-bottom">
+          <p>&copy; 2024 Richy Hotel. All rights reserved.</p>
+      </div>
+    </div>
+    </body>
+        
+      
+</body>
+</html>
