@@ -1,3 +1,11 @@
+document.addEventListener("DOMContentLoaded", function() {
+  // Simulate a delay (e.g., for loading data or assets)
+  setTimeout(function() {
+      document.getElementById('loader').style.display = 'none';
+      document.getElementById('content').style.display = 'block';
+      document.body.style.overflow = 'auto'; // Allow scrolling again
+  }, 2000); // Change this to the desired delay time
+});
 
 document.addEventListener('DOMContentLoaded', () => {
     const hamburger = document.getElementById('hamburger');
@@ -301,3 +309,4 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 });
+

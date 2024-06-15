@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Loader Example</title>
+<style>
+    body, html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    overflow: hidden;
+}
+
+.loader {
+    border: 5px solid #f3f3f3; /* Light grey */
+    border-top: 5px solid #494949; /* Blue */
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    animation: spin 2s linear infinite;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+</style></head>
+<body>
+    <div id="loader" class="loader"></div>
+    <div id="content" style="display: none;">
+        <!-- Your page content goes here -->
+        <h1>Welcome to the Website!</h1>
+        <p>This content is displayed after the loader.</p>
+    </div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+    // Simulate a delay (e.g., for loading data or assets)
+    setTimeout(function() {
+        document.getElementById('loader').style.display = 'none';
+        document.getElementById('content').style.display = 'block';
+        document.body.style.overflow = 'auto'; // Allow scrolling again
+    }, 3000); // Change this to the desired delay time
+});
+
+</script></body>
+</html>

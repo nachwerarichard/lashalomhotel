@@ -42,8 +42,9 @@
         </style>
 </head>
 <body>
+    <div id="loader" class="loader"></div>
+    <div id="content" style="display: none;">
     <nav class="navbar">
-        <div class="logo"><img src="hotelpics/svg/icon01.png">Richy Hotel</div>
         <div class="nav-links" id="navLinks">
             <a href="home.html">Home</a>
             <a href="about.html">About Us</a>
@@ -58,7 +59,7 @@
             <div class="bar bar3"></div>
         </div>
     </nav>
-    <div class="hero01">
+    <div class="hero01" style="background:url('multimedia/pics/contactus.avif');">
         <div class="hero01-content">
             <h1 id="blue-underline">Our Rooms</h1>
             
@@ -88,7 +89,7 @@
           <button id="room11" class="book-now"><a href="booking.html">Book Now</a></button>
         </div>
         <div class="room-image">
-          <img src="multimedia/pics/slider_1.jpg" alt="Deluxe Suite">
+          <img src="multimedia/pics/room_2_a.jpg" alt="Deluxe Suite">
         </div>
     </div>
     <div class="room-info" id="content2">
@@ -126,12 +127,12 @@
           <button id="booknow13" class="book-now"><a href="booking.html">Book Now</a></button>
         </div>
         <div class="room-image">
-          <img src="multimedia/pics/slider_1.jpg" alt="Presidential Suite">
+          <img src="multimedia/pics/slider_2.jpg" alt="Presidential Suite">
         </div>
     </div>
     <div class="room-info" id="content4">
         <div class="room-image">
-          <img src="multimedia/pics/slider_1.jpg" alt="Double Room">
+          <img src="multimedia/pics/room_1_a.jpg" alt="Double Room">
         </div>
         <div class="room-details">
             <h2>Double Room</h2>
@@ -148,7 +149,9 @@
             <button id="booknow14" class="book-now"><a href="booking.html">Book Now</a></button>
           </div>
     </div>
-
+    <div class="galhead" >
+        <button id="rooms100" class="roombutton"><a href="rooms.html">Explore More</a></button>
+       </div>
     <div class="newsletter-section">
         <h3>Subscribe to Our Newsletter</h3>
         <p>Get the latest updates and offers from our hotel.</p>
@@ -194,7 +197,7 @@
             <p>&copy; 2024 Richy Hotel. All rights reserved.</p>
         </div>
     </div>
-        
+    </div> 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             const searchBar = document.getElementById('searchBar');
