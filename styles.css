@@ -186,7 +186,8 @@ body {
     padding: 20px;
     text-align: center;
     height:40vh;
-    padding-top: 20%;
+    justify-content: center;
+    padding-top: 25%;
 }
 .p{
     opacity: 0;
@@ -214,12 +215,9 @@ p.visible {
 }
 
 @media (max-width: 768px) {
-    .hotel-info h1 {
-        font-size: 1.5em;
-    }
-
-    .hotel-info p {
+    .hotel-info  {
         font-size: 1em;
+        padding-top: 40%;
     }
 }
 
@@ -284,6 +282,29 @@ p.visible {
     z-index: -1;
     filter: brightness(50%);
     width:100%;
+        height: 80vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #fff;
+        z-index:1000;
+        filter: blur(0px);
+        padding-bottom: 0px;
+    
+
+}
+@media (max-width: 808px) {
+    .hero video  {
+        width: 100%;
+        height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #fff;
+        z-index:1000;
+        filter: blur(0px);
+        padding-bottom: 0px;
+    }
 }
 .pause-button {
     position: absolute;
@@ -1077,7 +1098,6 @@ margin-top: 0px;    }
     padding-top: 200px;
     margin-left:10%;
     margin-right:10%;
-    padding-bottom: 100px;
 }
 .gallery-item{
     opacity: 0;
