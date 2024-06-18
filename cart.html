@@ -8,70 +8,6 @@
     <link rel="shortcut icon" type="image/x-icon" href="hotelpics/svg/icon01.png" />
     <link rel="stylesheet" href="styles.css">
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap" rel="stylesheet">
-    <style>
-        .cart-container {
-            width: 80%;
-            margin: 0 auto;
-            padding: 20px;
-            background-color: #f9f9f9;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-            margin-top:100px;
-            margin-bottom: 100px;
-        }
-
-        .cart-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center; /* Center align items vertically */
-            padding: 10px;
-            border-bottom: 1px solid #ccc;
-        }
-
-        .cart-item:last-child {
-            border-bottom: none;
-        }
-
-        .cart-item input {
-            width: 50px;
-            text-align: center;
-        }
-
-        .total {
-            text-align: right;
-            padding: 10px;
-            font-size: 18px;
-            font-weight: bold;
-        }
-
-        .payment-methods {
-            padding: 10px;
-        }
-
-        .payment-methods label {
-            display: block;
-            margin-bottom: 10px;
-        }
-
-        .payment-methods button {
-            padding: 10px;
-            background-color: #4CAF50;
-            color: white;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-        }
-
-        /* Style for delete button */
-        .delete-button {
-            background-color: #f44336;
-            color: white;
-            border: none;
-            padding: 5px 10px;
-            border-radius: 50%;
-            cursor: pointer;
-        }
-    </style>
 </head>
 <body>
     <div id="loader" class="loader"></div>
@@ -95,7 +31,6 @@
     <div class="hero01" style="background:url('multimedia/pics/contactus.avif');">
         <div class="hero01-content">
             <h1 id="blue-underline">Shopping Cart</h1>
-            
         </div>
     </div>
 <body>
@@ -116,65 +51,6 @@
             <button id="checkoutButton">Checkout</button>
         </div>
     </div>
-
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const cartItemsContainer = document.getElementById('cartItems');
-            const totalPriceElement = document.getElementById('totalPrice');
-            let cart = JSON.parse(localStorage.getItem('cart')) || [];
-
-            function renderCart() {
-                cartItemsContainer.innerHTML = '';
-                let totalPrice = 0;
-
-                cart.forEach(item => {
-                    totalPrice += item.price * item.quantity;
-                    const itemElement = document.createElement('div');
-                    itemElement.classList.add('cart-item');
-                    itemElement.innerHTML = `
-                        <span>${item.name}</span>
-                        <input type="number" value="${item.quantity}" min="1" data-name="${item.name}">
-                        <span class="price">Ugsh.${(item.price * item.quantity).toLocaleString()}</span>
-                        <button class="delete-button" data-name="${item.name}">&times;</button>
-                    `;
-                    cartItemsContainer.appendChild(itemElement);
-
-                    // Add event listener for delete button
-                    const deleteButton = itemElement.querySelector('.delete-button');
-                    deleteButton.addEventListener('click', function() {
-                        deleteCartItem(item.name);
-                    });
-                });
-
-                totalPriceElement.textContent = `Total: Ugsh. ${totalPrice.toLocaleString()}`;
-            }
-
-            function deleteCartItem(name) {
-                cart = cart.filter(item => item.name !== name);
-                localStorage.setItem('cart', JSON.stringify(cart));
-                renderCart();
-            }
-
-            cartItemsContainer.addEventListener('input', function(event) {
-                if (event.target.type === 'number') {
-                    const name = event.target.dataset.name;
-                    const quantity = parseInt(event.target.value);
-                    const item = cart.find(item => item.name === name);
-                    if (item) {
-                        item.quantity = quantity;
-                        localStorage.setItem('cart', JSON.stringify(cart));
-                        renderCart();
-                    }
-                }
-            });
-
-            document.getElementById('checkoutButton').addEventListener('click', function() {
-                alert('Proceeding to payment...');
-            });
-
-            renderCart();
-        });
-    </script>
       <script src="script.js"></script>
       <div class="newsletter-section">
         <h3>Subscribe to Our Newsletter</h3>
@@ -216,8 +92,6 @@
           <p>&copy; 2024 Richy Hotel. All rights reserved.</p>
       </div>
     </div>
-</div>
-        
-      
+</div>  
 </body>
 </html>

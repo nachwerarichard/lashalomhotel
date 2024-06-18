@@ -14,36 +14,45 @@
 <body>
   <div id="loader" class="loader"></div>
   <div id="content" style="display: none;">
-      
-         <nav class="navbar">
-            <div class="logo"></div>
+    <nav class="navbar">
+        <div class="logo">LaShalom</div>
         <div class="nav-links" id="navLinks">
             <a href="home.html" class="active">Home</a>
-            <a href="about.html">About Us</a>
-            <a href="rooms.html">Accommodation</a>
-            <a href="experience.html">Experiences</a>
-            <a href="gallery.html">Gallery</a>
-            <a href="contact.html">ContactUs </a>
+            <a href="about.html">Accommodation</a>
+            <a href="rooms.html">Wine&Dine</a>
+            <a href="experience.html">Health&SPA</a>
+            <a href="gallery.html">Attractions</a>
+            <a href="experience.html">About Us</a>
+            <a href="experience.html">Gallery</a>
+            <div class="dropdown">
+                <a href="contact.html" class="dropbtn">More</a>
+                <div class="dropdown-content">
+                    <a href="contact.html#email">Contact Us</a>
+                    <a href="contact.html#phone">Careers</a>
+                </div>
+            </div>
+
         </div>
         <div class="hamburger" id="hamburger">
             <div class="bar bar1"></div>
             <div class="bar bar2"></div>
             <div class="bar bar3"></div>
         </div>
-      </nav>
-    
+    </nav>
+
     <div class="hero">
+        <video autoplay loop muted playsinline id="background-video">
+            <source src="multimedia/video02.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
         <div class="hero-content">
-            <h1 style="font-weight: lighter;">YOUR HOME<br><span class="special-text">Away</span><br> FROM HOME.</h1>
-            <p>Immerse yourself in a world where elegance and refinement are the standards.</p>
-            <div class="cta-buttons">
-                <button id="booknow"><a href="booking.html">Book Now</a></button>
-                <button id="about0123"><a href="rooms.html">Explore  More</a></button>
-            </div>
+            <h1 style="font-weight: 100;">A SANTUARY<br><span class="special-text">Of</span><br> SOPHISTICATION.</h1>
         </div>
-       </div>
+    </div>
      
-       
+       <div class="hotel-info">
+        <p>Experience unparalleled luxury and comfort with our world-class amenities and exceptional service. Whether you are here for business or leisure, our hotel offers the perfect blend of elegance and convenience. Enjoy a memorable stay in the heart of the city.</p>
+    </div>
 
     <div class="cards">
         <div class="galhead">
@@ -75,7 +84,30 @@
          <button id="rooms100" class="roombutton"><a href="rooms.html">Explore More</a></button>
         </div>
     </div>
+    <div class="cards">
+        <div class="galhead">
+            <h2 id="blue-uline">Wine & Dine</h2>
+         </div>
+        <div class="card">
+            <img src="hotelpics/fodd_!2c.avif" alt="Card Image 1">
+            <h4>Local Dishes</h4>
+            <p>Hearty, plantain-based dishes with stews and veg.</p>
+        </div>
+        <div class="card">
+            <img src="hotelpics/food_1023a.avif" alt="Card Image 2">
+            <h4>Indian Foods</h4>
+            <p>Flavorful curries with flatbreads and lentils.</p>
+        </div>
+        <div class="card">
+            <img src="hotelpics/food_121b.avif" alt="Card Image 3">
+            <h4>Chinese Foods</h4>
+            <p>Savory stir-fries with rice and noodles.</p>
 
+        </div>
+        <div class="galhead" >
+         <button id="rooms100" class="roombutton"><a href="rooms.html">Explore More</a></button>
+        </div>
+    </div>
 
     <div class="amenities-section">
         <div class="galhead">
@@ -106,13 +138,13 @@
     <div style="background-color:#faf6e9 ;">
         <div class="content-section">
             <div class="text-content">
-                <h2 id="blue-u">Dining</h2>
+                <h2 id="blue-u">Health & SPA</h2>
                 <p>Dining at Visitors Hotel is an experience in itself, offering a range of culinary delights to satisfy every palate. Our signature restaurant presents an exquisite menu featuring both local and international cuisine, prepared by our renowned chefs. For a more casual dining experience, guests can enjoy our cozy café, which serves light meals, snacks, and a variety of beverages throughout the day. </p>
-                <button id="booknow"><a href="menu.html">Our Menu</a></button>
+                <button id="booknow"><a href="menu.html">Explore More</a></button>
     
             </div>
             <div class="image-content">
-                <img src="multimedia/pics/food_001232.avif" alt="Large Image" class="large-image">
+                <img src="hotelpics/swimmingpool_1a.webp" alt="Large Image" class="large-image">
             </div>
         </div>
     
@@ -179,44 +211,6 @@
             <span class="dot01" onclick="currentSlide(3)"></span>
         </div>
     </div>
-    
-    
-    <div class="experiences-section">
-        <h2 id="">Explore Our Surroundings</h2>
-        <p>Discover the amazing experiences our hotel has to offer, from hiking trails to cultural tours.</p>
-        <div class="experiences-cards">
-            <div class="experience-card">
-                <img src="multimedia/pics/hiking0001000.avif" alt="Hiking">
-                <div class="card-content">
-                    <h4>Hiking</h4>
-                    <p>Explore the beautiful hiking trails.</p>
-                </div>
-            </div>
-
-            <div class="experience-card">
-                <img src="multimedia/pics/sipi03.avif" alt="Touring">
-                <div class="card-content">
-                    <h4>Sipi falls</h4>
-                    <p>Take guided tours to sipi falls</p>
-                </div>
-            </div>
-            
-            <div class="experience-card">
-                <img src="multimedia/pics/mtelgonnp.jpg" alt="Culture">
-                <div class="card-content">
-                    <h4>Mount. Elgon National Park</h4>
-                    <p>Explore the beauty of nature.</p>
-                </div>
-               
-            </div>
-            <div class="galhead" style="padding-top:0px;">
-                <button id="experience100" class="roombutton"><a href="experience.html">Explore More</a></button>
-               </div>
-            
-        </div>
-       
-
-    </div>
     <section class="parallax parallax-2">
     </section>
     <div style="background-color: #faf6e9;padding-bottom: 200px;">
@@ -246,21 +240,47 @@
            </div>
     </div>
   </div>
+  <div class="experiences-section">
+    <h2 id="">Attractions</h2>
+    <p>Discover the amazing experiences our hotel has to offer, from hiking trails to cultural tours.</p>
+    <div class="experiences-cards">
+        <div class="experience-card">
+            <img src="multimedia/pics/hiking0001000.avif" alt="Hiking">
+            <div class="card-content">
+                <h4>Hiking</h4>
+                <p>Explore the beautiful hiking trails.</p>
+            </div>
+        </div>
+
+        <div class="experience-card">
+            <img src="multimedia/pics/sipi03.avif" alt="Touring">
+            <div class="card-content">
+                <h4>Sipi falls</h4>
+                <p>Take guided tours to sipi falls</p>
+            </div>
+        </div>
+        
+        <div class="experience-card">
+            <img src="multimedia/pics/mtelgonnp.jpg" alt="Culture">
+            <div class="card-content">
+                <h4>Mount. Elgon National Park</h4>
+                <p>Explore the beauty of nature.</p>
+            </div>
+           
+        </div>
+        <div class="galhead" style="padding-top:0px;">
+            <button id="experience100" class="roombutton"><a href="experience.html">Explore More</a></button>
+           </div>
+        
+    </div>
+   
+
+</div>
   <div class="whatsapp-float">
     <a href="https://api.whatsapp.com/send?phone=1234567890" target="_blank" rel="noopener noreferrer">
       <img src="hotelpics/svg/vecteezy_whatsapp-logo-png-whatsapp-icon-png-whatsapp-transparent_18930748.png" alt="WhatsApp">
     </a>
     </div>
-
-    <div class="newsletter-section">
-        <h3>Subscribe to Our Newsletter</h3>
-        <p>Get the latest updates and offers from our hotel.</p>
-        <div class="newsletter-form">
-            <input type="email" placeholder="Enter your email" required>
-            <button type="submit">Subscribe</button>
-        </div>
-    </div>
-    
     <div class="footer">
         <div class="footer-container">
             <div class="footer-section">

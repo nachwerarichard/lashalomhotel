@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hotel Rooms</title>
+    <style>
+        body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+.room-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.room {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin: 20px 0;
+    opacity: 0;
+    transform: translateY(50px);
+    transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+}
+
+.room.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.room.reverse {
+    flex-direction: row-reverse;
+}
+
+.room-image {
+    width: 50%;
+    height: auto;
+    object-fit: cover;
+}
+
+.room-description {
+    width: 50%;
+    padding: 20px;
+}
+
+@media (max-width: 768px) {
+    .room {
+        flex-direction: column;
+    }
+
+    .room.reverse {
+        flex-direction: column;
+    }
+
+    .room-image, .room-description {
+        width: 100%;
+    }
+}
+
+    </style>
+</head>
+<body>
+    <div class="room-container">
+        <div class="room">
+            <img src="room1.jpg" alt="Hotel Room 1" class="room-image">
+            <div class="room-description">
+                <h2>Deluxe Room</h2>
+                <p>This deluxe room offers a comfortable and luxurious stay with modern amenities.</p>
+                <ul>
+                    <li>King-size bed</li>
+                    <li>Free Wi-Fi</li>
+                    <li>Flat-screen TV</li>
+                    <li>Mini-bar</li>
+                    <li>Room service</li>
+                </ul>
+            </div>
+        </div>
+        <div class="room reverse">
+            <div class="room-description">
+                <h2>Executive Suite</h2>
+                <p>Experience luxury in our executive suite with premium services and facilities.</p>
+                <ul>
+                    <li>Queen-size bed</li>
+                    <li>High-speed Internet</li>
+                    <li>Home theater system</li>
+                    <li>Complimentary breakfast</li>
+                    <li>Laundry service</li>
+                </ul>
+            </div>
+            <img src="room2.jpg" alt="Hotel Room 2" class="room-image">
+        </div>
+    </div>
+
+    <script >
+        document.addEventListener('DOMContentLoaded', () => {
+    const rooms = document.querySelectorAll('.room');
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+                observer.unobserve(entry.target);
+            }
+        });
+    }, {
+        threshold: 0.1
+    });
+
+    rooms.forEach(room => {
+        observer.observe(room);
+    });
+});
+
+    </script>
+</body>
+</html>
