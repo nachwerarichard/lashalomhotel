@@ -561,7 +561,7 @@ document.addEventListener('scroll', function () {
 
   if (elementPosition.top < windowHeight && elementPosition.bottom > 0) {
       // Element is in the viewport
-      zoomElement.style.transform = 'scale(1.5)'; // Increase size
+      zoomElement.style.transform = 'scale(1.1)'; // Increase size
   } else {
       // Element is out of the viewport
       zoomElement.style.transform = 'scale(1)'; // Original size

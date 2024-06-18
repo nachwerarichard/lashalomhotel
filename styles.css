@@ -720,7 +720,6 @@ p.visible {
     padding: 2rem;
     background-color: #faf6e9;
     overflow: hidden;
-    height:60vh;
      
     
 }
@@ -1078,6 +1077,7 @@ margin-top: 0px;    }
     padding-top: 200px;
     margin-left:10%;
     margin-right:10%;
+    padding-bottom: 100px;
 }
 .gallery-item{
     opacity: 0;
