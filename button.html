@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            overflow: hidden;
+        }
+        .hero {
+            position: relative;
+            height: 100vh;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+        }
+        .hero video {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            min-width: 100%;
+            min-height: 100%;
+            z-index: -1;
+            filter: brightness(50%);
+        }
+        .hero-content {
+            z-index: 1;
+            text-align: center;
+        }
+        .special-text {
+            font-weight: bold;
+        }
+        .pause-button {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            padding: 10px 20px;
+            background-color: rgba(0, 0, 0, 0.5);
+            color: white;
+            border: none;
+            cursor: pointer;
+            z-index: 2;
+            font-size: 24px;
+        }
+        .pause-button:hover {
+            background-color: rgba(0, 0, 0, 0.7);
+        }
+    </style>
+</head>
+<body>
+    <div class="hero">
+        <video autoplay loop muted playsinline id="background-video">
+            <source src="multimedia/video02.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+        <div class="hero-content">
+            <h1 style="font-weight: 100;">A SANTUARY<br><span class="special-text">Of</span><br> SOPHISTICATION.</h1>
+        </div>
+        <button class="pause-button" id="pause-play-button">❚❚</button>
+    </div>
+
+    <script>
+        // Slow down the video playback speed
+        document.getElementById('background-video').playbackRate = 0.5; // Adjust this value as needed
+
+        const video = document.getElementById('background-video');
+        const pausePlayButton = document.getElementById('pause-play-button');
+
+        pausePlayButton.addEventListener('click', () => {
+            if (video.paused) {
+                video.play();
+                pausePlayButton.textContent = '❚❚';
+            } else {
+                video.pause();
+                pausePlayButton.textContent = '►';
+            }
+        });
+    </script>
+</body>
+</html>

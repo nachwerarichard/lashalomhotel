@@ -45,7 +45,7 @@ document.addEventListener('DOMContentLoaded', () => {
     showSlide(currentSlideIndex);
     setInterval(() => {
         currentSlide((currentSlideIndex + 1) % slides.length + 1);
-    }, 5000); // Change slide every 5 seconds
+    }, 3000); // Change slide every 5 seconds
 });
 
 
@@ -72,11 +72,29 @@ document.addEventListener('DOMContentLoaded', () => {
     showTestimonial(currentTestimonialIndex);
     setInterval(() => {
         currentTestimonial((currentTestimonialIndex + 1) % testimonialSlides.length + 1);
-    }, 5000); // Change slide every 5 seconds
+    }, 2000); // Change slide every 5 seconds
 });
   // script.js
   document.addEventListener("DOMContentLoaded", function() {
-    const elementsToAnimate = document.querySelectorAll('.hero01-content, .cta-buttons');
+    const elementsToAnimate = document.querySelectorAll('.hero01-content,.p');
+  
+    const observer = new IntersectionObserver((entries, observer) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, {
+      threshold: 0.1
+    });
+  
+    elementsToAnimate.forEach(element => {
+      observer.observe(element);
+    });
+  });
+  document.addEventListener("DOMContentLoaded", function() {
+    const elementsToAnimate = document.querySelectorAll('.hotel-info ,.card,.amenity,.text-content');
   
     const observer = new IntersectionObserver((entries, observer) => {
       entries.forEach(entry => {
@@ -95,7 +113,7 @@ document.addEventListener('DOMContentLoaded', () => {
   });
    // script.js
    document.addEventListener("DOMContentLoaded", function() {
-    const elementsToAnimate = document.querySelectorAll('.gallery');
+    const elementsToAnimate = document.querySelectorAll('.gallery-item');
   
     const observer = new IntersectionObserver((entries, observer) => {
       entries.forEach(entry => {
@@ -133,7 +151,7 @@ document.addEventListener('DOMContentLoaded', () => {
   });
  // script.js
  document.addEventListener("DOMContentLoaded", function() {
-  const elementsToAnimate = document.querySelectorAll('.experiences-section,.hero-content');
+  const elementsToAnimate = document.querySelectorAll('.experience-card,.hero-content,.text-content');
 
   const observer = new IntersectionObserver((entries, observer) => {
     entries.forEach(entry => {
@@ -534,4 +552,47 @@ document.addEventListener('DOMContentLoaded', () => {
   rooms.forEach(room => {
       observer.observe(room);
   });
+});
+
+document.addEventListener('scroll', function () {
+  const zoomElement = document.querySelector('.p');
+  const elementPosition = zoomElement.getBoundingClientRect();
+  const windowHeight = window.innerHeight;
+
+  if (elementPosition.top < windowHeight && elementPosition.bottom > 0) {
+      // Element is in the viewport
+      zoomElement.style.transform = 'scale(1.5)'; // Increase size
+  } else {
+      // Element is out of the viewport
+      zoomElement.style.transform = 'scale(1)'; // Original size
+  }
+});
+
+document.addEventListener('scroll', function () {
+  const zoomElement = document.querySelector('.hero-content');
+  const elementPosition = zoomElement.getBoundingClientRect();
+  const windowHeight = window.innerHeight;
+
+  if (elementPosition.top < windowHeight && elementPosition.bottom > 0) {
+      // Element is in the viewport
+      zoomElement.style.transform = 'scale(1)'; // Increase size
+  } else {
+      // Element is out of the viewport
+      zoomElement.style.transform = 'scale(0.5)'; // Original size
+  }
+});
+
+document.getElementById('background-video').playbackRate = 0.5; // Adjust this value as needed
+
+const video = document.getElementById('background-video');
+const pausePlayButton = document.getElementById('pause-play-button');
+
+pausePlayButton.addEventListener('click', () => {
+    if (video.paused) {
+        video.play();
+        pausePlayButton.textContent = '❚❚';
+    } else {
+        video.pause();
+        pausePlayButton.textContent = '►';
+    }
 });

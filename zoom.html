@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zoom on Scroll</title>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 200vh; /* To allow scrolling */
+            font-family: Arial, sans-serif;
+        }
+        .zoom-container {
+            position: relative;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #f0f0f0;
+        }
+        .zoom-element {
+            width: 300px;
+            height: 300px;
+            background-color: #3498db;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            font-size: 2em;
+            transition: transform 0.3s ease;
+        }
+        .content {
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="zoom-container">
+        <div class="zoom-element">
+            Zoom Me
+        </div>
+    </div>
+    <div class="content">
+        Scroll past me
+    </div>
+
+    <script>
+        document.addEventListener('scroll', function () {
+            const zoomElement = document.querySelector('.hotel-info');
+            const elementPosition = zoomElement.getBoundingClientRect();
+            const windowHeight = window.innerHeight;
+
+            if (elementPosition.top < windowHeight && elementPosition.bottom > 0) {
+                // Element is in the viewport
+                zoomElement.style.transform = 'scale(1.5)'; // Increase size
+            } else {
+                // Element is out of the viewport
+                zoomElement.style.transform = 'scale(1)'; // Original size
+            }
+        });
+    </script>
+</body>
+</html>

@@ -38,6 +38,7 @@ body {
 
 
 .special-text {
+    font-family: "Dancing Script", cursive;
   font-optical-sizing: auto;
   font-style: normal;
    color:#f5b042;
@@ -103,6 +104,8 @@ body {
 .dropdown {
     position: relative;
     display: inline-block;
+    color:#fff;
+    z-index:5000;
 }
 
 .dropdown-content {
@@ -135,7 +138,7 @@ body {
 }
 
 /* Rotate the arrow to face upwards when the dropdown is hovered */
-.dropdown.dropbtn:hover .dropbtn::after {
+.dropdown.dropbtn:hover .dropbtn::before {
     transform: rotate(180deg);
 }
 
@@ -176,12 +179,26 @@ body {
 }
 
 .hotel-info {
-    background-color: #f8f9fa; /* Light background for readability */
+    min-width:100px;
+    max-width: 100%;
+    background-color: #ece8d9;
     color: #333; /* Dark text color for contrast */
     padding: 20px;
     text-align: center;
-    height:50vh;
+    height:40vh;
     padding-top: 20%;
+}
+.p{
+    opacity: 0;
+    transform: translateY(+50%);
+    transition: opacity 0.3s ease-out, transform 3s ease-out;
+}
+p.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+.hotel-info p:hover {
+    transform: scale(1.05);
 }
 
 .hotel-info h1 {
@@ -247,15 +264,14 @@ body {
 .hero {
     position: relative;
     width: 100%;
-    background: url('multimedia/pics/photo-1605346576608-92f1346b67d6.avif') no-repeat center center/cover;
     height: 80vh;
     display: flex;
     align-items: center;
     justify-content: center;
     color: #fff;
-    padding: 2rem;
     z-index:1000;
     filter: blur(0px);
+    padding-bottom: 0px;
 
 }
 .hero video {
@@ -263,12 +279,31 @@ body {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    min-width: 100%;
-    min-height: 100%;
+    min-width: 100px;
+    min-height: auto;
     z-index: -1;
     filter: brightness(50%);
+    width:100%;
+}
+.pause-button {
+    position: absolute;
+    bottom: 10px;
+    left: 10px;
+    padding: 10px 20px;
+    background-color: rgba(0, 0, 0, 0.5);
+    color: white;
+    border: none;
+    cursor: pointer;
+    z-index: 2;
+    font-size: 14px;
+    border-radius:50%;
+}
+.pause-button:hover {
+    background-color: rgba(0, 0, 0, 0.7);
 }
 .hero-content {
+    padding: 2rem;
+
     z-index: 1;
     text-align: center;
 }
@@ -447,13 +482,22 @@ body {
     transform: translateY(+10%);
     transition: opacity 0.5s ease-out, transform 0.5s ease-out;
 }
-
-  
+.text-content:hover {
+    transform: scale(1.05);
+}
   .content-section.visible {
     opacity: 1;
     transform: translateY(0);
   }
-
+.text-content{
+    opacity: 0;
+    transform: translateX(-100px);
+    transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+}
+.text-content.visible{
+    opacity: 1;
+    transform: translateX(0);
+}
 
 .text-content {
     flex: 1;
@@ -568,8 +612,16 @@ body {
     flex: 1 1 200px;
     text-align: center;
     max-width:300px;
+    opacity: 0;
+    transform: translateX(+50%);
+    transition: opacity 0.3s ease-out, transform 0.3s ease-out;
 
 }
+.amenity.visible {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
 .amenity:hover{
     transform: translateY(-10px);
 
@@ -751,8 +803,8 @@ body {
     justify-content: center;
     background-color: #faf6e9;
     height:90vh;
+padding-bottom: 100px;
 }
-
 
 .card {
     flex: 1 1 300px;
@@ -763,10 +815,20 @@ body {
     text-align: center;
     padding-bottom: 10px;
     background-color: #fffdf6;
+    opacity: 0;
+    transform: translateY(+50%);
+    transition: opacity 0.3s ease-out, transform 0.3s ease-out;
 }
-.card:hover{
+.card.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+.ca:hover{
     transform: translateY(-10px);
 
+}
+.card:hover {
+    transform: scale(1.05);
 }
 .card img {
     width: 100%;
@@ -935,7 +997,14 @@ body {
     transition: transform 0.3s;
     padding-bottom: 10px;
 padding-bottom: 10px;
+opacity: 0;
+    transform: translateX(+50px);
+    transition: opacity 0.3s ease-out, transform 0.3s ease-out;
 
+}
+.experience-card.visible {
+    opacity: 1;
+    transform: translateX(0);
 }
 .experience-card h3{
     margin-top:0px;
@@ -1006,11 +1075,13 @@ margin-top: 0px;    }
     padding-top: 200px;
     margin-left:10%;
     margin-right:10%;
+}
+.gallery-item{
     opacity: 0;
-    transform: translateY(+10%);
+    transform: translateY(+50%);
     transition: opacity 0.5s ease-out, transform 0.5s ease-out;
 }
-.gallery.visible {
+.gallery-item.visible {
     opacity: 1;
     transform: translateY(0);
   }
@@ -1064,8 +1135,8 @@ min-width:100px;
     min-width:100px;
     margin-left:10%;
     margin-right:10%;
+    padding-top: 50px;
     font-family: "Cormorant Garamond", serif;
-
     }
 
 .galhead button a{
