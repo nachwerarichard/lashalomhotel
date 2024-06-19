@@ -40,10 +40,6 @@ body {
     color: #fff;
     z-index:2000;
     min-width:100px;
-    position: fixed;
-    width: 100%;
-    top: 0;
-    left: 0; 
 }
 .navbar a {
     z-index:2000;
@@ -105,9 +101,11 @@ body {
     display: inline-block;
     color:#fff;
     z-index:5000;
+    min-width:100px;
 }
 
 .dropdown-content {
+    
     display: none;
     position: absolute;
     background-color: #333;
@@ -137,6 +135,13 @@ body {
 
 .dropdown:hover .dropbtn .fas {
     transform: rotate(-180deg); /* Rotate arrow on hover */
+}
+@media screen and (max-width: 771px) {
+    .dropdown-content {
+        min-width: 100%; /* Full width on smaller screens */
+        left: 0; /* Align to the left edge */
+        right: 0; /* Align to the right edge */
+    }
 }
 
 @media (max-width: 771px) {
@@ -218,30 +223,6 @@ p.visible {
     
 }
 
-.parent {
-    position: relative;
-    width: 100%;
-    height: 100vh;
-    background: url('multimedia/pics/photo-1605346576608-92f1346b67d6.avif') no-repeat center center;
-    background-size: cover;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    overflow: hidden;
-}
-
-.parent::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: inherit;
-    filter: blur(4px);
-    z-index: 1;
-}
-
 /* Content */
 .content {
     position: relative;
@@ -253,9 +234,7 @@ p.visible {
 /* Hero section styles */
 
 
-.blurred {
-    filter: blur(5px);
-}
+
 .hero {
     position: relative;
     width: 100%;
@@ -264,7 +243,7 @@ p.visible {
     align-items: center;
     justify-content: center;
     color: #fff;
-    
+   min-width:100px;
 
 }
 .hero video {
@@ -279,6 +258,13 @@ p.visible {
     width:100%;
     object-fit:cover;
 }
+@media (max-width: 768px) {
+    .hero video  {
+        width:100%;
+        height:auto;
+    }
+    
+}
 .hero-content {
     z-index: 1;
     text-align: center;
@@ -286,7 +272,7 @@ p.visible {
 
 .pause-button {
     position: absolute;
-    bottom: 10%;
+    bottom: 12%;
     left: 40px;
     padding: 10px 20px;
     background-color: rgba(0, 0, 0, 0.5);
@@ -2103,6 +2089,11 @@ background-color: #fff;
     opacity: 0;
     transform: translateY(50px);
     transition: opacity 0.3s ease-out, transform 0.3s ease-out;
+    border-bottom:1px solid #494949;
+}
+.room reverse{
+    border-bottom:1px solid #494949;
+
 }
 
 .room.visible {

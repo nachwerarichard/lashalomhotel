@@ -74,6 +74,19 @@ document.addEventListener('DOMContentLoaded', () => {
         currentTestimonial((currentTestimonialIndex + 1) % testimonialSlides.length + 1);
     }, 2000); // Change slide every 5 seconds
 });
+document.addEventListener('scroll', function () {
+  const zoomElement = document.querySelector('.testimonial-carousel');
+  const elementPosition = zoomElement.getBoundingClientRect();
+  const windowHeight = window.innerHeight;
+
+  if (elementPosition.top < windowHeight && elementPosition.bottom > 0) {
+      // Element is in the viewport
+      zoomElement.style.transform = 'scale(1)'; // Increase size
+  } else {
+      // Element is out of the viewport
+      zoomElement.style.transform = 'scale(0.5)'; // Original size
+  }
+});
   // script.js
   document.addEventListener("DOMContentLoaded", function() {
     const elementsToAnimate = document.querySelectorAll('.hero01-content,.p');
@@ -151,7 +164,7 @@ document.addEventListener('DOMContentLoaded', () => {
   });
  // script.js
  document.addEventListener("DOMContentLoaded", function() {
-  const elementsToAnimate = document.querySelectorAll('.experience-card,.hero-content,.text-content');
+  const elementsToAnimate = document.querySelectorAll('.experience-card,.hero-content');
 
   const observer = new IntersectionObserver((entries, observer) => {
     entries.forEach(entry => {
@@ -581,6 +594,59 @@ document.addEventListener('scroll', function () {
       zoomElement.style.transform = 'scale(0.5)'; // Original size
   }
 });
+document.addEventListener('scroll', function () {
+  const zoomElement = document.querySelector('.hero01-content');
+  const elementPosition = zoomElement.getBoundingClientRect();
+  const windowHeight = window.innerHeight;
+
+  if (elementPosition.top < windowHeight && elementPosition.bottom > 0) {
+      // Element is in the viewport
+      zoomElement.style.transform = 'scale(1)'; // Increase size
+  } else {
+      // Element is out of the viewport
+      zoomElement.style.transform = 'scale(0.5)'; // Original size
+  }
+});
+document.addEventListener('scroll', function () {
+  const zoomElement = document.querySelector('.contact-info');
+  const elementPosition = zoomElement.getBoundingClientRect();
+  const windowHeight = window.innerHeight;
+
+  if (elementPosition.top < windowHeight && elementPosition.bottom > 0) {
+      // Element is in the viewport
+      zoomElement.style.transform = 'scale(1)'; // Increase size
+  } else {
+      // Element is out of the viewport
+      zoomElement.style.transform = 'scale(0.5)'; // Original size
+  }
+});
+document.addEventListener('scroll', function () {
+  const zoomElement = document.querySelector('.contact-us');
+  const elementPosition = zoomElement.getBoundingClientRect();
+  const windowHeight = window.innerHeight;
+
+  if (elementPosition.top < windowHeight && elementPosition.bottom > 0) {
+      // Element is in the viewport
+      zoomElement.style.transform = 'scale(1)'; // Increase size
+  } else {
+      // Element is out of the viewport
+      zoomElement.style.transform = 'scale(0.5)'; // Original size
+  }
+});
+document.addEventListener('scroll', function () {
+  const zoomElement = document.querySelector('.text-content');
+  const elementPosition = zoomElement.getBoundingClientRect();
+  const windowHeight = window.innerHeight;
+
+  if (elementPosition.top < windowHeight && elementPosition.bottom > 0) {
+      // Element is in the viewport
+      zoomElement.style.transform = 'scale(1)'; // Increase size
+  } else {
+      // Element is out of the viewport
+      zoomElement.style.transform = 'scale(0.5)'; // Original size
+  }
+});
+
 
 document.getElementById('background-video').playbackRate = 0.5; // Adjust this value as needed
 
@@ -595,4 +661,28 @@ pausePlayButton.addEventListener('click', () => {
         video.pause();
         pausePlayButton.textContent = '►';
     }
+});
+document.addEventListener("DOMContentLoaded", function() {
+  var dropdown = document.querySelector('.dropdown');
+  var dropdownContent = document.querySelector('.dropdown-content');
+
+  dropdown.addEventListener('click', function() {
+      // Toggle the active class on the dropdown container
+      this.classList.toggle('active');
+
+      // Toggle the display of dropdown content
+      if (dropdownContent.style.display === 'block') {
+          dropdownContent.style.display = 'none';
+      } else {
+          dropdownContent.style.display = 'block';
+      }
+  });
+
+  // Close dropdown content if user clicks outside of it
+  document.addEventListener('click', function(event) {
+      if (!dropdown.contains(event.target)) {
+          dropdown.classList.remove('active');
+          dropdownContent.style.display = 'none';
+      }
+  });
 });
