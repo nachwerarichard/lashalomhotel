@@ -22,6 +22,15 @@ body {
 
     
 }
+.special-text {
+    font-family: "Dancing Script", cursive;
+  font-optical-sizing: auto;
+  font-style: normal;
+   color:#f5b042;
+  padding-top:0px;
+  padding-bottom: 0px;
+  margin:0px;
+}
 .navbar {
     display: flex;
     justify-content: space-between;
@@ -31,20 +40,10 @@ body {
     color: #fff;
     z-index:2000;
     min-width:100px;
-    
-
-    
-}
-
-
-.special-text {
-    font-family: "Dancing Script", cursive;
-  font-optical-sizing: auto;
-  font-style: normal;
-   color:#f5b042;
-  padding-top:0px;
-  padding-bottom: 0px;
-  margin:0px;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    left: 0; 
 }
 .navbar a {
     z-index:2000;
@@ -138,7 +137,7 @@ body {
 }
 
 /* Rotate the arrow to face upwards when the dropdown is hovered */
-.dropdown.dropbtn:hover .dropbtn::before {
+.dropdown:hover .dropbtn::after {
     transform: rotate(180deg);
 }
 
