@@ -4,6 +4,7 @@ body {
     font-family: "Open Sans", sans-serif;
     background-color: #fffdf6;
     height: 100%;
+    overflow: hidden;
 }
 
 .navbar01 {
@@ -142,7 +143,7 @@ body {
 }
 
 
-@media (max-width: 805px) {
+@media (max-width: 771px) {
     .nav-links {
         display: none;
         flex-direction: column;
@@ -186,7 +187,7 @@ body {
     text-align: center;
     height:40vh;
     justify-content: center;
-    padding-top: 25%;
+    padding-top: 20%;
 }
 .p{
     opacity: 0;
@@ -216,8 +217,9 @@ p.visible {
 @media (max-width: 768px) {
     .hotel-info  {
         font-size: 1em;
-        padding-top: 40%;
+        padding-top: 20%;
     }
+    
 }
 
 .parent {
@@ -261,13 +263,12 @@ p.visible {
 .hero {
     position: relative;
     width: 100%;
-    height: 100%;
+    height: 100vh;
+    display: flex;
     align-items: center;
     justify-content: center;
     color: #fff;
-    z-index:1000;
-    filter: blur(0px);
-    padding-bottom: 0px;
+    
 
 }
 .hero video {
@@ -276,17 +277,21 @@ p.visible {
     left: 50%;
     transform: translate(-50%, -50%);
     min-width: 100px;
-    min-height: auto;
+    min-height: 100%;
     z-index: -1;
     filter: brightness(50%);
     width:100%;
     object-fit:cover;
 }
+.hero-content {
+    z-index: 1;
+    text-align: center;
+}
 
 .pause-button {
     position: absolute;
-    bottom: 10px;
-    left: 10px;
+    bottom: 10%;
+    left: 40px;
     padding: 10px 20px;
     background-color: rgba(0, 0, 0, 0.5);
     color: white;
