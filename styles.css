@@ -131,16 +131,13 @@ body {
     display: block;
 }
 .dropdown .dropbtn::after {
-    content: '\25BC'; /* Unicode for downward-facing arrow */
     margin-left: 5px;
     transition: transform 0.3s;
 }
 
-/* Rotate the arrow to face upwards when the dropdown is hovered */
-.dropdown:hover .dropbtn::after {
-    transform: rotate(180deg);
+.dropdown:hover .dropbtn .fas {
+    transform: rotate(-180deg); /* Rotate arrow on hover */
 }
-
 
 @media (max-width: 771px) {
     .nav-links {
