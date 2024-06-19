@@ -32,6 +32,7 @@ body {
   margin:0px;
 }
 .navbar {
+    position:fixed;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -40,6 +41,7 @@ body {
     color: #fff;
     z-index:2000;
     min-width:100px;
+    width:100%;
 }
 .navbar a {
     z-index:2000;
@@ -145,6 +147,7 @@ body {
 }
 
 @media (max-width: 771px) {
+   
     .nav-links {
         display: none;
         flex-direction: column;
@@ -170,7 +173,8 @@ body {
 
     .hamburger {
         display: block;
-        z-index: 4000;
+        z-index: 7000;
+        margin-right:20px;
     }
 }
 
