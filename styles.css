@@ -1063,7 +1063,7 @@ margin-top: 0px;    }
     gap: 1rem;
     padding: 2rem;
     justify-content: center;
-    padding-top: 200px;
+    padding-top: 50px;
     margin-left:10%;
     margin-right:10%;
 }
@@ -2123,16 +2123,19 @@ background-color: #fff;
     width: 50%;
     padding: 20px;
 }
-
+span  a{
+    text-decoration: none;
+}
 @media (max-width: 768px) {
+    .room-container{
+       flex-direction: column;
+    }
     .room {
         flex-direction: column;
     }
-
     .room.reverse {
         flex-direction: column;
     }
-
     .room-image, .room-description {
         width: 100%;
     }

@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hotel Room Details</title>
+<style>
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-color: #f5f5f5;
+}
+
+.room-details {
+    display: flex;
+    flex-wrap: wrap;
+    background-color: white;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    max-width: 1200px;
+    width: 100%;
+}
+
+.carousel, .details {
+    flex: 1;
+    min-width: 300px;
+}
+
+.carousel {
+    position: relative;
+    overflow: hidden;
+}
+
+.carousel-images {
+    display: flex;
+    transition: transform 1s ease;
+}
+
+.carousel-images img {
+    width: 100%;
+    object-fit: cover;
+    opacity: 0;
+    transition: opacity 1s ease;
+}
+
+.carousel-images img.active {
+    opacity: 1;
+}
+
+.carousel-controls {
+    position: absolute;
+    top: 50%;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    transform: translateY(-50%);
+}
+
+.carousel-controls button {
+    background-color: rgba(0, 0, 0, 0.5);
+    color: white;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+}
+
+.price-label {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    background-color: rgba(0, 0, 0, 0.5);
+    color: white;
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-size: 1.2em;
+}
+
+.details {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+h1 {
+    font-size: 2em;
+    margin-bottom: 10px;
+}
+
+.description {
+    margin-bottom: 20px;
+}
+
+.pricing {
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+.amenities {
+    list-style: none;
+    margin-bottom: 20px;
+}
+
+.amenities li {
+    margin-bottom: 10px;
+}
+
+.book-now {
+    padding: 10px 20px;
+    font-size: 1em;
+    color: white;
+    background-color: #007BFF;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    align-self: start;
+}
+
+.book-now:hover {
+    background-color: #0056b3;
+}
+
+@media (max-width: 768px) {
+    .room-details {
+        flex-direction: column;
+    }
+
+    .carousel, .details {
+        min-width: 100%;
+    }
+}
+
+</style>
+</head>
+<body>
+    <div class="room-details">
+        <div class="carousel">
+            <div class="carousel-images">
+                <img src="hotelpics/room12_c.avif" alt="Room Image 1" class="active">
+                <img src="hotelpics/room_12a.avif" alt="Room Image 2">
+                <img src="hotelpics/room_15a.avif" alt="Room Image 3">
+                <img src="hotelpics/room17_A.avif" alt="Room Image 4">
+                <img src="hotelpics/room_15b.avif" alt="Room Image 5">
+                <img src="hotelpics/room_18b.webp" alt="Room Image 6">
+                <img src="hotelpics/room_19d.webp" alt="Room Image 7">
+            </div>
+            <div class="carousel-controls">
+                <button class="prev">Previous</button>
+                <button class="next">Next</button>
+            </div>
+            <div class="price-label">Price: $500 per night</div>
+        </div>
+        <div class="details">
+            <h1>Deluxe Suite</h1>
+            <p class="description">Experience the epitome of luxury in our Deluxe Suite, featuring elegant decor, a spacious living area, and breathtaking views.</p>
+            <p class="pricing">Price: $500 per night</p>
+            <ul class="amenities">
+                <li>King-size bed</li>
+                <li>Free Wi-Fi</li>
+                <li>Complimentary breakfast</li>
+                <li>24/7 room service</li>
+                <li>Access to the spa and fitness center</li>
+            </ul>
+            <button class="book-now">Book Now</button>
+        </div>
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const prevBtn = document.querySelector('.prev');
+            const nextBtn = document.querySelector('.next');
+            const carouselImages = document.querySelector('.carousel-images');
+            const images = carouselImages.children;
+            let index = 0;
+
+            function showImage(index) {
+                Array.from(images).forEach((img, i) => {
+                    img.classList.remove('active');
+                    if (i === index) {
+                        img.classList.add('active');
+                    }
+                });
+
+                const totalImages = images.length;
+                const width = carouselImages.parentElement.clientWidth;
+
+                // Set the width of the carousel images container
+                carouselImages.style.width = `${totalImages * 100}%`;
+
+                // Set the width of each image
+                Array.from(images).forEach(img => {
+                    img.style.width = `${width}px`;
+                });
+
+                carouselImages.style.transform = `translateX(${-index * width}px)`;
+            }
+
+            function nextImage() {
+                index = (index < images.length - 1) ? index + 1 : 0;
+                showImage(index);
+            }
+
+            function prevImage() {
+                index = (index > 0) ? index - 1 : images.length - 1;
+                showImage(index);
+            }
+
+            prevBtn.addEventListener('click', prevImage);
+            nextBtn.addEventListener('click', nextImage);
+
+            // Initialize carousel
+            showImage(index);
+
+            // Make carousel continuous
+            setInterval(nextImage, 3000); // Change image every 3 seconds
+        });
+    </script>
+</body>
+</html>
