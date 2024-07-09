@@ -4,125 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Hotel Room Details</title>
-    <style>
-        * {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-}
+    <link rel="stylesheet" href="styles04.css">
 
-body {
-    font-family: Arial, sans-serif;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-    background-color: #f5f5f5;
-}
-
-.room-details {
-    display: flex;
-    flex-wrap: wrap;
-    background-color: white;
-    border-radius: 10px;
-    overflow: hidden;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    max-width: 1200px;
-    width: 100%;
-}
-
-.carousel, .details {
-    flex: 1;
-    min-width: 300px;
-}
-
-.carousel {
-    position: relative;
-    overflow: hidden;
-}
-
-.carousel-images {
-    display: flex;
-}
-
-.carousel-images img {
-    width: 100%;
-    object-fit: cover;
-}
-
-.carousel-controls {
-    position: absolute;
-    top: 50%;
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-    transform: translateY(-50%);
-}
-
-.carousel-controls button {
-    background-color: rgba(0, 0, 0, 0.5);
-    color: white;
-    border: none;
-    padding: 10px;
-    cursor: pointer;
-}
-
-.details {
-    padding: 20px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-}
-
-h1 {
-    font-size: 2em;
-    margin-bottom: 10px;
-}
-
-.description {
-    margin-bottom: 20px;
-}
-
-.pricing {
-    font-weight: bold;
-    margin-bottom: 20px;
-}
-
-.amenities {
-    list-style: none;
-    margin-bottom: 20px;
-}
-
-.amenities li {
-    margin-bottom: 10px;
-}
-
-.book-now {
-    padding: 10px 20px;
-    font-size: 1em;
-    color: white;
-    background-color: #007BFF;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    align-self: start;
-}
-
-.book-now:hover {
-    background-color: #0056b3;
-}
-
-@media (max-width: 768px) {
-    .room-details {
-        flex-direction: column;
-    }
-
-    .carousel, .details {
-        min-width: 100%;
-    }
-}
-
-    </style>
 </head>
 <body>
     <div class="room-details">
@@ -155,29 +38,7 @@ h1 {
             <button class="book-now">Book Now</button>
         </div>
     </div>
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-    const prevBtn = document.querySelector('.prev');
-    const nextBtn = document.querySelector('.next');
-    const carouselImages = document.querySelector('.carousel-images');
-    let index = 0;
+    <script src="script04.js"></script>
 
-    function showImage(index) {
-        const width = carouselImages.clientWidth;
-        carouselImages.style.transform = `translateX(${-index * width}px)`;
-    }
-
-    prevBtn.addEventListener('click', function() {
-        index = (index > 0) ? index - 1 : carouselImages.children.length - 1;
-        showImage(index);
-    });
-
-    nextBtn.addEventListener('click', function() {
-        index = (index < carouselImages.children.length - 1) ? index + 1 : 0;
-        showImage(index);
-    });
-});
-
-    </script>
 </body>
 </html>
