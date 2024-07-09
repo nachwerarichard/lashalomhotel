@@ -107,7 +107,7 @@ document.addEventListener('scroll', function () {
     });
   });
   document.addEventListener("DOMContentLoaded", function() {
-    const elementsToAnimate = document.querySelectorAll('.hotel-info ,.card,.amenity,.text-content');
+    const elementsToAnimate = document.querySelectorAll('.hotel-info ,.amenity,.text-content');
   
     const observer = new IntersectionObserver((entries, observer) => {
       entries.forEach(entry => {
@@ -684,5 +684,28 @@ document.addEventListener("DOMContentLoaded", function() {
           dropdown.classList.remove('active');
           dropdownContent.style.display = 'none';
       }
+
   });
+});
+
+
+document.addEventListener('DOMContentLoaded', function() {
+  const cards = document.querySelectorAll('.card');
+
+  function checkVisibility() {
+      const triggerBottom = window.innerHeight / 1.2;
+
+      cards.forEach((card, index) => {
+          const cardTop = card.getBoundingClientRect().top;
+
+          if (cardTop < triggerBottom) {
+              setTimeout(() => {
+                  card.classList.add('show');
+              }, index * 500); // Stagger the animation by 500ms for each card
+          }
+      });
+  }
+
+  window.addEventListener('scroll', checkVisibility);
+  checkVisibility(); // Check visibility on page load
 });

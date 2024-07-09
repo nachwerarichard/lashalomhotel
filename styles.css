@@ -803,16 +803,19 @@ padding-bottom: 100px;
     padding-bottom: 10px;
     background-color: #fffdf6;
     opacity: 0;
-    transform: translateY(+50%);
-    transition: opacity 0.3s ease-out, transform 0.3s ease-out;
+    transform: translateY(20px);
+    transition: opacity 1s, transform 0.2s;
 }
-.card.visible {
-    opacity: 1;
-    transform: translateY(0);
-  }
+
+/* Apply move up and fade-in animation to the div element */
+
 .ca:hover{
     transform: translateY(-10px);
 
+}
+.card.show {
+    opacity: 1;
+    transform: translateY(0);
 }
 .card:hover {
     transform: scale(1.05);
@@ -865,6 +868,7 @@ padding-bottom: 100px;
 .card button{
     font-family: 'Roboto', sans-serif;
 }
+
 
 @media (max-width: 1027px) {
     .card {
@@ -2139,4 +2143,11 @@ span  a{
     .room-image, .room-description {
         width: 100%;
     }
+}
+.container {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    padding: 20px;
+    margin-top: 50px; /* Place container in the middle of the page */
 }
