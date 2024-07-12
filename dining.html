@@ -12,7 +12,7 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap" rel="stylesheet">
 </head>
-<body style="background:url('hotelpics/food_1023a.avif')">
+<body >
     <div id="loader" class="loader"></div>
     <div id="content" style="display: none;">
         <nav class="navbar">
@@ -41,14 +41,35 @@
                 <div class="bar bar3"></div>
             </div>
         </nav>
-    <div class="hero01" style="background:url('hotelpics/food_121b.avif');background-size:100% 60vh;background-repeat:no-repeat; color:#fff;">
-        <div class="hero01-content">
+
+    <div class="hero" style="background:url('hotelpics/food_121b.avif');background-size:100% 100vh;background-repeat:no-repeat; color:#fff;">
+        <div class="hero-content">
             <h1 id="blue-underline">Wine $ Dine</h1>
             
         </div>
     </div>
+    <div class="hotel-info">
+        <p>Experience unparalleled luxury and comfort with our world-class amenities and exceptional service. </p>
+    </div>
+    <div class="" style="background:url('hotelpics/food_1023a.avif'); height:100%;">        
+    <div class="carousel">
+        <div class="carousel-slide" id="slide1">
+            <img src="multimedia/restaurant_1c.webp" alt="Slide 1">
+        </div>
+        <div class="carousel-slide" id="slide2">
+            <img src="multimedia/restaurant_1b.webp" alt="Slide 2">
+        </div>
+        <div class="carousel-slide" id="slide3">
+            <img src="hotelpics/food_121b.avif" alt="Slide 3">
+        </div>
+        <div class="dots">
+            <span class="dot" onclick="currentSlide(1)"></span>
+            <span class="dot" onclick="currentSlide(2)"></span>
+            <span class="dot" onclick="currentSlide(3)"></span>
+        </div>
+    </div>
    
-    <div class="menu" >
+    <div class="menu"  >
 
         <div class="menu-category" data-category="Drinks">
             <h3>Drinks</h3>
@@ -152,5 +173,6 @@
     </div> 
     <script src="js/script.js"></script>
     <script src="js/script2.js"></script>
+    </div>
 </body>
 </html>
