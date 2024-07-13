@@ -2153,3 +2153,62 @@ span  a{
     padding: 20px;
     margin-top: 50px; /* Place container in the middle of the page */
 }
+
+.team {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding: 20px;
+    gap: 20px;
+    
+}
+
+.team-card {
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    text-align: center;
+    width: calc(100% - 40px); /* 100% width minus padding for mobile */
+    max-width: 300px; /* Adjust as needed */
+    transition: transform 0.2s;
+}
+
+.team-card:hover {
+    transform: scale(1.05);
+}
+
+.team-card img {
+    width: 100%;
+    height: auto;
+    border-radius: 5%;
+}
+
+.team-info {
+    padding: 20px;
+}
+
+.team-info h3 {
+    margin: 0;
+    font-size: 24px;
+    color: #333;
+}
+
+.team-info p {
+    margin: 5px 0 0;
+    font-size: 18px;
+    color: #777;
+}
+
+/* Media Queries */
+@media (min-width: 600px) {
+    .team-card {
+        width: calc(50% - 40px); /* 50% width for tablets */
+    }
+}
+
+@media (min-width: 900px) {
+    .team-card {
+        width: calc(33.333% - 40px); /* 33.333% width for desktops */
+    }
+}
