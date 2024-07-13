@@ -6,6 +6,9 @@
     <title>Hotel</title>
     <link rel="shortcut icon" type="image/x-icon" href="hotelpics/svg/icon01.png" />
     <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/styles03.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap" rel="stylesheet">
 
 </head>
@@ -44,41 +47,59 @@
             
         </div>
     </div>
-    <div class="room-info">
-        <div class="room-details">
-          <h2>15 Seat Conference Hall</h2>
-          <p class="price">$299 per night</p>
-          <p class="description">Experience the ultimate in luxury and comfort in our Deluxe Suite, featuring stunning views and top-of-the-line amenities.</p>
-          <ul class="amenities01">
-            <li>Free Wi-Fi</li>
-            <li>24-hour room service</li>
-            <li>Complimentary breakfast</li>
+    <div class="room-container">
+        <div class="room">
+            <div class="carousel_01">
+                <div class="carousel-images_01">
+                    <img src="hotelpics/conference_1a.webp" alt="Room Image 5">
+                    <img src="hotelpics/conference_1b.webp" alt="Room Image 3">
+                    <img src="hotelpics/conference_1c.webp" alt="Room Image 4">
+                   >
+                </div>
+                <div class="carousel-controls_01">
+                    <button class="prev_01"> <i class="iclass-left fas fa-chevron-left"></i></button>
+                    <button class="next_01"><i class="iclass-right fas fa-chevron-right"></i></button>
+                </div>
+                <div class="price-label"> $1000 per day</div>
+            </div>
+            <div class="room-description">
+                <h2>40 seat conference hall</h2>
+                <p>This deluxe room offers a comfortable and luxurious stay with modern amenities.</p>
+                <ul>
+                    <h3>Ammenities</h3>
+                    <li>Free Wi-Fi</li>
+                    
+                </ul>
+                <button id ="room12" class="book-now"><a href="booking.html">Book Now</a></button>
 
-          </ul>
-          <button id="room11" class="book-now"><a href="booking.html">Book Now</a></button>
+            </div>
         </div>
-        <div class="room-image">
-          <img src="multimedia/pics/slider_1.jpg" alt="Deluxe Suite">
+        <div class="room reverse">
+            <div class="carousel_02">
+                <div class="carousel-images_02">
+                    <img src="hotelpics/conference_1b.webp" alt="Room Image 3">
+
+                    <img src="hotelpics/conference_1d.webp" alt="Room Image 1">
+                    <img src="hotelpics/conference_1a.webp" alt="Room Image 2">
+                    
+                </div>
+                <div class="carousel-controls_01">
+                    <button class="prev_02"><i class="iclass-left fas fa-chevron-left"></i></button>
+                    <button class="next_02"><i class="iclass-right fas fa-chevron-right"></i></button></button>
+                </div>
+                <div class="price-label"> $2000 per day</div>
+            </div>
+            <div class="room-description">
+                <h2>200 seat conference hall</h2>
+                <p>Experience luxury in our executive suite with premium services and facilities.</p>
+                <ul>
+                    <li>High-speed Internet</li>
+
+                </ul>
+                <button id ="room12" class="book-now"><a href="booking.html">Book Now</a></button>
+
+            </div>  
         </div>
-      </div>
-      <div class="room-info">
-        
-        <div class="room-image">
-          <img src="multimedia/pics/slider_1.jpg" alt="Deluxe Suite">
-        </div>
-        <div class="room-details">
-            <h2>50 Seat Conference Hall </h2>
-            <p class="price">$299 per night</p>
-            <p class="description">Experience the ultimate in luxury and comfort in our Deluxe Suite, featuring stunning views and top-of-the-line amenities.</p>
-            <ul class="amenities01">
-              <li>Free Wi-Fi</li>
-              <li>24-hour room service</li>
-              <li>Complimentary breakfast</li>
-  
-            </ul>
-            <button id ="room12" class="book-now"><a href="booking.html">Book Now</a></button>
-          </div>
-      </div>
     </div>
       
 
@@ -123,5 +144,91 @@
        
 </div>
     <script src="js/script.js"></script>
+    <script >
+        document.addEventListener('DOMContentLoaded', function() {
+            const prevBtn = document.querySelector('.prev_01');
+            const nextBtn = document.querySelector('.next_01');
+            const carouselImages = document.querySelector('.carousel-images_01');
+            let index = 0;
+
+            function showImage(index) {
+                const images = carouselImages.children;
+                const totalImages = images.length;
+                const width = carouselImages.parentElement.clientWidth;
+                
+                // Set the width of the carousel images container
+                carouselImages.style.width = `${totalImages * 100}%`;
+                
+                // Set the width of each image
+                Array.from(images).forEach(img => {
+                    img.style.width = `${width}px`;
+                });
+
+                carouselImages.style.transform = `translateX(${-index * width}px)`;
+            }
+
+            function nextImage() {
+                index = (index < carouselImages.children.length - 1) ? index + 1 : 0;
+                showImage(index);
+            }
+
+            function prevImage() {
+                index = (index > 0) ? index - 1 : carouselImages.children.length - 1;
+                showImage(index);
+            }
+
+            prevBtn.addEventListener('click', prevImage);
+            nextBtn.addEventListener('click', nextImage);
+
+            // Initialize carousel
+            showImage(index);
+
+            // Make carousel continuous
+            setInterval(nextImage, 3000); // Change image every 3 seconds
+        });
+    </script>
+    <script >
+        document.addEventListener('DOMContentLoaded', function() {
+            const prevBtn = document.querySelector('.prev_02');
+            const nextBtn = document.querySelector('.next_02');
+            const carouselImages = document.querySelector('.carousel-images_02');
+            let index = 0;
+
+            function showImage(index) {
+                const images = carouselImages.children;
+                const totalImages = images.length;
+                const width = carouselImages.parentElement.clientWidth;
+                
+                // Set the width of the carousel images container
+                carouselImages.style.width = `${totalImages * 100}%`;
+                
+                // Set the width of each image
+                Array.from(images).forEach(img => {
+                    img.style.width = `${width}px`;
+                });
+
+                carouselImages.style.transform = `translateX(${-index * width}px)`;
+            }
+
+            function nextImage() {
+                index = (index < carouselImages.children.length - 1) ? index + 1 : 0;
+                showImage(index);
+            }
+
+            function prevImage() {
+                index = (index > 0) ? index - 1 : carouselImages.children.length - 1;
+                showImage(index);
+            }
+
+            prevBtn.addEventListener('click', prevImage);
+            nextBtn.addEventListener('click', nextImage);
+
+            // Initialize carousel
+            showImage(index);
+
+            // Make carousel continuous
+            setInterval(nextImage, 3000); // Change image every 3 seconds
+        });
+    </script>
 </body>
 </html>
