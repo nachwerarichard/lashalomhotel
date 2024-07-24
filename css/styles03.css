@@ -1,20 +1,19 @@
-
-        .carousel_01, .details {
+.carousel_01, .details, .carousel_02, .carousel_03, .carousel_04, .carousel_05, .carousel_06 {
     flex: 1;
     min-width: 300px;
 }
-.carousel_01 {
+.carousel_01, .carousel_02, .carousel_03, .carousel_04, .carousel_05, .carousel_06 {
     position: relative;
     overflow: hidden;
 }
-.carousel-images_01 {
+.carousel-images_01, .carousel-images_02, .carousel-images_03, .carousel-images_04, .carousel-images_05, .carousel-images_06 {
     display: flex;
 }
-.carousel-images_01 img {
+.carousel-images_01 img, .carousel-images_02 img, .carousel-images_03 img, .carousel-images_04 img, .carousel-images_05 img, .carousel-images_06 img {
     width: 100%;
-    height:400px;
+    height: 400px;
 }
-.carousel-controls_01 {
+.carousel-controls_01, .carousel-controls_02, .carousel-controls_03, .carousel-controls_04, .carousel-controls_05, .carousel-controls_06 {
     position: absolute;
     top: 50%;
     width: 100%;
@@ -22,212 +21,29 @@
     justify-content: space-between;
     transform: translateY(-50%);
 }
-.carousel-controls_01 button {
+.carousel-controls_01 button, .carousel-controls_02 button, .carousel-controls_03 button, .carousel-controls_04 button, .carousel-controls_05 button, .carousel-controls_06 button {
     background-color: rgba(0, 0, 0, 0.5);
     color: white;
     border: none;
     padding: 10px;
     cursor: pointer;
 }
+
 @media (max-width: 768px) {
-    .carousel-images_01 img {
-        height: 300px;
+    .carousel-images_01 img, .carousel-images_02 img, .carousel-images_03 img, .carousel-images_04 img, .carousel-images_05 img, .carousel-images_06 img {
+        display:none;
     }
-    .carousel-controls_01 button {
-        padding: 8px;
-    }
+    .carousel-controls_01 button, .carousel-controls_02 button, .carousel-controls_03 button, .carousel-controls_04 button, .carousel-controls_05 button, .carousel-controls_06 button {
+display:none;    }
 }
 
-/* Small Mobile Styles */
 @media (max-width: 480px) {
-    .carousel-images_01 img {
-        height: 200px;
-    }
-    .carousel-controls_01 button {
-        padding: 6px;
-    }
+    .carousel-images_01 img, .carousel-images_02 img, .carousel-images_03 img, .carousel-images_04 img, .carousel-images_05 img, .carousel-images_06 img {
+display:none;    }
+    .carousel-controls_01 button, .carousel-controls_02 button, .carousel-controls_03 button, .carousel-controls_04 button, .carousel-controls_05 button, .carousel-controls_06 button {
+display:none;    }
 }
 
-.carousel_02, .details {
-    flex: 1;
-    min-width: 300px;
-}
-.carousel_02 {
-    position: relative;
-    overflow: hidden;
-}
-.carousel-images_02 {
-    display: flex;
-}
-.carousel-images_02 img {
-    width: 100%;
-    height:400px;
-}
-.carousel-controls_02 {
-    position: absolute;
-    top: 50%;
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-    transform: translateY(-50%);
-}
-.carousel-controls_02 button {
-    background-color: rgba(0, 0, 0, 0.5);
-    color: white;
-    border: none;
-    padding: 10px;
-    cursor: pointer;
-}
-.carousel_03, .details {
-    flex: 1;
-    min-width: 300px;
-}
-.carousel_03 {
-    position: relative;
-    overflow: hidden;
-}
-.carousel-images_03 {
-    display: flex;
-}
-.carousel-images_03 img {
-    width: 100%;
-    height:400px;
-}
-.carousel-controls_03 {
-    position: absolute;
-    top: 50%;
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-    transform: translateY(-50%);
-}
-.carousel-controls_03 button {
-    background-color: rgba(0, 0, 0, 0.5);
-    color: white;
-    border: none;
-    padding: 10px;
-    cursor: pointer;
-}
-.carousel_04, .details {
-    flex: 1;
-    min-width: 300px;
-}
-.carousel_04 {
-    position: relative;
-    overflow: hidden;
-}
-.carousel-images_04 {
-    display: flex;
-}
-.carousel-images_04 img {
-    width: 100%;
-    height:400px;
-}
-.carousel-controls_04 {
-    position: absolute;
-    top: 50%;
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-    transform: translateY(-50%);
-}
-.carousel-controls_04 button {
-    background-color: rgba(0, 0, 0, 0.5);
-    color: white;
-    border: none;
-    padding: 10px;
-    cursor: pointer;
-}
-.carousel_04, .details {
-    flex: 1;
-    min-width: 300px;
-}
-.carousel_04 {
-    position: relative;
-    overflow: hidden;
-}
-.carousel-images_04 {
-    display: flex;
-}
-.carousel-images_04 img {
-    width: 100%;
-    height:400px;
-}
-.carousel-controls_04 {
-    position: absolute;
-    top: 50%;
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-    transform: translateY(-50%);
-}
-.carousel-controls_04 button {
-    background-color: rgba(0, 0, 0, 0.5);
-    color: white;
-    border: none;
-    padding: 10px;
-    cursor: pointer;
-}
-.carousel_05, .details {
-    flex: 1;
-    min-width: 300px;
-}
-.carousel_05 {
-    position: relative;
-    overflow: hidden;
-}
-.carousel-images_05 {
-    display: flex;
-}
-.carousel-images_05 img {
-    width: 100%;
-    height:400px;
-}
-.carousel-controls_05 {
-    position: absolute;
-    top: 50%;
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-    transform: translateY(-50%);
-}
-.carousel-controls_05 button {
-    background-color: rgba(0, 0, 0, 0.5);
-    color: white;
-    border: none;
-    padding: 10px;
-    cursor: pointer;
-}
-.carousel_06, .details {
-    flex: 1;
-    min-width: 300px;
-}
-.carousel_06 {
-    position: relative;
-    overflow: hidden;
-}
-.carousel-images_06 {
-    display: flex;
-}
-.carousel-images_06 img {
-    width: 100%;
-    height:400px;
-}
-.carousel-controls_06 {
-    position: absolute;
-    top: 50%;
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-    transform: translateY(-50%);
-}
-.carousel-controls_06 button {
-    background-color: rgba(0, 0, 0, 0.5);
-    color: white;
-    border: none;
-    padding: 10px;
-    cursor: pointer;
-}
 .price-label {
     position: absolute;
     top: 10px;

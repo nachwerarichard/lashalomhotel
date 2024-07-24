@@ -267,12 +267,16 @@ p.visible {
         width:100%;
         height:auto;
     }
+    .hero-content{
+        margin-top:100px;
+    }
     
 }
 .hero-content {
     z-index: 1;
     text-align: center;
 }
+
 
 .pause-button {
     position: absolute;
