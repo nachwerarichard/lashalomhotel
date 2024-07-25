@@ -30,20 +30,64 @@
 }
 
 @media (max-width: 768px) {
-    .carousel-images_01 img, .carousel-images_02 img, .carousel-images_03 img, .carousel-images_04 img, .carousel-images_05 img, .carousel-images_06 img {
-        display:none;
+    .room-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
     }
-    .carousel-controls_01 button, .carousel-controls_02 button, .carousel-controls_03 button, .carousel-controls_04 button, .carousel-controls_05 button, .carousel-controls_06 button {
-display:none;    }
-}
 
-@media (max-width: 480px) {
-    .carousel-images_01 img, .carousel-images_02 img, .carousel-images_03 img, .carousel-images_04 img, .carousel-images_05 img, .carousel-images_06 img {
-display:none;    }
-    .carousel-controls_01 button, .carousel-controls_02 button, .carousel-controls_03 button, .carousel-controls_04 button, .carousel-controls_05 button, .carousel-controls_06 button {
-display:none;    }
-}
+    .room {
+        width: 100%;
+        padding: 10px;
+        box-sizing: border-box;
+    }
 
+    .room.reverse {
+        flex-direction: column;
+    }
+
+    .carousel_01, .carousel_02, .carousel_03, .carousel_04, .carousel_05, .carousel_06 {
+        width: 100%;
+    }
+
+    .carousel-images_01 img,
+    .carousel-images_02 img,
+    .carousel-images_03 img,
+    .carousel-images_04 img,
+    .carousel-images_05 img,
+    .carousel-images_06 img {
+        width: 100%;
+        height: auto;
+    }
+
+    .carousel-controls_01, .carousel-controls_02, .carousel-controls_03, .carousel-controls_04, .carousel-controls_05, .carousel-controls_06 {
+        display: flex;
+        justify-content: space-between;
+        width: 100%;
+    }
+
+    .carousel-controls_01 button,
+    .carousel-controls_02 button,
+    .carousel-controls_03 button,
+    .carousel-controls_04 button,
+    .carousel-controls_05 button,
+    .carousel-controls_06 button {
+        background: rgba(0, 0, 0, 0.5);
+        border: none;
+        color: white;
+        font-size: 18px;
+        padding: 10px;
+        cursor: pointer;
+    }
+    .price-label {
+        font-size: 18px;
+        font-weight: bold;
+        margin-top: 10px;
+    }
+    .iclass-left, .iclass-right {
+        font-size: 24px;
+    }
+}
 .price-label {
     position: absolute;
     top: 10px;
