@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Booking Status</title>
+</head>
+<body>
+    <p id="message"></p>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var params = new URLSearchParams(window.location.search);
+            var status = params.get('status');
+            var message = params.get('message');
+            var messageElement = document.getElementById('message');
+            if (status === 'success') {
+                messageElement.style.color = 'green';
+            } else {
+                messageElement.style.color = 'red';
+            }
+            messageElement.textContent = decodeURIComponent(message);
+        });
+    </script>
+</body>
+</html>

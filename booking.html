@@ -1,32 +1,44 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RichyHotel</title>
-    <link rel="shortcut icon" type="image/x-icon" href="hotelpics/svg/icon01.png" />
-    <link rel="stylesheet" href="css/styles.css">
-    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap" rel="stylesheet">
-</head>
-<body>
-    <div id="loader" class="loader"></div>
-    <div id="content" style="display: none;">
-    <nav class="navbar">
-        <div class="logo"></div>
-        <div class="nav-links" id="navLinks">
-            <a href="home.html" class="active">Home</a>
-            <a href="about.html">About Us</a>
-            <a href="rooms.html">Accommodation</a>
-            <a href="experience.html">Experiences</a>
-            <a href="gallery.html">Gallery</a>
-            <a href="contact.html" >ContactUs </a>
-        </div>
-        <div class="hamburger" id="hamburger">
-            <div class="bar bar1"></div>
-            <div class="bar bar2"></div>
-            <div class="bar bar3"></div>
-        </div>
-    </nav>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Hotel</title>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+        <link rel="shortcut icon" type="image/x-icon" href="hotelpics/svg/icon01.png" />
+        <link rel="stylesheet" href="css/styles.css">
+        <link rel="stylesheet" href="css/styles03.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+        <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap" rel="stylesheet">
+    </head>
+    <body>
+        <div id="loader" class="loader"></div>
+        <div id="content" style="display: none;">
+            <nav class="navbar">
+                <div class="logo">Hotel</div>
+                <div class="nav-links" id="navLinks">
+                    <a href="home.html">Home</a>
+                    <a href="rooms.html">Accommodation</a>
+                    <a href="dining.html" >Wine&Dine</a>
+                    <a href="health.html">Health&SPA</a>
+                    <a href="experience.html">Attractions</a>
+                    <a ></a>
+                    <div class="dropdown">
+                        <a href="#more" class="dropbtn">More <i class="fas fa-chevron-down"></i></a>
+                        <div class="dropdown-content">
+                        <a href="about.html">About Us</a>
+                        <a href="gallery.html">Gallery</a>
+                        <a href="contact.html">Contact Us</a>
+                        <a href="careers.html" class="active">Careers</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="hamburger" id="hamburger">
+                    <div class="bar bar1"></div>
+                    <div class="bar bar2"></div>
+                    <div class="bar bar3"></div>
+                </div>
+            </nav>
     <div class="hero01" style="background:url('multimedia/pics/parallax000_01.webp');color:#fff; background-size:100% 60vh;">
         <div class="hero01-content">
             <h1>Book Now</h1>
@@ -38,15 +50,15 @@
             <div class="form-group">
             <h2>Fill this booking form</h2>
             </div>
-            <form class="booking-form">
+            <form class="booking-form" action="booking.php" method="POST">
              <div class="form-group-row">
                 <div class="form-group">
                     <label for="name">First Name</label>
-                    <input type="text" id="name" name="name" required>
+                    <input type="text" id="name" name="fname" required>
                 </div>
                 <div class="form-group">
                     <label for="name">Last Name</label>
-                    <input type="text" id="name" name="name" required>
+                    <input type="text" id="name" name="lname" required>
                 </div>
              </div>
              <div class="form-group-row">
@@ -72,23 +84,26 @@
 
                 </div>
                 <div class="form-group-row">
-                    <div class="form-group">
-                        <label for="room-type">Room Type</label>
-                        <select id="room-type"  name="room-type" required>
-                            <option value="single">Single</option>
-                            <option value="deluxe">High floor </option>
-                            <option value="executive">middle floor</option>
-                            <option value="presidential">lower floor</option>
-                        </select>
-                    </div>
+
                   <div  class="form-group">
-                    <label for="room-type">Location</label>
-                    <select id="room-type"name="room-type" required>
+                    <label for="room-type">Room Type</label>
+                    <select id="room-type"name="location" required>
+                        <option value="">Select here</option>
+                        <option value="Single">Single </option>
+                        <option value="Delux">Delux</option>
+                        <option value="Executive">Executive</option>
+                        <option value="Presidential">Presidential</option>
+
+                    </select>
+                  </div>
+                  <div  class="form-group">
+                    <label for="">Location</label>
+                    <select id=""name="rlocation" required>
                         <option value="">Select a location</option>
-                        <option value="deluxe">High floor </option>
-                        <option value="executive">middle floor</option>
-                        <option value="presidential">lower floor</option>
-                        <option value="presidential">Any floor</option>
+                        <option value="Single">Single </option>
+                        <option value="Delux">Delux</option>
+                        <option value="Executive">Executive</option>
+                        <option value="Presidential">Presidential</option>
 
                     </select>
                   </div>
@@ -105,7 +120,7 @@
                 </div>
               </div>
               <div class="form-group">
-                <button>Book Now</button>
+                <button type="submit">Book Now</button>
               </div>
             </form>
         </div>
@@ -118,6 +133,8 @@
 
   
   <script src="js/script.js"></script>
+  <script src="js/script_05.js"></script>
+
   
 
 <div class="footer">
