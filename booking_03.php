@@ -82,6 +82,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <p>Thank you for your booking. We shall get back to you shortly.</p>
             <p><a href='http://localhost/hotel_booking/lashalomhotel/cancel_booking.php?token=$cancellation_token'>Click here to cancel your booking</a></p>
             </div>
+            <div class="hotel-info">
+            <h2>Thank you for your booking!</h2>
+             <button id="openModalBtn">Cancel Booking</button>
+               <div id="myModal" class="modal">
+            <div class="modal-content">
+                <span class="close">&times;</span>
+                <p>Are you sure you want to cancel your booking?</p>
+                <button id="cancelBtn">No</button>
+                <button id="okBtn" onclick="window.location.href='http://localhost/hotel_booking/lashalomhotel/cancel_booking.php?token=$cancellation_token'" data-token="$cancellation_token">Yes</button>
+            </div>
+        </div>
         </body>
         </html>
         ";

@@ -134,8 +134,6 @@ if (isset($_GET['token'])) {
         </div>
     </div>
     </div> 
-                    echo "There was an error sending the cancellation email: {$mail->ErrorInfo}";
-
     <script src="js/script.js"></script>
     <script src="js/script2.js"></script>
 </body>

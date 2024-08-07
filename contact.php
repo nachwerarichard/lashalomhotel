@@ -1,4 +1,6 @@
 <?php
+        echo "      <p><a href='http://localhost/hotel_booking/lashalomhotel/cancel_booking.php?token=$cancellation_token'>Click here to cancel your booking</a></p>
+
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 require 'phpmailer/src/Exception.php';

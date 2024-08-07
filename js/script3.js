@@ -31,9 +31,8 @@ cancelBtn.onclick = function() {
 
 // When the user clicks on the OK button, close the modal
 okBtn.onclick = function() {
-    location.href = 'http://localhost/hotel_booking/lashalomhotel/cancel_booking.php?token=$cancellation_token';
+    location.href = 'http://localhost/hotel_booking/lashalomhotel/cancelbooking.html';
     modal.style.display = "none";
-    window.style.display="none";
 }
 
 // When the user clicks anywhere outside of the modal, close it

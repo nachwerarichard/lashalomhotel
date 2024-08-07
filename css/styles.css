@@ -194,6 +194,28 @@ body {
     justify-content: center;
     padding-top: 20%;
 }
+.hotel-info a{
+    min-width:100px;
+    background-color: #494949;
+    color: #fff;
+    border-radius:10px;
+    border: none;
+    padding: 1rem 2rem;
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2); /* Initial box-shadow */
+    cursor: pointer;
+    margin-bottom: 20px;
+    height:fit-content;
+    transition: background-color 0.3s ease;
+}
+.hotel-info a:hover {
+    background-color:#333; /* Slightly darker gold on hover */
+    box-shadow: 0 12px 20px rgba(0, 0, 0, 0.3); /* Deeper shadow on hover */
+  }
+  .hotel-info a:active {
+    background-color: #333; /* Even darker gold on click */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Reduced shadow on click */
+    transform: translateY(2px); /* Slightly depress the button on click */
+  }
 .p{
     opacity: 0;
     transform: translateY(+50%);
