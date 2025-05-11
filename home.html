@@ -11,11 +11,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400..700&display=swap" rel="stylesheet">
-    <!-- Bootstrap CSS -->
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-
-<!-- Optional: Bootstrap JavaScript and Popper (if you need dropdowns, modals, etc.) -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    
 
 </head>
 <body>
@@ -46,18 +42,16 @@
             <div class="bar bar3"></div>
         </div>
     </nav>
-<div class="position-relative hero">
-    <video autoplay loop muted playsinline id="background-video" class="w-100 h-100 object-fit-cover position-absolute top-0 start-0 z-n1">
-        <source src="multimedia/video02.mp4" type="video/mp4">
-        Your browser does not support the video tag.
-    </video>
-
-    <div class="position-absolute top-50 start-50 translate-middle text-white text-center z-1">
-        <h1 class="fw-light">YOUR HOME<br><span class="special-text">Away</span><br> FROM HOME.</h1>
+     <div class="hero">
+        <video autoplay loop muted playsinline id="background-video">
+            <source src="multimedia/video02.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+        <div class="hero-content">
+            <h1 style="font-weight: 100;">YOUR HOME<br><span class="special-text">Away</span><br> FROM HOME.</h1>
+        </div>
+        <button class="pause-button" id="pause-play-button">❚❚</button>
     </div>
-
-    <button class="btn btn-light position-absolute top-0 end-0 m-3 z-1" id="pause-play-button">❚❚</button>
-
     <!-- Check Availability Form -->
     <div class="position-absolute bottom-0 start-50 translate-middle-x bg-white bg-opacity-75 p-4 rounded shadow w-100" style="max-width: 720px; z-index: 1;">
         <h2 class="h5 text-center mb-3 text-dark">Check Availability</h2>
@@ -88,7 +82,7 @@
     </div>
 </div>
 
-<div class="hotel-info container mt-5">
+<div class="hotel-info">
     <p class="mt-5">Experience unparalleled luxury and comfort with our world-class amenities and exceptional service.</p>
 </div>
 
