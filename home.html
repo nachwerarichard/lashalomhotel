@@ -47,37 +47,39 @@
             <source src="multimedia/video02.mp4" type="video/mp4">
             Your browser does not support the video tag.
         </video>
+    <div style="display: grid; grid-template-rows: 2fr 1fr;">
+
         <div class="hero-content">
             <h1 style="font-weight: 100;">YOUR HOME<br><span class="special-text">Away</span><br> FROM HOME.</h1>
         </div>
          <div class="hero-content">
              <div class="container">
              <h1>Check Availability</h1>
-  
-  <form id="availability-form">
-    <div class="form-fields">
-      <div class="form-group">
-        <label for="check-date">Select Date:</label>
-        <input type="date" id="check-date" required>
-      </div>
+              <form id="availability-form">
+                <div class="form-fields">
+                  <div class="form-group">
+                    <label for="check-date">Select Date:</label>
+                     <input type="date" id="check-date" required>
+                  </div>
 
-      <div class="form-group">
-        <label for="check-time">Select Time:</label>
-        <input type="time" id="check-time" required>
-      </div>
+                  <div class="form-group">
+                  <label for="check-time">Select Time:</label>
+                  <input type="time" id="check-time" required>
+                  </div>
 
-      <div class="form-group">
-        <button type="button" id="check-availability-btn">Check Availability</button>
-      </div>
-    </div>
-  </form>
+                 <div class="form-group">
+                 <button type="button" id="check-availability-btn">Check Availability</button>
+                 </div>
+          </div>
+         </form>
 
-  <div id="availability-message"></div>
+          <div id="availability-message"></div>
 
-  <a href="book.html">
-    <button type="button" id="book-now-btn" class="hidden">Book Now</button>
-  </a></div>
+       <a href="book.html">
+       <button type="button" id="book-now-btn" class="hidden">Book Now</button>
+        </a></div>
         </div>
+    </div>
         <button class="pause-button" id="pause-play-button">❚❚</button>
      </div>
     <!-- Check Availability Form -->
