@@ -105,20 +105,33 @@ h1 {
 .book-now:hover {
     background-color: red;
 }
+/* Style for the Book Now button in hero section */
 #book-now-btn {
-    padding: 10px 20px;
-    font-size: 1em;
-    color: white;
-    background-color: #494949;
+    background-color: #2a9d8f; /* green background */
+    color: #fff; /* white text */
+    padding: 12px 24px;
     border: none;
-    border-radius: 5px;
+    border-radius: 30px;
+    font-size: 1rem;
+    font-weight: bold;
     cursor: pointer;
-    align-self: start;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    margin-top: 20px;
+    display: inline-block;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
+/* Hover effect for the Book Now button */
 #book-now-btn:hover {
-    background-color: orange;
+    background-color: #21867a; /* darker green */
+    transform: scale(1.05);
 }
+
+/* Optional hidden class if you're toggling visibility */
+.hidden {
+    display: none;
+}
+
 
 /* Style for the 'Book Now' button */
 .navbar #booknow {
