@@ -20,7 +20,7 @@ function checkAvailability() {
     messageDiv.innerHTML = `<p class="success">Slot available for ${date} at ${time}!</p>`;
 
     // Show 'Book Now' button
-    const bookNowBtn = document.getElementById('show-booking-form-btn');
+    const bookNowBtn = document.getElementById('book-now-btn');
     bookNowBtn.classList.remove('hidden');
 
     // Store selected values for booking form
