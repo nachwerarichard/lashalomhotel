@@ -1,78 +1,88 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Book Now</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-</head>
-<body class="bg-gray-100 min-h-screen flex items-center justify-center px-4">
-  <div class="bg-white p-6 rounded-lg shadow-md w-full max-w-lg">
-    <h1 class="text-2xl font-semibold text-center mb-6">Book Now</h1>
+window.addEventListener('DOMContentLoaded', () => {
+    document.getElementById('book-now-btn').addEventListener('click', submitBooking);
+    fetchAvailability();
+});
+document.addEventListener('DOMContentLoaded', () => {
+    document.getElementById('check-availability-btn').addEventListener('click', checkAvailability);
+});
+document.addEventListener('DOMContentLoaded', () => {
+  document.getElementById('check-availability-btn').addEventListener('click', checkAvailability);
+  document.getElementById('show-booking-form-btn').addEventListener('click', showBookingForm);
+  document.getElementById('submit-booking-btn').addEventListener('click', submitBooking);
+});
 
-    <!-- Availability Check Section -->
-    <div class="space-y-4 mb-6">
-      <div>
-        <label for="check-date" class="block text-sm font-medium text-gray-700">Check Date:</label>
-        <input type="date" id="check-date" class="mt-1 w-full px-3 py-2 border border-gray-300 rounded-md"/>
-      </div>
+function checkAvailability() {
+  const date = document.getElementById('check-date').value;
+  const time = document.getElementById('check-time').value;
+  const messageDiv = document.getElementById('availability-message');
 
-      <div>
-        <label for="check-time" class="block text-sm font-medium text-gray-700">Check Time:</label>
-        <input type="time" id="check-time" class="mt-1 w-full px-3 py-2 border border-gray-300 rounded-md"/>
-      </div>
+  if (date && time) {
+    // Simulated availability response
+    messageDiv.innerHTML = `<p class="success">Slot available for ${date} at ${time}!</p>`;
 
-      <button type="button" id="check-availability-btn" class="w-full bg-green-600 text-white py-2 px-4 rounded-md hover:bg-green-700 transition">
-        Check Availability
-      </button>
+    // Show 'Book Now' button
+    const bookNowBtn = document.getElementById('show-booking-form-btn');
+    bookNowBtn.classList.remove('hidden');
 
-      <div id="availability-message" class="text-center text-sm text-blue-600"></div>
+    // Store selected values for booking form
+    bookNowBtn.dataset.date = date;
+    bookNowBtn.dataset.time = time;
+  } else {
+    messageDiv.innerHTML = `<p class="error">Please select both date and time.</p>`;
+  }
+}
 
-      <button type="button" id="show-booking-form-btn" class="hidden w-full bg-purple-600 text-white py-2 px-4 rounded-md hover:bg-purple-700 transition">
-        Book This Slot
-      </button>
-    </div>
+function showBookingForm() {
+  const btn = document.getElementById('show-booking-form-btn');
+  const date = btn.dataset.date;
+  const time = btn.dataset.time;
 
-    <!-- Booking Form Section -->
-    <h2 id="book-now-title" class="text-xl font-semibold text-center mb-4 hidden">Complete Your Booking</h2>
+  // Auto-fill booking form with selected date/time
+  document.getElementById('date').value = date;
+  document.getElementById('time').value = time;
 
-    <form class="space-y-4 hidden" id="booking-form">
-      <div>
-        <label for="service" class="block text-sm font-medium text-gray-700">Select Service:</label>
-        <select id="service" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
-          <option value="room">Room Booking</option>
-          <option value="appointment">Appointment</option>
-        </select>
-      </div>
+  // Show form and title
+  document.getElementById('booking-form').classList.remove('hidden');
+  document.getElementById('book-now-title').classList.remove('hidden');
 
-      <div>
-        <label for="date" class="block text-sm font-medium text-gray-700">Select Date:</label>
-        <input type="date" id="date" class="mt-1 w-full px-3 py-2 border border-gray-300 rounded-md"/>
-      </div>
+  // Hide the 'Book Now' button
+  btn.classList.add('hidden');
+}
 
-      <div>
-        <label for="time" class="block text-sm font-medium text-gray-700">Select Time:</label>
-        <input type="time" id="time" class="mt-1 w-full px-3 py-2 border border-gray-300 rounded-md"/>
-      </div>
+async function submitBooking() {
+  const service = document.getElementById('service').value;
+  const date = document.getElementById('date').value;
+  const time = document.getElementById('time').value;
+  const name = document.getElementById('name').value;
+  const email = document.getElementById('email').value;
+  const messageDiv = document.getElementById('message');
 
-      <div>
-        <label for="name" class="block text-sm font-medium text-gray-700">Your Name:</label>
-        <input type="text" id="name" required class="mt-1 w-full px-3 py-2 border border-gray-300 rounded-md"/>
-      </div>
+  const bookingData = { service, date, time, name, email };
 
-      <div>
-        <label for="email" class="block text-sm font-medium text-gray-700">Your Email:</label>
-        <input type="email" id="email" required class="mt-1 w-full px-3 py-2 border border-gray-300 rounded-md"/>
-      </div>
+  try {
+    const response = await fetch('https://bookingenginebackend.onrender.com/api/bookings', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(bookingData)
+    });
 
-      <button type="button" id="submit-booking-btn" class="w-full bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 transition">
-        Submit Booking
-      </button>
+    const data = await response.json();
 
-      <div id="message" class="hidden mt-4 text-sm text-center text-green-600"></div>
-    </form>
-  </div>
-
-  <script src="script_01.js"></script>
-</body>
-</html>
+    if (response.ok) {
+      messageDiv.className = 'success';
+      messageDiv.textContent = data.message;
+      messageDiv.classList.remove('hidden');
+      document.getElementById('booking-form').reset();
+      setTimeout(() => messageDiv.classList.add('hidden'), 3000);
+    } else {
+      messageDiv.className = 'error';
+      messageDiv.textContent = data.error || 'An error occurred.';
+      messageDiv.classList.remove('hidden');
+    }
+  } catch (error) {
+    console.error('Error submitting booking:', error);
+    messageDiv.className = 'error';
+    messageDiv.textContent = 'Failed to submit booking.';
+    messageDiv.classList.remove('hidden');
+  }
+}
