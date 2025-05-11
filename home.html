@@ -11,6 +11,12 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400..700&display=swap" rel="stylesheet">
+    <!-- Bootstrap CSS -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+<!-- Optional: Bootstrap JavaScript and Popper (if you need dropdowns, modals, etc.) -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
 </head>
 <body>
   <div id="loader" class="loader"></div>
@@ -40,55 +46,52 @@
             <div class="bar bar3"></div>
         </div>
     </nav>
-<div class="hero relative">
-    <video autoplay loop muted playsinline id="background-video">
+<div class="position-relative hero">
+    <video autoplay loop muted playsinline id="background-video" class="w-100 h-100 object-fit-cover position-absolute top-0 start-0 z-n1">
         <source src="multimedia/video02.mp4" type="video/mp4">
         Your browser does not support the video tag.
     </video>
 
-    <div class="hero-content absolute inset-0 flex flex-col items-center justify-center text-white text-center z-10">
-        <h1 style="font-weight: 100;">YOUR HOME<br><span class="special-text">Away</span><br> FROM HOME.</h1>
+    <div class="position-absolute top-50 start-50 translate-middle text-white text-center z-1">
+        <h1 class="fw-light">YOUR HOME<br><span class="special-text">Away</span><br> FROM HOME.</h1>
     </div>
 
-    <button class="pause-button absolute top-4 right-4 z-10" id="pause-play-button">❚❚</button>
+    <button class="btn btn-light position-absolute top-0 end-0 m-3 z-1" id="pause-play-button">❚❚</button>
 
     <!-- Check Availability Form -->
-    <div class="check-availability-form absolute bottom-6 left-1/2 transform -translate-x-1/2 z-10 bg-white bg-opacity-90 p-6 rounded-lg shadow-md w-full max-w-2xl">
-        <h2 class="text-xl font-semibold text-center mb-4 text-gray-800">Check Availability</h2>
+    <div class="position-absolute bottom-0 start-50 translate-middle-x bg-white bg-opacity-75 p-4 rounded shadow w-100" style="max-width: 720px; z-index: 1;">
+        <h2 class="h5 text-center mb-3 text-dark">Check Availability</h2>
 
-        <form id="availability-form" class="flex flex-col md:flex-row md:items-end md:space-x-4 space-y-4 md:space-y-0">
-            <div class="flex-1">
-                <label for="check-date" class="block text-sm font-medium text-gray-700">Select Date:</label>
-                <input type="date" id="check-date" required
-                       class="mt-1 w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"/>
+        <form id="availability-form" class="row g-3">
+            <div class="col-md-6">
+                <label for="check-date" class="form-label">Select Date:</label>
+                <input type="date" id="check-date" required class="form-control">
             </div>
 
-            <div class="flex-1">
-                <label for="check-time" class="block text-sm font-medium text-gray-700">Select Time:</label>
-                <input type="time" id="check-time" required
-                       class="mt-1 w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"/>
+            <div class="col-md-6">
+                <label for="check-time" class="form-label">Select Time:</label>
+                <input type="time" id="check-time" required class="form-control">
             </div>
 
-            <button type="button" id="check-availability-btn"
-                    class="w-full md:w-auto bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 transition">
-                Check Availability
-            </button>
+            <div class="col-12 text-center">
+                <button type="button" id="check-availability-btn" class="btn btn-primary w-100 w-md-auto">Check Availability</button>
+            </div>
         </form>
 
-        <div id="availability-message" class="mt-4 text-center text-sm text-gray-700"></div>
+        <div id="availability-message" class="mt-3 text-center text-muted small"></div>
 
-        <a href="book.html" class="block mt-4">
-            <button type="button" id="show-booking-form-btn"
-                    class="hidden w-full bg-green-600 text-white py-2 px-4 rounded-md hover:bg-green-700 transition">
+        <a href="book.html" class="d-block mt-3">
+            <button type="button" id="show-booking-form-btn" class="btn btn-success w-100 d-none">
                 Book Now
             </button>
         </a>
     </div>
 </div>
 
-    <div class="hotel-info">
-        <p class="p" style="margin-top:100px;" >Experience unparalleled luxury and comfort with our world-class amenities and exceptional service. </p>
-    </div>
+<div class="hotel-info container mt-5">
+    <p class="mt-5">Experience unparalleled luxury and comfort with our world-class amenities and exceptional service.</p>
+</div>
+
     <div class="cards">
         <div class="galhead">
             <h2 id="blue-uline"> Our Rooms</h2>
