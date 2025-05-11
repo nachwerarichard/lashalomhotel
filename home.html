@@ -54,24 +54,31 @@
     <!-- Check Availability Form -->
     
 <div class="container">
-    <h1>Check Availability</h1>
-    <form id="availability-form">
+  <h1>Check Availability</h1>
+  <form id="availability-form">
+    <div class="form-row">
       <label for="check-date">Select Date:</label>
-      <input type="date" id="check-date" required><br><br>
+      <input type="date" id="check-date" required>
+    </div>
 
+    <div class="form-row">
       <label for="check-time">Select Time:</label>
-      <input type="time" id="check-time" required><br><br>
+      <input type="time" id="check-time" required>
+    </div>
 
+    <div class="form-row">
       <button type="button" id="check-availability-btn">Check Availability</button>
-    </form>
+    </div>
+  </form>
 
-    <div id="availability-message"></div>
+  <div id="availability-message"></div>
 
-    <!-- Redirect to booking form -->
-    <a href="book.html">
-      <button type="button" id="book-now-btn" class="hidden">Book Now</button>
-    </a>
-  </div>
+  <!-- Redirect to booking form -->
+  <a href="book.html">
+    <button type="button" id="book-now-btn" class="hidden">Book Now</button>
+  </a>
+</div>
+
 
 <div class="hotel-info">
     <p class="mt-5">Experience unparalleled luxury and comfort with our world-class amenities and exceptional service.</p>
