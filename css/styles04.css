@@ -95,7 +95,7 @@ h1 {
     padding: 10px 20px;
     font-size: 1em;
     color: white;
-    background-color: #007BFF;
+    background-color: orange;
     border: none;
     border-radius: 5px;
     cursor: pointer;
@@ -103,13 +103,13 @@ h1 {
 }
 
 .book-now:hover {
-    background-color: #0056b3;
+    background-color: red;
 }
 #book-now-btn {
     padding: 10px 20px;
     font-size: 1em;
     color: white;
-    background-color: #007BFF;
+    background-color: #494949;
     border: none;
     border-radius: 5px;
     cursor: pointer;
@@ -117,7 +117,7 @@ h1 {
 }
 
 #book-now-btn:hover {
-    background-color: #0056b3;
+    background-color: orange;
 }
 .logoright #book-now {
     padding: 10px 20px;
