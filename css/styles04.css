@@ -119,6 +119,27 @@ h1 {
 #book-now-btn:hover {
     background-color: orange;
 }
+
+/* Style for the 'Book Now' button */
+.navbar #booknow {
+    background-color: #2a9d8f; /* primary green */
+    color: #fff; /* white text */
+    padding: 10px 20px;
+    border: none;
+    border-radius: 25px;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Hover effect */
+.navbar #booknow:hover {
+    background-color: #21867a; /* darker green */
+    transform: scale(1.05);
+}
+
 .logoright #book-now {
     padding: 10px 20px;
     font-size: 1em;
