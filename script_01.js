@@ -1,6 +1,5 @@
 window.addEventListener('DOMContentLoaded', () => {
     document.getElementById('book-now-btn').addEventListener('click', submitBooking);
-    fetchAvailability();
 });
 document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('check-availability-btn').addEventListener('click', checkAvailability);
