@@ -8,7 +8,7 @@ document.addEventListener('DOMContentLoaded', () => {
 document.addEventListener('DOMContentLoaded', () => {
   document.getElementById('check-availability-btn').addEventListener('click', checkAvailability);
   document.getElementById('show-booking-form-btn').addEventListener('click', showBookingForm);
-  document.getElementById('submit-booking-btn').addEventListener('click', submitBooking);
+  document.getElementById('book-now-btn').addEventListener('click', submitBooking);
 });
 
 function checkAvailability() {
