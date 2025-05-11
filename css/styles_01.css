@@ -1,31 +1,26 @@
 .hidden{
   display:none;}
-#availability-form {
+.form-fields {
   display: flex;
   flex-direction: column;
   gap: 1rem;
 }
 
-.form-row {
-  display: flex;
-  flex-direction: column;
-}
-
-/* On large screens, switch to horizontal layout */
+/* Large screen: show inputs in a row */
 @media (min-width: 768px) {
-  #availability-form {
+  .form-fields {
     flex-direction: row;
     align-items: center;
-    flex-wrap: wrap;
   }
 
-  .form-row {
+  .form-group {
+    display: flex;
     flex-direction: row;
     align-items: center;
     margin-right: 1rem;
   }
 
-  .form-row label {
+  .form-group label {
     margin-right: 0.5rem;
   }
 }
