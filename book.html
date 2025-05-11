@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Book Now</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 min-h-screen flex items-center justify-center px-4">
+  <div class="bg-white p-6 rounded-lg shadow-md w-full max-w-lg">
+    <h1 class="text-2xl font-semibold text-center mb-6">Book Now</h1>
+
+    <form class="space-y-4" id="booking-form">
+      <div>
+        <label for="service" class="block text-sm font-medium text-gray-700">Select Service:</label>
+        <select id="service" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+          <option value="room">Room Booking</option>
+          <option value="appointment">Appointment</option>
+        </select>
+      </div>
+
+      <div>
+        <label for="date" class="block text-sm font-medium text-gray-700">Select Date:</label>
+        <input type="date" id="date" class="mt-1 w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"/>
+      </div>
+
+      <div>
+        <label for="time" class="block text-sm font-medium text-gray-700">Select Time:</label>
+        <input type="time" id="time" class="mt-1 w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"/>
+      </div>
+
+      <div>
+        <label for="name" class="block text-sm font-medium text-gray-700">Your Name:</label>
+        <input type="text" id="name" required class="mt-1 w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"/>
+      </div>
+
+      <div>
+        <label for="email" class="block text-sm font-medium text-gray-700">Your Email:</label>
+        <input type="email" id="email" required class="mt-1 w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"/>
+      </div>
+
+      <button type="button" id="book-now-btn" class="w-full bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 transition">
+        Book Now
+      </button>
+
+      <div id="message" class="hidden mt-4 text-sm text-center text-green-600"></div>
+    </form>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
