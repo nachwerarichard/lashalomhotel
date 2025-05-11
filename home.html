@@ -53,34 +53,26 @@
         <button class="pause-button" id="pause-play-button">❚❚</button>
     </div>
     <!-- Check Availability Form -->
-    <div class="position-absolute bottom-0 start-50 translate-middle-x bg-white bg-opacity-75 p-4 rounded shadow w-100" style="max-width: 720px; z-index: 1;">
-        <h2 class="h5 text-center mb-3 text-dark">Check Availability</h2>
+    
+<div class="container">
+    <h1>Check Availability</h1>
+    <form id="availability-form">
+      <label for="check-date">Select Date:</label>
+      <input type="date" id="check-date" required><br><br>
 
-        <form id="availability-form" class="row g-3">
-            <div class="col-md-6">
-                <label for="check-date" class="form-label">Select Date:</label>
-                <input type="date" id="check-date" required class="form-control">
-            </div>
+      <label for="check-time">Select Time:</label>
+      <input type="time" id="check-time" required><br><br>
 
-            <div class="col-md-6">
-                <label for="check-time" class="form-label">Select Time:</label>
-                <input type="time" id="check-time" required class="form-control">
-            </div>
+      <button type="button" id="check-availability-btn">Check Availability</button>
+    </form>
 
-            <div class="col-12 text-center">
-                <button type="button" id="check-availability-btn" class="btn btn-primary w-100 w-md-auto">Check Availability</button>
-            </div>
-        </form>
+    <div id="availability-message"></div>
 
-        <div id="availability-message" class="mt-3 text-center text-muted small"></div>
-
-        <a href="book.html" class="d-block mt-3">
-            <button type="button" id="show-booking-form-btn" class="btn btn-success w-100 d-none">
-                Book Now
-            </button>
-        </a>
-    </div>
-</div>
+    <!-- Redirect to booking form -->
+    <a href="book.html">
+      <button type="button" id="book-now-btn" class="hidden">Book Now</button>
+    </a>
+  </div>
 
 <div class="hotel-info">
     <p class="mt-5">Experience unparalleled luxury and comfort with our world-class amenities and exceptional service.</p>
