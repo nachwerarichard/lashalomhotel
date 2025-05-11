@@ -105,6 +105,34 @@ h1 {
 .book-now:hover {
     background-color: #0056b3;
 }
+#book-now-btn {
+    padding: 10px 20px;
+    font-size: 1em;
+    color: white;
+    background-color: #007BFF;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    align-self: start;
+}
+
+#book-now-btn:hover {
+    background-color: #0056b3;
+}
+#book-now {
+    padding: 10px 20px;
+    font-size: 1em;
+    color: white;
+    background-color: #007BFF;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    align-self: start;
+}
+
+#book-now:hover {
+    background-color: #0056b3;
+}
 
 @media (max-width: 768px) {
     .room-details {
