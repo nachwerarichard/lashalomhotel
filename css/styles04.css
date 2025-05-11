@@ -119,7 +119,7 @@ h1 {
 #book-now-btn:hover {
     background-color: #0056b3;
 }
-#book-now {
+.logoright #book-now {
     padding: 10px 20px;
     font-size: 1em;
     color: white;
@@ -130,7 +130,7 @@ h1 {
     align-self: start;
 }
 
-#book-now:hover {
+.logoright #book-now:hover {
     background-color: #0056b3;
 }
 
