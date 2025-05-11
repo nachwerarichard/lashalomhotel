@@ -53,6 +53,12 @@ body {
     color:#fff;
     z-index:4000;
 }
+.logoright {
+    font-size: 1.5rem;
+    padding-rightt:0px;
+    color:#fff;
+    z-index:4000;
+}
 
 .nav-links {
     display: flex;
