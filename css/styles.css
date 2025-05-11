@@ -6,7 +6,9 @@ body {
     height: 100%;
     overflow: hidden;
 }
-
+.hidden{
+    display:none;
+       }
 .navbar01 {
     display: flex;
     justify-content: space-between;
