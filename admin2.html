@@ -100,12 +100,21 @@
   </div>
 
   <script>
+    <script src="script2.js"></script>
+  <script src="admin.js"></script>
+  <script src="admin_02.js"></script>
     const loginForm = document.getElementById('admin-login-form');
     const loginScreen = document.getElementById('login-screen');
     const dashboard = document.getElementById('dashboard');
     const hamburger = document.getElementById('hamburger');
     const mobileSidebar = document.getElementById('mobile-sidebar');
     const closeSidebar = document.getElementById('close-sidebar');
+    const dashboardTab = document.getElementById('dashboard-tab');
+    const bookingsTab = document.getElementById('bookings-tab');
+    const dashboardTabMobile = document.getElementById('dashboard-tab-mobile');
+    const bookingsTabMobile = document.getElementById('bookings-tab-mobile');
+    const dashboardSection = document.getElementById('dashboard-section');
+    const bookingsSection = document.getElementById('bookings-section');
 
     loginForm.addEventListener('submit', (e) => {
       e.preventDefault();
@@ -120,10 +129,28 @@
     closeSidebar.addEventListener('click', () => {
       mobileSidebar.classList.add('hidden');
     });
+
+    function showDashboard() {
+      dashboardSection.classList.remove('hidden');
+      bookingsSection.classList.add('hidden');
+    }
+
+    function showBookings() {
+      bookingsSection.classList.remove('hidden');
+      dashboardSection.classList.add('hidden');
+    }
+
+    dashboardTab.addEventListener('click', showDashboard);
+    bookingsTab.addEventListener('click', showBookings);
+    dashboardTabMobile.addEventListener('click', () => {
+      showDashboard();
+      mobileSidebar.classList.add('hidden');
+    });
+    bookingsTabMobile.addEventListener('click', () => {
+      showBookings();
+      mobileSidebar.classList.add('hidden');
+    });
   </script>
-  <script src="script2.js"></script>
-  <script src="admin.js"></script>
-  <script src="admin_02.js"></script>
 </body>
 </html>
 
