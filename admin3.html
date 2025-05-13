@@ -5,14 +5,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Booking Engine Admin Dashboard</title>
   <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Google Material Icons -->
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 </head>
 <body class="bg-gray-100 h-screen w-screen">
-
-  <!-- Hamburger Button -->
-  <button id="hamburger-btn" class="md:hidden fixed top-4 left-4 z-50 text-white bg-gray-800 p-2 rounded shadow-lg">
-    <span class="material-icons">menu</span>
-  </button>
 
   <div class="h-full w-full flex flex-col">
 
@@ -34,67 +30,104 @@
     </div>
 
     <!-- Dashboard Content -->
-    <div id="dashboard-content" class="hidden flex-grow w-full flex overflow-hidden relative">
+    <div id="dashboard-content" class="hidden flex-grow w-full flex flex-col">
 
-      <!-- Sidebar -->
-      <aside id="sidebar" class="w-64 md:relative fixed top-0 left-0 h-full bg-gray-800 text-white px-6 py-8 transform -translate-x-full md:translate-x-0 transition-transform duration-300 z-40">
-        <!-- Close Button (Mobile Only) -->
-        <div class="flex justify-end md:hidden mb-6">
-          <button id="close-sidebar-btn" class="text-white">
-            <span class="material-icons text-2xl">close</span>
-          </button>
+      <!-- Top bar with hamburger -->
+      <div class="bg-gray-800 text-white p-4 md:hidden flex justify-between items-center">
+        <span class="text-lg font-semibold">Admin Dashboard</span>
+        <span id="hamburger-btn" class="material-icons cursor-pointer">menu</span>
+      </div>
+
+      <!-- Mobile Sidebar -->
+      <aside id="mobile-sidebar" class="fixed top-0 left-0 h-full w-64 bg-gray-800 text-white p-4 transform -translate-x-full transition-transform duration-300 z-50 md:hidden">
+        <div class="flex justify-between items-center mb-6">
+          <div class="flex items-center space-x-2">
+            <img src="logo.png" alt="Logo" class="h-8 w-8"/>
+            <span class="text-xl font-bold">Richy</span>
+          </div>
+          <span id="close-sidebar" class="material-icons cursor-pointer">close</span>
         </div>
-
-        <!-- Logo -->
-        <div class="flex items-center space-x-2 mb-8">
-          <img src="logo.png" alt="Logo" class="h-8 w-8"/>
-          <span class="text-xl font-bold">Richy</span>
-        </div>
-
-        <!-- Menu Items -->
-        <ul class="space-y-6">
-          <li class="cursor-pointer hover:text-blue-300 sidebar-link" id="dashboard-tab">
-            <span class="material-icons align-middle mr-2">home</span> Dashboard
-          </li>
-          <li class="cursor-pointer hover:text-blue-300 sidebar-link" id="bookings-tab">
-            <span class="material-icons align-middle mr-2">book</span> Bookings
-          </li>
-          <li class="cursor-pointer hover:text-blue-300 sidebar-link">
-            <span class="material-icons align-middle mr-2">settings</span> Settings
-          </li>
-          <li class="cursor-pointer hover:text-blue-300 sidebar-link" id="logout-btn">
-            <span class="material-icons align-middle mr-2">logout</span> Logout
-          </li>
+        <ul class="space-y-4">
+          <li class="menu-item cursor-pointer hover:text-blue-300"><span class="material-icons">home</span> Dashboard</li>
+          <li class="menu-item cursor-pointer hover:text-blue-300"><span class="material-icons">book</span> Bookings</li>
+          <li class="menu-item cursor-pointer hover:text-blue-300"><span class="material-icons">settings</span> Settings</li>
+          <li class="menu-item cursor-pointer hover:text-blue-300"><span class="material-icons">logout</span> Logout</li>
         </ul>
       </aside>
 
-      <!-- Content Area -->
-      <div id="content" class="flex-1 p-6 bg-white overflow-y-auto">
-        <div id="dashboard-section">
-          <p class="text-lg font-semibold">Welcome to booking dashboard</p>
-          <p class="text-gray-600">Click on 'Bookings' to view them.</p>
+      <!-- Main content wrapper -->
+      <div class="flex flex-grow overflow-hidden">
+
+        <!-- Desktop Sidebar -->
+        <aside class="hidden md:block w-48 bg-gray-800 text-white p-4">
+          <div class="flex items-center space-x-2 mb-6">
+            <img src="logo.png" alt="Logo" class="h-8 w-8"/>
+            <span class="text-grey-xl font-bold">Richy</span>
+          </div>
+          <ul class="space-y-4">
+            <li id="dashboard-tab" class="cursor-pointer hover:text-blue-300"><span class="material-icons">home</span> Dashboard</li>
+            <li id="bookings-tab" class="cursor-pointer hover:text-blue-300"><span class="material-icons">book</span> Bookings</li>
+            <li class="cursor-pointer hover:text-blue-300"><span class="material-icons">settings</span> Settings</li>
+            <li id="logout-btn" class="cursor-pointer hover:text-blue-300"><span class="material-icons">logout</span> Logout</li>
+          </ul>
+        </aside>
+
+        <!-- Content Area -->
+        <div id="content" class="flex-1 p-6 bg-white overflow-y-auto">
+          <!-- Dashboard Section -->
+          <div id="dashboard-section">
+            <p class="text-lg font-semibold">Welcome to booking dashboard</p>
+            <p class="text-gray-600">Click on 'Bookings' to view them.</p>
+          </div>
+          <!-- Bookings Section -->
+          <div id="bookings-section" class="hidden mt-6 space-y-4">
+            <h2 class="text-xl font-bold">Bookings</h2>
+            <!-- Content here -->
+          </div>
         </div>
-        <!-- More dashboard content continues here... -->
       </div>
     </div>
   </div>
 
+  <!-- Scripts -->
   <script>
-     <script src="script2.js"></script>
-  <script src="admin.js"></script>
-  <script src="admin_02.js"></script>
-    // Sidebar open/close logic
-    const hamburgerBtn = document.getElementById('hamburger-btn');
-    const sidebar = document.getElementById('sidebar');
-    const closeBtn = document.getElementById('close-sidebar-btn');
+    const loginForm = document.getElementById("admin-login-form");
+    const dashboardContent = document.getElementById("dashboard-content");
+    const loginFormContainer = document.getElementById("login-form");
 
-    hamburgerBtn.addEventListener('click', () => {
-      sidebar.classList.remove('-translate-x-full');
+    const hamburgerBtn = document.getElementById("hamburger-btn");
+    const mobileSidebar = document.getElementById("mobile-sidebar");
+    const closeSidebar = document.getElementById("close-sidebar");
+
+    const menuItems = document.querySelectorAll('.menu-item');
+
+    loginForm.addEventListener("submit", function (e) {
+      e.preventDefault();
+      dashboardContent.classList.remove("hidden");
+      loginFormContainer.classList.add("hidden");
     });
 
-    closeBtn.addEventListener('click', () => {
-      sidebar.classList.add('-translate-x-full');
+    hamburgerBtn.addEventListener("click", () => {
+      mobileSidebar.classList.remove("-translate-x-full");
+    });
+
+    closeSidebar.addEventListener("click", () => {
+      mobileSidebar.classList.add("-translate-x-full");
+    });
+
+    menuItems.forEach(item => {
+      item.addEventListener("click", () => {
+        mobileSidebar.classList.add("-translate-x-full");
+      });
     });
   </script>
+  
+<script src="script2.js"></script>
+  <script src="admin.js"></script>
+  <script src="admin_02.js"></script>
 </body>
 </html>
+
+
+
+
