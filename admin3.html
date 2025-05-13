@@ -119,9 +119,7 @@
           <div class="flex justify-start">
             <input type="text" id="search-table" placeholder="Search bookings..." class="border p-2 rounded w-64" />
           </div>
-           <div class="flex justify-start">
-            <input type="text" id="search-input" placeholder="Search bookings..." class="border p-2 rounded w-64" />
-          </div>
+           
           <!-- Table and Edit Form Container -->
           <div class="flex flex-col md:flex-row gap-6">
             <!-- Bookings Table -->
@@ -286,7 +284,48 @@
       location.reload();
     });
   </script>
+<script>
+  <script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const searchInput = document.getElementById('search-table');
+    const table = document.getElementById('bookings-table');
+    const tbody = table.querySelector('tbody');
+    const rowsPerPage = 4;
 
+    function filterAndPaginate() {
+      const filter = searchInput.value.toLowerCase();
+      const allRows = Array.from(tbody.querySelectorAll('tr')).filter(row => row.cells.length === 7);
+
+      // Filter rows based on search input
+      const filteredRows = allRows.filter(row => {
+        const rowText = Array.from(row.cells)
+          .map(cell => cell.textContent.toLowerCase())
+          .join(' ');
+        return rowText.includes(filter);
+      });
+
+      // Hide all rows first
+      allRows.forEach(row => (row.style.display = 'none'));
+
+      // Show only the first 4 filtered rows
+      filteredRows.slice(0, rowsPerPage).forEach(row => {
+        row.style.display = '';
+      });
+
+      // If no results
+      if (filteredRows.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="7" class="text-center p-4">No matching bookings found.</td></tr>`;
+      }
+    }
+
+    searchInput.addEventListener('input', filterAndPaginate);
+
+    // Initial load - show first 4 real rows (if any)
+    filterAndPaginate();
+  });
+</script>
+
+</script>
 </body>
 </html>
 
