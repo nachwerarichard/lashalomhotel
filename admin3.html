@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Booking Engine Admin Dashboard</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+<body class="bg-gray-100 h-screen w-screen">
+
+  <!-- Hamburger Button -->
+  <button id="hamburger-btn" class="md:hidden fixed top-4 left-4 z-50 text-white bg-gray-800 p-2 rounded shadow-lg">
+    <span class="material-icons">menu</span>
+  </button>
+
+  <div class="h-full w-full flex flex-col">
+
+    <!-- Login Form -->
+    <div id="login-form" class="bg-white p-6 rounded shadow-md w-full max-w-md mx-auto my-auto">
+      <h2 class="text-2xl font-bold mb-4 text-center">Admin Login</h2>
+      <form id="admin-login-form" class="space-y-4">
+        <div>
+          <label for="username" class="block mb-1">Username:</label>
+          <input type="text" id="username" class="w-full px-3 py-2 border rounded" />
+        </div>
+        <div>
+          <label for="password" class="block mb-1">Password:</label>
+          <input type="password" id="password" class="w-full px-3 py-2 border rounded" />
+        </div>
+        <button type="submit" class="w-full bg-blue-500 text-white py-2 rounded hover:bg-blue-600">Login</button>
+        <div id="login-message" class="hidden text-red-500 text-sm mt-2"></div>
+      </form>
+    </div>
+
+    <!-- Dashboard Content -->
+    <div id="dashboard-content" class="hidden flex-grow w-full flex overflow-hidden relative">
+
+      <!-- Sidebar -->
+      <aside id="sidebar" class="w-64 md:relative fixed top-0 left-0 h-full bg-gray-800 text-white px-6 py-8 transform -translate-x-full md:translate-x-0 transition-transform duration-300 z-40">
+        <!-- Close Button (Mobile Only) -->
+        <div class="flex justify-end md:hidden mb-6">
+          <button id="close-sidebar-btn" class="text-white">
+            <span class="material-icons text-2xl">close</span>
+          </button>
+        </div>
+
+        <!-- Logo -->
+        <div class="flex items-center space-x-2 mb-8">
+          <img src="logo.png" alt="Logo" class="h-8 w-8"/>
+          <span class="text-xl font-bold">Richy</span>
+        </div>
+
+        <!-- Menu Items -->
+        <ul class="space-y-6">
+          <li class="cursor-pointer hover:text-blue-300 sidebar-link" id="dashboard-tab">
+            <span class="material-icons align-middle mr-2">home</span> Dashboard
+          </li>
+          <li class="cursor-pointer hover:text-blue-300 sidebar-link" id="bookings-tab">
+            <span class="material-icons align-middle mr-2">book</span> Bookings
+          </li>
+          <li class="cursor-pointer hover:text-blue-300 sidebar-link">
+            <span class="material-icons align-middle mr-2">settings</span> Settings
+          </li>
+          <li class="cursor-pointer hover:text-blue-300 sidebar-link" id="logout-btn">
+            <span class="material-icons align-middle mr-2">logout</span> Logout
+          </li>
+        </ul>
+      </aside>
+
+      <!-- Content Area -->
+      <div id="content" class="flex-1 p-6 bg-white overflow-y-auto">
+        <div id="dashboard-section">
+          <p class="text-lg font-semibold">Welcome to booking dashboard</p>
+          <p class="text-gray-600">Click on 'Bookings' to view them.</p>
+        </div>
+        <!-- More dashboard content continues here... -->
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Sidebar open/close logic
+    const hamburgerBtn = document.getElementById('hamburger-btn');
+    const sidebar = document.getElementById('sidebar');
+    const closeBtn = document.getElementById('close-sidebar-btn');
+
+    hamburgerBtn.addEventListener('click', () => {
+      sidebar.classList.remove('-translate-x-full');
+    });
+
+    closeBtn.addEventListener('click', () => {
+      sidebar.classList.add('-translate-x-full');
+    });
+  </script>
+</body>
+</html>
