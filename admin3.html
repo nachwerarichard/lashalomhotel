@@ -34,8 +34,8 @@
 
       <!-- Top bar with hamburger -->
       <div class="bg-gray-800 text-white p-4 md:hidden flex justify-between items-center">
-        <span class="text-lg font-semibold">Admin Dashboard</span>
         <span id="hamburger-btn" class="material-icons cursor-pointer">menu</span>
+        <span class="text-lg font-semibold">Admin Dashboard</span>
       </div>
 
       <!-- Mobile Sidebar -->
@@ -48,10 +48,18 @@
           <span id="close-sidebar" class="material-icons cursor-pointer">close</span>
         </div>
         <ul class="space-y-4">
-          <li class="menu-item cursor-pointer hover:text-blue-300"><span class="material-icons">home</span> Dashboard</li>
-          <li class="menu-item cursor-pointer hover:text-blue-300"><span class="material-icons">book</span> Bookings</li>
-          <li class="menu-item cursor-pointer hover:text-blue-300"><span class="material-icons">settings</span> Settings</li>
-          <li class="menu-item cursor-pointer hover:text-blue-300"><span class="material-icons">logout</span> Logout</li>
+          <li class="menu-item flex items-center space-x-2 cursor-pointer hover:text-blue-300" data-target="dashboard-section">
+            <span class="material-icons">home</span><span>Dashboard</span>
+          </li>
+          <li class="menu-item flex items-center space-x-2 cursor-pointer hover:text-blue-300" data-target="bookings-section">
+            <span class="material-icons">book</span><span>Bookings</span>
+          </li>
+          <li class="menu-item flex items-center space-x-2 cursor-pointer hover:text-blue-300" data-target="settings-section">
+            <span class="material-icons">settings</span><span>Settings</span>
+          </li>
+          <li id="logout-btn-mobile" class="menu-item flex items-center space-x-2 cursor-pointer hover:text-blue-300">
+            <span class="material-icons">logout</span><span>Logout</span>
+          </li>
         </ul>
       </aside>
 
@@ -62,13 +70,21 @@
         <aside class="hidden md:block w-48 bg-gray-800 text-white p-4">
           <div class="flex items-center space-x-2 mb-6">
             <img src="logo.png" alt="Logo" class="h-8 w-8"/>
-            <span class="text-grey-xl font-bold">Richy</span>
+            <span class="text-xl font-bold">Richy</span>
           </div>
           <ul class="space-y-4">
-            <li id="dashboard-tab" class="cursor-pointer hover:text-blue-300"><span class="material-icons">home</span> Dashboard</li>
-            <li id="bookings-tab" class="cursor-pointer hover:text-blue-300"><span class="material-icons">book</span> Bookings</li>
-            <li class="cursor-pointer hover:text-blue-300"><span class="material-icons">settings</span> Settings</li>
-            <li id="logout-btn" class="cursor-pointer hover:text-blue-300"><span class="material-icons">logout</span> Logout</li>
+            <li class="menu-item flex items-center space-x-2 cursor-pointer hover:text-blue-300" data-target="dashboard-section">
+              <span class="material-icons">home</span><span>Dashboard</span>
+            </li>
+            <li class="menu-item flex items-center space-x-2 cursor-pointer hover:text-blue-300" data-target="bookings-section">
+              <span class="material-icons">book</span><span>Bookings</span>
+            </li>
+            <li class="menu-item flex items-center space-x-2 cursor-pointer hover:text-blue-300" data-target="settings-section">
+              <span class="material-icons">settings</span><span>Settings</span>
+            </li>
+            <li id="logout-btn" class="flex items-center space-x-2 cursor-pointer hover:text-blue-300">
+              <span class="material-icons">logout</span><span>Logout</span>
+            </li>
           </ul>
         </aside>
 
@@ -76,13 +92,21 @@
         <div id="content" class="flex-1 p-6 bg-white overflow-y-auto">
           <!-- Dashboard Section -->
           <div id="dashboard-section">
-            <p class="text-lg font-semibold">Welcome to booking dashboard</p>
+            <p class="text-lg font-semibold">Welcome to the booking dashboard</p>
             <p class="text-gray-600">Click on 'Bookings' to view them.</p>
           </div>
+
           <!-- Bookings Section -->
           <div id="bookings-section" class="hidden mt-6 space-y-4">
             <h2 class="text-xl font-bold">Bookings</h2>
-            <!-- Content here -->
+            <!-- Booking content here -->
+          </div>
+
+          <!-- Settings Section -->
+          <div id="settings-section" class="hidden mt-6 space-y-4">
+            <h2 class="text-xl font-bold">Settings</h2>
+            <p class="text-gray-600">Manage your admin preferences here.</p>
+            <!-- Settings content here -->
           </div>
         </div>
       </div>
@@ -100,6 +124,7 @@
     const closeSidebar = document.getElementById("close-sidebar");
 
     const menuItems = document.querySelectorAll('.menu-item');
+    const sections = ["dashboard-section", "bookings-section", "settings-section"];
 
     loginForm.addEventListener("submit", function (e) {
       e.preventDefault();
@@ -117,17 +142,29 @@
 
     menuItems.forEach(item => {
       item.addEventListener("click", () => {
-        mobileSidebar.classList.add("-translate-x-full");
+        const targetId = item.getAttribute("data-target");
+        if (targetId) {
+          sections.forEach(id => {
+            document.getElementById(id).classList.add("hidden");
+          });
+          document.getElementById(targetId).classList.remove("hidden");
+        }
+        mobileSidebar.classList.add("-translate-x-full"); // Close on mobile
       });
     });
+
+    // Optional logout functionality placeholder
+    document.getElementById("logout-btn").addEventListener("click", () => {
+      location.reload();
+    });
+    document.getElementById("logout-btn-mobile").addEventListener("click", () => {
+      location.reload();
+    });
   </script>
-  
-<script src="script2.js"></script>
+  <script src="script2.js"></script>
   <script src="admin.js"></script>
   <script src="admin_02.js"></script>
 </body>
 </html>
-
-
 
 
