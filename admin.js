@@ -386,15 +386,7 @@ document.getElementById('search-input').addEventListener('input', function () {
         row.style.display = rowText.includes(searchValue) ? '' : 'none';
     });
 });
-document.getElementById('search-table').addEventListener('input', function () {
-    const searchValue = this.value.toLowerCase();
-    const tableRows = document.querySelectorAll('#bookings-table tbody tr');
 
-    tableRows.forEach(row => {
-        const rowText = row.innerText.toLowerCase();
-        row.style.display = rowText.includes(searchValue) ? '' : 'none';
-    });
-});
 /**let bookingData = []; // store all bookings
 let currentPag = 1;
 const rowsPerPag = 4;
