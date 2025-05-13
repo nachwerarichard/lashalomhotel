@@ -117,7 +117,10 @@
 
           <!-- Search Input -->
           
-           
+           <div class="flex justify-start">
+            <input type="text" id="search-input" placeholder="Search bookings..." class="border p-2 rounded w-64" />
+          </div>
+
           <!-- Table and Edit Form Container -->
           <div class="flex flex-col md:flex-row gap-6">
             <!-- Bookings Table -->
@@ -283,25 +286,7 @@
     });
   </script>
 
-  <script>
-function setupSearch() {
-    const searchInput = document.getElementById('search-table');
-    searchInput.addEventListener('input', () => {
-        const query = searchInput.value.toLowerCase();
-        const rows = document.querySelectorAll('#bookings-table tbody tr');
-        
-        rows.forEach(row => {
-            const rowText = row.textContent.toLowerCase();
-            if (rowText.includes(query)) {
-                row.style.display = '';
-            } else {
-                row.style.display = 'none';
-            }
-        });
-    });
-}
 
-</script>
 
 
 </body>
