@@ -9,7 +9,7 @@ const ADMIN_LOGIN_URL = 'https://bookingenginebackend.onrender.com/api/admin/log
  * @param {string} type - The type of message ('success' or 'error').
  * @param {string} targetId - The ID of the element where the message should be displayed.
  */
-function showMessage(message, type, targetId) {
+/*function showMessage(message, type, targetId) {
     const messageDiv = document.getElementById(targetId);
     messageDiv.textContent = message;
     messageDiv.className = type;
@@ -18,6 +18,26 @@ function showMessage(message, type, targetId) {
         messageDiv.classList.add('hidden');
         messageDiv.textContent = '';
     }, 5000);
+}
+*/
+function showMessage(message, type = 'info') {
+    const modal = document.getElementById('booking-result-modal');
+    const messageElement = document.getElementById('booking-result-message');
+
+    // Set message text
+    messageElement.textContent = message;
+
+    // Apply color based on type
+    if (type === 'success') {
+        messageElement.className = 'text-green-600 text-lg text-center';
+    } else if (type === 'error') {
+        messageElement.className = 'text-red-600 text-lg text-center';
+    } else {
+        messageElement.className = 'text-gray-600 text-lg text-center';
+    }
+
+    // Show modal
+    modal.classList.remove('hidden');
 }
 
 /**
