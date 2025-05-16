@@ -103,6 +103,41 @@ async function fetchBookings(searchTerm = '') {
 /* * Handles editing a booking.
  * @param {string} id - The ID of the booking to edit.
  */
+async function renBookings(searchTerm = '') {
+    let url = `${API_BASE_URL}/admin`;
+    if (searchTerm) {
+        url += `?search=${encodeURIComponent(searchTerm)}`;
+    }
+
+    bookingsTable.querySelector('tbody').innerHTML = '<tr><td colspan="6" class="px-6 py-4 text-center text-gray-500">Loading bookings...</td></tr>';
+
+    try {
+        const response = await fetch(url);
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        const bookings = await response.json();
+        allBookings = bookings; // Store fetched bookings
+        renderBookingsTable(bookings);
+    } catch (error) {
+        console.error('Error fetching bookings:', error);
+        bookingsTable.querySelector('tbody').innerHTML = `<tr><td colspan="6" class="px-6 py-4 text-center text-red-500">Failed to load bookings. Please check your network and backend. Error: ${error.message}</td></tr>`;
+    }
+}
+
+// Event listener for the search input
+searchInput.addEventListener('input', (event) => {
+    const searchTerm = event.target.value.trim();
+     if (searchTerm === "") {
+        renderBookingsTable(allBookings);
+     }else{
+        fetchBookings(searchTerm);
+     }
+    
+});
+
+// Initial load of bookings
+renBookings();
 
 async function editBooking(id) {
     const editForm = document.getElementById('edit-form');
