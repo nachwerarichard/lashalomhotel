@@ -254,10 +254,10 @@
 
   <!-- Scripts -->
   <script>
-    document.getElementById('edit-form').addEventListener('submit', function(event) {
-        event.preventDefault(); // Prevent the default form submission
+      document.getElementById('edit-form').addEventListener('submit', function(event) {
+        event.preventDefault();
 
-        // Show the spinner overlay
+        // Show the spinner
         document.getElementById('loading-spinner').classList.remove('hidden');
 
         // Simulate an asynchronous operation (replace with your actual save logic)
@@ -265,19 +265,14 @@
             // Hide the spinner
             document.getElementById('loading-spinner').classList.add('hidden');
 
-            // Display the success message
-            document.getElementById('edit-message').textContent = 'Booking details updated successfully!';
-            document.getElementById('edit-message').classList.remove('hidden');
-            document.getElementById('edit-message').classList.add('text-green-500');
+            // Display the success message using the showMessage function
+            showMessage('Booking details updated successfully!', 'text-green-500', 'edit-message');
 
             // Optionally hide the modal after a short delay
             setTimeout(function() {
                 document.getElementById('edit-booking-form').classList.add('hidden');
-                showMessage('Booking details updated successfully!', 'text-green-500', 'edit-message');
-              setTimeout(function() {
-                document.getElementById('edit-message').classList.add('hidden');
-            }, 5000);
-        }, 5000); // Simulate a 2-second saving process
+            }, 2000);
+        }, 2000); // Simulate a 2-second saving process
     });
   </script>
   <script src="script2.js"></script>
