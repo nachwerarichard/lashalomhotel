@@ -61,7 +61,7 @@ async function fetchBookings() {
         limitedBookings.forEach(booking => {
             const row = document.createElement('tr');
                 row.innerHTML = `
-    /*<td class="text-center py-2 px-4">${booking._id}</td>?*/
+    <td class="text-center py-2 px-4">${booking._id}</td>?
     <td class="text-center py-2 px-4">${booking.service}</td>
     <td class="text-center py-2 px-4">${new Date(booking.date).toLocaleDateString()}</td>
     <td class="text-center py-2 px-4">${booking.time}</td>
