@@ -76,25 +76,24 @@ async function fetchBookings(searchTerm = '') {
         const limitedBookings = bookings.slice(0, maxRows);
         console.log('limitedBookings:', limitedBookings);
         bookingsTableBody.innerHTML = '';
-        limitedBookings.forEach(booking => {
-            const row = document.createElement('tr');
-            row.innerHTML = `
-             <td colspan="6">
-            <button class="bg-green-500 text-white">Test Button</button>
-        </td>
-                <td>${booking._id}</td>
-                <td>${booking.service}</td>
-                <td>${new Date(booking.date).toLocaleDateString()}</td>
-                <td>${booking.time}</td>
-                <td>${booking.name}</td>
-                <td>${booking.email}</td>
-                <td>
-                   <button class="custom-edit-btn bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mr-2" data-id="${booking._id}">Edit</button>
-                    <button class="custom-delete-btn bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded" data-id="${booking._id}">Delete</button>
-                </td>
-            `;
-             console.log('row.innerHTML before append:', row.innerHTML);
-            bookingsTableBody.appendChild(row);
+       limitedBookings.forEach(booking => {
+    const row = document.createElement('tr');
+    let buttonHTML = `
+        <button class="custom-edit-btn bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mr-2" data-id="${booking._id}">Edit</button>
+        <button class="custom-delete-btn bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded" data-id="${booking._id}">Delete</button>
+    `;
+    row.innerHTML = `
+        <td>${booking._id}</td>
+        <td>${booking.service}</td>
+        <td>${new Date(booking.date).toLocaleDateString()}</td>
+        <td>${booking.time}</td>
+        <td>${booking.name}</td>
+        <td>${booking.email}</td>
+        <td>${buttonHTML}</td>
+    `;
+    console.log('row.innerHTML before append:', row.innerHTML);
+    bookingsTableBody.appendChild(row);
+
         });
 
         attachEventListenersToButtons();
