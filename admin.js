@@ -9,7 +9,7 @@ const ADMIN_LOGIN_URL = 'https://bookingenginebackend.onrender.com/api/admin/log
  * @param {string} type - The type of message ('success' or 'error').
  * @param {string} targetId - The ID of the element where the message should be displayed.
  */
-/*function showMessage(message, type, targetId) {
+function showMessage(message, type, targetId) {
     const messageDiv = document.getElementById(targetId);
     messageDiv.textContent = message;
     messageDiv.className = type;
@@ -18,57 +18,6 @@ const ADMIN_LOGIN_URL = 'https://bookingenginebackend.onrender.com/api/admin/log
         messageDiv.classList.add('hidden');
         messageDiv.textContent = '';
     }, 5000);
-}
-*/
-/*function showMessage(message, type = 'info') {
-    const modal = document.getElementById('booking-result-modal');
-    const messageElement = document.getElementById('booking-result-message');
-
-    // Set message text
-    messageElement.textContent = message;
-
-    // Apply color based on type
-    if (type === 'success') {
-        messageElement.className = 'text-green-600 text-lg text-center';
-    } else if (type === 'error') {
-        messageElement.className = 'text-red-600 text-lg text-center';
-    } else {
-        messageElement.className = 'text-gray-600 text-lg text-center';
-    }
-
-    // Show modal
-    modal.classList.remove('hidden');
-}*/
-function showMessage(message, type = 'info', elementId = 'create-message', delay = 800) {
-    const messageEl = document.getElementById(elementId);
-    const spinner = document.getElementById('booking-spinner');
-
-    // Show spinner first
-    if (spinner) {
-        spinner.classList.remove('hidden');
-    }
-
-    // After delay, show the message and hide the spinner
-    setTimeout(() => {
-        if (spinner) {
-            spinner.classList.add('hidden');
-        }
-
-        if (messageEl) {
-            messageEl.textContent = message;
-            messageEl.classList.remove('hidden');
-            messageEl.classList.remove('text-red-500', 'text-green-500', 'text-blue-500');
-
-            // Apply appropriate color
-            if (type === 'error') {
-                messageEl.classList.add('text-red-500');
-            } else if (type === 'success') {
-                messageEl.classList.add('text-green-500');
-            } else {
-                messageEl.classList.add('text-blue-500');
-            }
-        }
-    }, delay);
 }
 
 /**
