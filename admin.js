@@ -39,7 +39,7 @@ const ADMIN_LOGIN_URL = 'https://bookingenginebackend.onrender.com/api/admin/log
     // Show modal
     modal.classList.remove('hidden');
 }*/
-/*function showMessage(message, type = 'info', elementId = 'create-message', delay = 800) {
+function showMessage(message, type = 'info', elementId = 'create-message', delay = 800) {
     const messageEl = document.getElementById(elementId);
     const spinner = document.getElementById('booking-spinner');
 
@@ -67,44 +67,6 @@ const ADMIN_LOGIN_URL = 'https://bookingenginebackend.onrender.com/api/admin/log
             } else {
                 messageEl.classList.add('text-blue-500');
             }
-        }
-    }, delay);
-}
-*/
-function showMessage(message, type = 'info', delay = 800, useSpinner = true) {
-    const spinner = document.getElementById('booking-spinner');
-    const modal = document.getElementById('message-modal');
-    const modalText = document.getElementById('message-modal-text');
-
-    // Show spinner if enabled
-    if (useSpinner && spinner) {
-        spinner.classList.remove('hidden');
-    }
-
-    setTimeout(() => {
-        // Hide spinner
-        if (useSpinner && spinner) {
-            spinner.classList.add('hidden');
-        }
-
-        // Set message text
-        if (modalText) {
-            modalText.textContent = message;
-            modalText.className = 'text-lg font-medium'; // reset classes
-
-            // Add color based on type
-            if (type === 'error') {
-                modalText.classList.add('text-red-600');
-            } else if (type === 'success') {
-                modalText.classList.add('text-green-600');
-            } else {
-                modalText.classList.add('text-blue-600');
-            }
-        }
-
-        // Show message modal
-        if (modal) {
-            modal.classList.remove('hidden');
         }
     }, delay);
 }
