@@ -74,9 +74,9 @@ async function fetchBookings(searchTerm = '') {
 
         const maxRows = 4;
         const limitedBookings = bookings.slice(0, maxRows);
+        console.log('limitedBookings:', limitedBookings);
         bookingsTableBody.innerHTML = '';
         limitedBookings.forEach(booking => {
-            console.log('limitedBookings:', limitedBookings);
             const row = document.createElement('tr');
             row.innerHTML = `
              <td colspan="6">
