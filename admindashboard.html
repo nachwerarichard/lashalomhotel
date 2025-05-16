@@ -8,15 +8,41 @@
   <!-- Google Material Icons -->
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <style>
-  .loader {
-    border-top-color: #3498db;
-    animation: spin 1s linear infinite;
-  }
+ /* Center align all td with this class */
+.center-text {
+    text-align: center;
+    vertical-align: middle;
+}
 
-  @keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
-  }
+/* Button styling */
+.styled-button {
+    padding: 6px 12px;
+    margin: 0 4px;
+    border: none;
+    border-radius: 4px;
+    color: white;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.3s ease;
+}
+
+/* Specific button colors */
+.edit-button {
+    background-color: #3498db; /* Blue */
+}
+
+.edit-button:hover {
+    background-color: #2980b9;
+}
+
+.delete-button {
+    background-color: #e74c3c; /* Red */
+}
+
+.delete-button:hover {
+    background-color: #c0392b;
+}
+
 </style>
 </head>
 <body class="bg-gray-100 h-screen w-screen">
