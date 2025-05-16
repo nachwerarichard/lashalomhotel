@@ -20,7 +20,7 @@ const ADMIN_LOGIN_URL = 'https://bookingenginebackend.onrender.com/api/admin/log
     }, 5000);
 }
 */
-function showMessage(message, type = 'info') {
+/*function showMessage(message, type = 'info') {
     const modal = document.getElementById('booking-result-modal');
     const messageElement = document.getElementById('booking-result-message');
 
@@ -38,6 +38,37 @@ function showMessage(message, type = 'info') {
 
     // Show modal
     modal.classList.remove('hidden');
+}*/
+function showMessage(message, type = 'info', elementId = 'create-message', delay = 800) {
+    const messageEl = document.getElementById(elementId);
+    const spinner = document.getElementById('booking-spinner');
+
+    // Show spinner first
+    if (spinner) {
+        spinner.classList.remove('hidden');
+    }
+
+    // After delay, show the message and hide the spinner
+    setTimeout(() => {
+        if (spinner) {
+            spinner.classList.add('hidden');
+        }
+
+        if (messageEl) {
+            messageEl.textContent = message;
+            messageEl.classList.remove('hidden');
+            messageEl.classList.remove('text-red-500', 'text-green-500', 'text-blue-500');
+
+            // Apply appropriate color
+            if (type === 'error') {
+                messageEl.classList.add('text-red-500');
+            } else if (type === 'success') {
+                messageEl.classList.add('text-green-500');
+            } else {
+                messageEl.classList.add('text-blue-500');
+            }
+        }
+    }, delay);
 }
 
 /**
