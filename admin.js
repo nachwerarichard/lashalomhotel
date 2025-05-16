@@ -126,7 +126,7 @@ async function fetchBookings(searchTerm = '') {
 }*/
 
 // Event listener for the search input
-searchInput.addEventListener('input', (event) => {
+/*searchInput.addEventListener('input', (event) => {
     const searchTerm = event.target.value.trim();
      if (searchTerm === "") {
         renderBookingsTable(allBookings);
@@ -137,7 +137,7 @@ searchInput.addEventListener('input', (event) => {
 });
 
 // Initial load of bookings
-renBookings();
+renBookings();*/
 
 async function editBooking(id) {
     const editForm = document.getElementById('edit-form');
