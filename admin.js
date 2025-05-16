@@ -1,6 +1,5 @@
 const API_BASE_URL = 'https://bookingenginebackend.onrender.com/api/bookings'; // Adjust if needed
 const ADMIN_LOGIN_URL = 'https://bookingenginebackend.onrender.com/api/admin/login'; // adjust to your actual endpoint
-let allBookings = []; // Store all bookings
 
 // --- Utility Functions ---
 
@@ -20,10 +19,10 @@ function showMessage(message, type, targetId) {
         messageDiv.textContent = '';
     }, 5000);
 }
-document.getElementById('search-btn').addEventListener('click', () => {
+/*document.getElementById('search-btn').addEventListener('click', () => {
     const searchTerm = document.getElementById('search-input').value.trim();
     fetchBookings(searchTerm);
-});
+});*/
 
 /*document.getElementById('searchInput').addEventListener('input', () => {
     const searchTerm = document.getElementById('searchInput').value.trim();
