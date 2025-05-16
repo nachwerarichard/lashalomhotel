@@ -19,7 +19,7 @@ const ADMIN_LOGIN_URL = 'https://bookingenginebackend.onrender.com/api/admin/log
         messageDiv.textContent = '';
     }, 5000);
 }*/
-function showMessage(message, type, targetId) {
+/*function showMessage(message, type, targetId) {
     const messageDiv = document.getElementById(targetId);
     if (messageDiv) {
         messageDiv.textContent = message;
@@ -32,7 +32,21 @@ function showMessage(message, type, targetId) {
     } else {
         console.error(`Target element with id "${targetId}" not found.`);
     }
-}
+}*/
+ function showMessage(message, type, targetId) {
+        const messageDiv = document.getElementById(targetId);
+        if (messageDiv) {
+            messageDiv.textContent = message;
+            messageDiv.className = type; // Overwrites existing classes
+            messageDiv.classList.remove('hidden');
+            setTimeout(() => {
+                messageDiv.classList.add('hidden');
+                messageDiv.textContent = '';
+            }, 5000);
+        } else {
+            console.error(`Target element with id "${targetId}" not found.`);
+        }
+    }
 document.getElementById('search-btn').addEventListener('click', () => {
     const searchTerm = document.getElementById('search-input').value.trim();
     fetchBookings(searchTerm);
