@@ -59,21 +59,18 @@ async function fetchBookings() {
         const limitedBookings = bookings.slice(0, maxRows);
         bookingsTableBody.innerHTML = '';
         limitedBookings.forEach(booking => {
-            row.innerHTML = `
-  <td class="text-center py-2 px-4 border">${booking._id}</td>
-  <td class="text-center py-2 px-4 border">${booking.service}</td>
-  <td class="text-center py-2 px-4 border">${new Date(booking.date).toLocaleDateString()}</td>
-  <td class="text-center py-2 px-4 border">${booking.time}</td>
-  <td class="text-center py-2 px-4 border">${booking.name}</td>
-  <td class="text-center py-2 px-4 border">${booking.email}</td>
-  <td class="text-center py-2 px-4 border space-x-2">
-    <button class="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-1 px-3 rounded" data-id="${booking._id}">Edit</button>
-    <button class="bg-red-500 hover:bg-red-600 text-white font-semibold py-1 px-3 rounded" data-id="${booking._id}">Delete</button>
-  </td>
-  <p class="text-red-500 font-bold text-center">Tailwind is working if this is red.</p>
-
-`;
-
+            const row = document.createElement('tr');
+                row.innerHTML = `
+    <td class="text-center py-2 px-4">${booking._id}</td>
+    <td class="text-center py-2 px-4">${booking.service}</td>
+    <td class="text-center py-2 px-4">${new Date(booking.date).toLocaleDateString()}</td>
+    <td class="text-center py-2 px-4">${booking.time}</td>
+    <td class="text-center py-2 px-4">${booking.name}</td>
+    <td class="text-center py-2 px-4">${booking.email}</td>
+    <td class="text-center py-2 px-4 space-x-2">
+        <button class="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-1 px-3 rounded" data-id="${booking._id}">Edit</button>
+        <button class="bg-red-500 hover:bg-red-600 text-white font-semibold py-1 px-3 rounded" data-id="${booking._id}">Delete</button>
+    </td>
             `;
             bookingsTableBody.appendChild(row);
         });
