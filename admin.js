@@ -60,17 +60,17 @@ async function fetchBookings() {
         bookingsTableBody.innerHTML = '';
         limitedBookings.forEach(booking => {
             const row = document.createElement('tr');
-            row.innerHTML = `
-                <td>${booking._id}</td>
-                <td>${booking.service}</td>
-                <td>${new Date(booking.date).toLocaleDateString()}</td>
-                <td>${booking.time}</td>
-                <td>${booking.name}</td>
-                <td>${booking.email}</td>
-                <td>
-                    <button class="edit-button" data-id="${booking._id}">Edit</button>
-                    <button class="delete-button" data-id="${booking._id}">Delete</button>
-                </td>
+          row.innerHTML = `
+    <td class="center-text">${booking._id}</td>
+    <td class="center-text">${booking.service}</td>
+    <td class="center-text">${new Date(booking.date).toLocaleDateString()}</td>
+    <td class="center-text">${booking.time}</td>
+    <td class="center-text">${booking.name}</td>
+    <td class="center-text">${booking.email}</td>
+    <td class="center-text">
+        <button class="edit-button styled-button" data-id="${booking._id}">Edit</button>
+        <button class="delete-button styled-button" data-id="${booking._id}">Delete</button>
+    </td>
             `;
             bookingsTableBody.appendChild(row);
         });
