@@ -271,26 +271,59 @@
 
   <!-- Scripts -->
   <script>
-      document.getElementById('edit-form').addEventListener('submit', function(event) {
-        event.preventDefault();
+      
+// Function to show the loading spinner
+function showSpinner() {
+    document.getElementById('loading-spinner').classList.remove('hidden');
+}
 
-        // Show the spinner
-        document.getElementById('loading-spinner').classList.remove('hidden');
+// Function to hide the loading spinner
+function hideSpinner() {
+    document.getElementById('loading-spinner').classList.add('hidden');
+}
 
-        // Simulate an asynchronous operation (replace with your actual save logic)
-        setTimeout(function() {
-            // Hide the spinner
-            document.getElementById('loading-spinner').classList.add('hidden');
+// Function to show the success modal
+function showSuccessModal(message) {
+    const successModal = document.getElementById('success-modal');
+    const successMessageText = document.getElementById('success-message-text');
 
-            // Display the success message using the showMessage function
-        showSuccessModal('The booking details have been successfully updated!');
+    successMessageText.textContent = message;
+    successModal.classList.remove('hidden');
+}
 
-            // Optionally hide the modal after a short delay
-            setTimeout(function() {
-                document.getElementById('edit-booking-form').classList.add('hidden');
-            }, 2000);
-        }, 2000); // Simulate a 2-second saving process
-    });
+// Function to hide the success modal
+function hideSuccessModal() {
+    document.getElementById('success-modal').classList.add('hidden');
+}
+
+// Attach event listener to the "Okay" button in the success modal to close it.
+document.addEventListener('DOMContentLoaded', () => {
+    const okayButton = document.querySelector('#success-modal button'); // Select the button within the modal.
+    if (okayButton) {
+        okayButton.addEventListener('click', hideSuccessModal);
+    }
+});
+
+document.getElementById('edit-form').addEventListener('submit', function(event) {
+    event.preventDefault(); // Prevent the default form submission
+
+    // Show the spinner before starting the operation
+    showSpinner();
+
+    // Simulate an asynchronous operation (replace with your actual save logic)
+    setTimeout(function() {
+        // Hide the spinner when the operation is complete
+        hideSpinner();
+
+        // Show the success modal with a message
+        showSuccessModal('Booking details updated successfully!');
+
+        //  You might choose to hide the edit form here, or after the user closes the success modal.
+        //  document.getElementById('edit-booking-form').classList.add('hidden');
+
+    }, 2000); // Simulate a 2-second saving process
+});
+    
   </script>
   <script src="script2.js"></script>
   <script src="admin.js" def></script>
