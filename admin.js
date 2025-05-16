@@ -9,7 +9,7 @@ const ADMIN_LOGIN_URL = 'https://bookingenginebackend.onrender.com/api/admin/log
  * @param {string} type - The type of message ('success' or 'error').
  * @param {string} targetId - The ID of the element where the message should be displayed.
  */
-function showMessage(message, type, targetId) {
+/*function showMessage(message, type, targetId) {
     const messageDiv = document.getElementById(targetId);
     messageDiv.textContent = message;
     messageDiv.className = type;
@@ -18,6 +18,20 @@ function showMessage(message, type, targetId) {
         messageDiv.classList.add('hidden');
         messageDiv.textContent = '';
     }, 5000);
+}*/
+function showMessage(message, type, targetId) {
+    const messageDiv = document.getElementById(targetId);
+    if (messageDiv) {
+        messageDiv.textContent = message;
+        messageDiv.className = type; // Overwrites existing classes
+        messageDiv.classList.remove('hidden');
+        setTimeout(() => {
+            messageDiv.classList.add('hidden');
+            messageDiv.textContent = '';
+        }, 5000);
+    } else {
+        console.error(`Target element with id "${targetId}" not found.`);
+    }
 }
 document.getElementById('search-btn').addEventListener('click', () => {
     const searchTerm = document.getElementById('search-input').value.trim();
