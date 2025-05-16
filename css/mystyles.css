@@ -3,8 +3,8 @@
         margin-right: 5px;
         padding: 5px 5px;
         border-radius: 5px;
-        margin-bottom:5px;
-  margin-top:5px;
+        margin-bottom:2px;
+  margin-top:2px;
       }
       .edit-button {
         background-color: #4CAF50; /* Green */
@@ -22,6 +22,4 @@
       .delete-button:hover {
         background-color: #d32f2f;
       }
-td{
- margin-bottom:20px;
- margin-top:20px;}
+
