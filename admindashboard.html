@@ -440,7 +440,7 @@ closeSuccessModal.addEventListener("click", () => {
   successModal.classList.add("hidden");
 });
 closeSuccessModal.addEventListener("click", () => {
-  closeBookingModal.classList.add("hidden");
+  closeBookingModal.style.display="none";
 });
 window.addEventListener("click", (event) => {
   if (event.target === successModal) {
