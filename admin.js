@@ -93,7 +93,7 @@ async function fetchBookings(searchTerm = '') {
                     <button class="custom-delete-btn bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded" data-id="${booking._id}">Delete</button>
                 </td>
             `;
-            console.log('row to append:', row);
+             console.log('row.innerHTML before append:', row.innerHTML);
             bookingsTableBody.appendChild(row);
         });
 
