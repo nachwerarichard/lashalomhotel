@@ -60,6 +60,7 @@ async function fetchData(url, options = {}) {
  */
 async function fetchBookings(searchTerm = '') {
     const bookingsTableBody = document.querySelector('#bookings-table tbody');
+    console.log('bookingsTableBody:', bookingsTableBody);
     bookingsTableBody.innerHTML = '<tr><td colspan="7">Loading bookings...</td></tr>';
 
     try {
@@ -75,6 +76,7 @@ async function fetchBookings(searchTerm = '') {
         const limitedBookings = bookings.slice(0, maxRows);
         bookingsTableBody.innerHTML = '';
         limitedBookings.forEach(booking => {
+            console.log('limitedBookings:', limitedBookings);
             const row = document.createElement('tr');
             row.innerHTML = `
              <td colspan="6">
@@ -91,6 +93,7 @@ async function fetchBookings(searchTerm = '') {
                     <button class="custom-delete-btn bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded" data-id="${booking._id}">Delete</button>
                 </td>
             `;
+            console.log('row to append:', row);
             bookingsTableBody.appendChild(row);
         });
 
