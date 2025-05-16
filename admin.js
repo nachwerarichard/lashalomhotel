@@ -84,8 +84,8 @@ async function fetchBookings(searchTerm = '') {
                 <td>${booking.name}</td>
                 <td>${booking.email}</td>
                 <td>
-                    <button class="custom-edit-btn" data-id="${booking._id}">Edit</button>
-                    <button class="custom-delete-btn" data-id="${booking._id}">Delete</button>
+                   <button class="custom-edit-btn bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mr-2" data-id="${booking._id}">Edit</button>
+                    <button class="custom-delete-btn bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded" data-id="${booking._id}">Delete</button>
                 </td>
             `;
             bookingsTableBody.appendChild(row);
