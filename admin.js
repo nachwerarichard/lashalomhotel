@@ -77,6 +77,9 @@ async function fetchBookings(searchTerm = '') {
         limitedBookings.forEach(booking => {
             const row = document.createElement('tr');
             row.innerHTML = `
+             <td colspan="6">
+            <button class="bg-green-500 text-white">Test Button</button>
+        </td>
                 <td>${booking._id}</td>
                 <td>${booking.service}</td>
                 <td>${new Date(booking.date).toLocaleDateString()}</td>
