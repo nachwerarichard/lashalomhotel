@@ -68,8 +68,8 @@ async function fetchBookings() {
     <td >${booking.name}</td>
     <td >${booking.email}</td>
     <td >
-        <button  data-id="${booking._id}">Edit</button>
-        <button  data-id="${booking._id}">Delete</button>
+        <button class="custom-edit-btn" data-id="${booking._id}">Edit</button>
+    <button class="custom-delete-btn" data-id="${booking._id}">Delete</button>
     </td>
             `;
             bookingsTableBody.appendChild(row);
