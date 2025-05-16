@@ -24,10 +24,10 @@ document.getElementById('search-btn').addEventListener('click', () => {
     fetchBookings(searchTerm);
 });
 
-/*document.getElementById('searchInput').addEventListener('input', () => {
-    const searchTerm = document.getElementById('searchInput').value.trim();
+document.getElementById('search-input').addEventListener('input', () => {
+    const searchTerm = document.getElementById('search-input').value.trim();
     fetchBookings(searchTerm);
-});*/
+});
 document.getElementById('search-input').addEventListener('keypress', (e) => {
     if (e.key === 'Enter') {
         document.getElementById('search-btn').click();
