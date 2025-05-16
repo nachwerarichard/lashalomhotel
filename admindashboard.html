@@ -218,6 +218,9 @@
                 <div id="edit-message" class="hidden text-sm text-red-500"></div>
               </form>
             </div>
+            <div id="loading-spinner" class="hidden fixed top-0 left-0 w-full h-full bg-black bg-opacity-50 flex justify-center items-center">
+                <div class="animate-spin rounded-full h-16 w-16 border-t-4 border-b-4 border-blue-500"></div>
+             </div>
           </div>
 
           <!-- Create Booking Modal -->
@@ -250,10 +253,36 @@
   </div>
 
   <!-- Scripts -->
+  <script>
+    document.getElementById('edit-form').addEventListener('submit', function(event) {
+        event.preventDefault(); // Prevent the default form submission
+
+        // Show the spinner overlay
+        document.getElementById('loading-spinner').classList.remove('hidden');
+
+        // Simulate an asynchronous operation (replace with your actual save logic)
+        setTimeout(function() {
+            // Hide the spinner
+            document.getElementById('loading-spinner').classList.add('hidden');
+
+            // Display the success message
+            document.getElementById('edit-message').textContent = 'Booking details updated successfully!';
+            document.getElementById('edit-message').classList.remove('hidden');
+            document.getElementById('edit-message').classList.add('text-green-500');
+
+            // Optionally hide the modal after a short delay
+            setTimeout(function() {
+                document.getElementById('edit-booking-form').classList.add('hidden');
+                document.getElementById('edit-message').classList.add('hidden');
+            }, 2000);
+        }, 2000); // Simulate a 2-second saving process
+    });
+  </script>
   <script src="script2.js"></script>
   <script src="admin.js" def></script>
   <script src="admin_02.js"></script>
   <script>
+    
     const loginForm = document.getElementById("admin-login-form");
     const dashboardContent = document.getElementById("dashboard-content");
     const loginFormContainer = document.getElementById("login-form");
