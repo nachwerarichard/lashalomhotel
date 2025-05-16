@@ -415,7 +415,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const data = await response.json();
 
             if (response.ok) {
-                /*showMessage('Booking created successfully!', 'success', 'create-message');*/
+                showMessage('Booking created successfully!', 'success', 'create-message');
                 createForm.reset();
                 fetchBookings();
             } else {
