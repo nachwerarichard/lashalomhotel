@@ -9,6 +9,35 @@
 <link rel="stylesheet" href="css/mystyles.css">
   <!-- Google Material Icons -->
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  
+<style>
+  .loader {
+    border: 4px solid rgba(0, 0, 0, 0.1);
+    border-top: 4px solid #3498db;
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    animation: spin 2s linear infinite;
+    margin: 0 auto;
+    /*display: none; !* Initially hidden *!*/
+  }
+
+  @keyframes spin {
+    0% {
+      transform: rotate(0deg);
+    }
+
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+
+  .loader-text {
+    margin-top: 5px;
+    color: #555;
+    font-size: 0.9em;
+  }
+</style>
 </head>
 <body class="bg-gray-100 h-screen w-screen">
   <div id="create-booking-modal" class="hidden fixed inset-0 top-0 left-0 w-full h-full bg-black bg-opacity-50 flex items-center justify-center z-50">
@@ -41,11 +70,20 @@
                   <label for="create-email" class="block mb-1">Email:</label>
                   <input type="email" id="create-email" required class="w-full p-2 border rounded" />
                 </div>
-                <button type="submit" class="bg-green-500 text-white px-4 py-2 rounded w-full">Create Booking</button>
+                <button type="submit" class="bg-green-500 text-white px-4 py-2 rounded w-full" id="create-booking-button">Create Booking</button>
                 <div id="create-message" class="hidden text-sm text-red-500 mt-2"></div>
               </form>
             </div>
           </div>
+  <div id="booking_success_modal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+  <div class="bg-white p-6 rounded shadow-lg text-center">
+    <h2 class="text-2xl font-semibold text-green-600 mb-4">Success!</h2>
+    <p id="success-message-text" class="text-gray-700 mb-4">Your booking has been created successfully.</p>
+    <button id="close-success-modal" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+      Close
+    </button>
+  </div>
+</div>
   <div class="h-full w-full flex flex-col">
     <!-- Login Form -->
     <div id="login-form" class="bg-white p-6 rounded shadow-md w-full max-w-md mx-auto my-auto">
@@ -377,7 +415,82 @@ document.getElementById('edit-form').addEventListener('submit', function(event) 
          loginFormContainer.classList.remove('hidden');      });
   </script>
 
+<script>
+const createBookingModal = document.getElementById("create-booking-modal");
+const closeCreateModal = document.getElementById("close-create-modal");
+const createForm = document.getElementById("create-form");
+const createMessage = document.getElementById("create-message");
+const createBookingButton = document.getElementById("create-booking-button");
 
+const successModal = document.getElementById("booking_success_modal");
+const closeSuccessModal = document.getElementById("close-success-modal");
+const successMessageText = document.getElementById("success-message-text");
+
+closeCreateModal.addEventListener("click", () => {
+  createBookingModal.classList.add("hidden");
+});
+
+window.addEventListener("click", (event) => {
+  if (event.target === createBookingModal) {
+    createBookingModal.classList.add("hidden");
+  }
+});
+
+closeSuccessModal.addEventListener("click", () => {
+  successModal.classList.add("hidden");
+});
+
+window.addEventListener("click", (event) => {
+  if (event.target === successModal) {
+    successModal.classList.add("hidden");
+  }
+});
+
+createForm.addEventListener("submit", (event) => {
+  event.preventDefault();
+
+  // Disable the button and change the text.
+  createBookingButton.disabled = true;
+  createBookingButton.innerHTML = `<span class="loader"></span><span class="loader-text">Processing...</span>`;
+  createMessage.classList.add("hidden"); // Ensure message is hidden
+
+  // Simulate an asynchronous operation (e.g., an API call) using a Promise.
+  const simulatedRequest = new Promise((resolve) => {
+    setTimeout(() => {
+      // Simulate a successful response after 2 seconds
+      const response = { success: true, message: "Booking created successfully!" };
+      resolve(response);
+      // Simulate an error response (for testing)
+      // const response = { success: false, message: "Failed to create booking." };
+      // resolve(response);
+    }, 2000);
+  });
+
+  simulatedRequest
+    .then((response) => {
+      if (response.success) {
+        // Display the success message in the modal.
+        successMessageText.textContent = response.message;
+        successModal.classList.remove("hidden");
+        createBookingModal.classList.add("hidden"); // Hide the form modal
+        createForm.reset(); // Clear the form
+      } else {
+        createMessage.textContent = response.message;
+        createMessage.classList.remove("hidden");
+      }
+    })
+    .catch((error) => {
+      // Handle errors (e.g., network issues)
+      createMessage.textContent = "An error occurred. Please try again later.";
+      createMessage.classList.remove("hidden");
+    })
+    .finally(() => {
+      // Re-enable the button and restore the original text.
+      createBookingButton.disabled = false;
+      createBookingButton.innerHTML = "Create Booking";
+    });
+});
+</script>
 
 
 </body>
