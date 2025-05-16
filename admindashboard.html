@@ -273,6 +273,8 @@
             // Optionally hide the modal after a short delay
             setTimeout(function() {
                 document.getElementById('edit-booking-form').classList.add('hidden');
+                showMessage('Booking details updated successfully!', 'text-green-500', 'edit-message');
+              setTimeout(function() {
                 document.getElementById('edit-message').classList.add('hidden');
             }, 2000);
         }, 2000); // Simulate a 2-second saving process
