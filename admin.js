@@ -19,13 +19,19 @@ function showMessage(message, type, targetId) {
         messageDiv.textContent = '';
     }, 5000);
 }
-document.getElementById('searchButton').addEventListener('click', () => {
-    const searchTerm = document.getElementById('searchInput').value.trim();
+document.getElementById('search-btn').addEventListener('click', () => {
+    const searchTerm = document.getElementById('search-input').value.trim();
     fetchBookings(searchTerm);
 });
-document.getElementById('searchInput').addEventListener('input', () => {
+
+/*document.getElementById('searchInput').addEventListener('input', () => {
     const searchTerm = document.getElementById('searchInput').value.trim();
     fetchBookings(searchTerm);
+});*/
+document.getElementById('search-input').addEventListener('keypress', (e) => {
+    if (e.key === 'Enter') {
+        document.getElementById('search-btn').click();
+    }
 });
 
 /**
@@ -57,13 +63,9 @@ async function fetchBookings(searchTerm = '') {
     bookingsTableBody.innerHTML = '<tr><td colspan="7">Loading bookings...</td></tr>';
 
     try {
-        const url = searchTerm
-            ? `${API_BASE_URL}/admin?search=${encodeURIComponent(searchTerm)}`
-            : `${API_BASE_URL}/admin`;
-
-        const bookings = await fetchData(url);
+        const query = searchTerm ? `?search=${encodeURIComponent(searchTerm)}` : '';
+        const bookings = await fetchData(`${API_BASE_URL}/admin${query}`);
         bookingsData = bookings || [];
-
         if (!bookings || bookings.length === 0) {
             bookingsTableBody.innerHTML = '<tr><td colspan="7">No bookings found.</td></tr>';
             return;
@@ -98,8 +100,7 @@ async function fetchBookings(searchTerm = '') {
     }
 }
 
-/**
- * Handles editing a booking.
+/* * Handles editing a booking.
  * @param {string} id - The ID of the booking to edit.
  */
 async function editBooking(id) {
