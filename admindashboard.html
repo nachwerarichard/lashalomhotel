@@ -234,18 +234,18 @@
             </div>
           </div>
 <!-- Spinner Overlay -->
-<!-- Spinner Overlay -->
-<div id="booking-spinner" class="hidden fixed inset-0 bg-black bg-opacity-50 z-[9999] flex items-center justify-center">
+<div id="booking-spinner" class="hidden fixed inset-0 bg-black bg-opacity-50 z-[9998] flex items-center justify-center">
   <div class="h-16 w-16 border-4 border-blue-500 border-t-transparent rounded-full animate-spin"></div>
 </div>
 
-<!-- Result Modal -->
-<div id="booking-result-modal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-5000">
-  <div class="bg-white p-6 rounded shadow-md text-center max-w-sm w-full">
-    <p id="booking-result-message" class="text-lg font-medium"></p>
-    <button id="close-result-modal" class="mt-4 bg-blue-500 text-white px-4 py-2 rounded">Close</button>
+<!-- Message Modal Overlay -->
+<div id="message-modal" class="hidden fixed inset-0 bg-black bg-opacity-50 z-[9999] flex items-center justify-center">
+  <div class="bg-white p-6 rounded shadow-lg w-full max-w-md text-center relative">
+    <span id="close-message-modal" class="absolute top-2 right-4 text-xl cursor-pointer">&times;</span>
+    <p id="message-modal-text" class="text-lg font-medium"></p>
   </div>
 </div>
+
           <!-- Pagination -->
           <div id="pagination" class="text-center mt-6"></div>
         </div>
