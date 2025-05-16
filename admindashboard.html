@@ -438,9 +438,10 @@ window.addEventListener("click", (event) => {
 
 closeSuccessModal.addEventListener("click", () => {
   successModal.classList.add("hidden");
+});
+closeSuccessModal.addEventListener("click", () => {
   closeBookingModal.classList.add("hidden");
 });
-
 window.addEventListener("click", (event) => {
   if (event.target === successModal) {
     successModal.classList.add("hidden");
