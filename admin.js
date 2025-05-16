@@ -19,6 +19,14 @@ function showMessage(message, type, targetId) {
         messageDiv.textContent = '';
     }, 5000);
 }
+document.getElementById('searchButton').addEventListener('click', () => {
+    const searchTerm = document.getElementById('searchInput').value.trim();
+    fetchBookings(searchTerm);
+});
+document.getElementById('searchInput').addEventListener('input', () => {
+    const searchTerm = document.getElementById('searchInput').value.trim();
+    fetchBookings(searchTerm);
+});
 
 /**
  * Fetches data from the API and handles errors.
@@ -44,33 +52,39 @@ async function fetchData(url, options = {}) {
 /**
  * Fetches all bookings from the API and displays them in a table.
  */
-async function fetchBookings() {
+async function fetchBookings(searchTerm = '') {
     const bookingsTableBody = document.querySelector('#bookings-table tbody');
     bookingsTableBody.innerHTML = '<tr><td colspan="7">Loading bookings...</td></tr>';
 
     try {
-        const bookings = await fetchData(`${API_BASE_URL}/admin`);
+        const url = searchTerm
+            ? `${API_BASE_URL}/admin?search=${encodeURIComponent(searchTerm)}`
+            : `${API_BASE_URL}/admin`;
+
+        const bookings = await fetchData(url);
         bookingsData = bookings || [];
+
         if (!bookings || bookings.length === 0) {
             bookingsTableBody.innerHTML = '<tr><td colspan="7">No bookings found.</td></tr>';
             return;
         }
+
         const maxRows = 4;
         const limitedBookings = bookings.slice(0, maxRows);
         bookingsTableBody.innerHTML = '';
         limitedBookings.forEach(booking => {
             const row = document.createElement('tr');
-                row.innerHTML = `
-    <td >${booking._id}</td>?
-    <td >${booking.service}</td>
-    <td >${new Date(booking.date).toLocaleDateString()}</td>
-    <td >${booking.time}</td>
-    <td >${booking.name}</td>
-    <td >${booking.email}</td>
-    <td >
-        <button class="custom-edit-btn" data-id="${booking._id}">Edit</button>
-    <button class="custom-delete-btn" data-id="${booking._id}">Delete</button>
-    </td>
+            row.innerHTML = `
+                <td>${booking._id}</td>
+                <td>${booking.service}</td>
+                <td>${new Date(booking.date).toLocaleDateString()}</td>
+                <td>${booking.time}</td>
+                <td>${booking.name}</td>
+                <td>${booking.email}</td>
+                <td>
+                    <button class="custom-edit-btn" data-id="${booking._id}">Edit</button>
+                    <button class="custom-delete-btn" data-id="${booking._id}">Delete</button>
+                </td>
             `;
             bookingsTableBody.appendChild(row);
         });
