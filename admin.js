@@ -103,7 +103,7 @@ async function fetchBookings(searchTerm = '') {
 /* * Handles editing a booking.
  * @param {string} id - The ID of the booking to edit.
  */
-async function renBookings(searchTerm = '') {
+/*async function renBookings(searchTerm = '') {
     let url = `${API_BASE_URL}/admin`;
     if (searchTerm) {
         url += `?search=${encodeURIComponent(searchTerm)}`;
@@ -123,7 +123,7 @@ async function renBookings(searchTerm = '') {
         console.error('Error fetching bookings:', error);
         bookingsTable.querySelector('tbody').innerHTML = `<tr><td colspan="6" class="px-6 py-4 text-center text-red-500">Failed to load bookings. Please check your network and backend. Error: ${error.message}</td></tr>`;
     }
-}
+}*/
 
 // Event listener for the search input
 searchInput.addEventListener('input', (event) => {
