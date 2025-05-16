@@ -245,7 +245,7 @@ async function createBookingManual() {
     const createEmail = document.getElementById('create-email').value;
 
     if (!createService || !createDate || !createTime || !createName || !createEmail) {
-        showMessage('Please fill in all fields.', 'error');
+        showMessage('Please fill in all fields.', 'error', 'create-message');
         return;
     }
 
@@ -257,8 +257,8 @@ async function createBookingManual() {
         email: createEmail,
     };
 
-    const spinner = document.getElementById('booking-spinner');
-    spinner.classList.remove('hidden'); // SHOW spinner
+    // Show the spinner
+    document.getElementById('booking-spinner').classList.remove('hidden');
 
     try {
         const response = await fetch(`${API_BASE_URL}/manual`, {
@@ -271,19 +271,35 @@ async function createBookingManual() {
 
         const data = await response.json();
 
+        // Hide spinner
+        document.getElementById('booking-spinner').classList.add('hidden');
+
+        // Show result modal
+        const message = response.ok
+            ? 'Booking created successfully!'
+            : data.message || 'Failed to create booking.';
+        const resultModal = document.getElementById('booking-result-modal');
+        const resultMessage = document.getElementById('booking-result-message');
+        resultMessage.textContent = message;
+        resultModal.classList.remove('hidden');
+
         if (response.ok) {
-            showMessage('Booking created successfully!', 'success');
             document.getElementById('create-form').reset();
             fetchBookings();
-        } else {
-            showMessage(data.message || 'Failed to create booking.', 'error');
         }
+
     } catch (error) {
-        showMessage('Error creating booking. Please check your network.', 'error');
-    } finally {
-        spinner.classList.add('hidden'); // HIDE spinner
+        document.getElementById('booking-spinner').classList.add('hidden');
+        const resultModal = document.getElementById('booking-result-modal');
+        const resultMessage = document.getElementById('booking-result-message');
+        resultMessage.textContent = 'Error creating booking. Please check your network.';
+        resultModal.classList.remove('hidden');
     }
 }
+document.getElementById('close-result-modal').addEventListener('click', () => {
+    document.getElementById('booking-result-modal').classList.add('hidden');
+});
+
 
 /**
  * Attaches event listeners to edit and delete buttons.
