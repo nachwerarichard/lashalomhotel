@@ -60,16 +60,16 @@ async function fetchBookings() {
         bookingsTableBody.innerHTML = '';
         limitedBookings.forEach(booking => {
             const row = document.createElement('tr');
-          row.innerHTML = `
-    <td class="center-text">${booking._id}</td>
-    <td class="center-text">${booking.service}</td>
-    <td class="center-text">${new Date(booking.date).toLocaleDateString()}</td>
-    <td class="center-text">${booking.time}</td>
-    <td class="center-text">${booking.name}</td>
-    <td class="center-text">${booking.email}</td>
-    <td class="center-text">
-        <button class="edit-button styled-button" data-id="${booking._id}">Edit</button>
-        <button class="delete-button styled-button" data-id="${booking._id}">Delete</button>
+                row.innerHTML = `
+    <td class="text-center py-2 px-4">${booking._id}</td>
+    <td class="text-center py-2 px-4">${booking.service}</td>
+    <td class="text-center py-2 px-4">${new Date(booking.date).toLocaleDateString()}</td>
+    <td class="text-center py-2 px-4">${booking.time}</td>
+    <td class="text-center py-2 px-4">${booking.name}</td>
+    <td class="text-center py-2 px-4">${booking.email}</td>
+    <td class="text-center py-2 px-4 space-x-2">
+        <button class="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-1 px-3 rounded" data-id="${booking._id}">Edit</button>
+        <button class="bg-red-500 hover:bg-red-600 text-white font-semibold py-1 px-3 rounded" data-id="${booking._id}">Delete</button>
     </td>
             `;
             bookingsTableBody.appendChild(row);
