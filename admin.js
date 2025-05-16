@@ -34,7 +34,10 @@ document.getElementById('search-input').addEventListener('keypress', (e) => {
         document.getElementById('search-btn').click();
     }
 });
-
+searchInput.addEventListener('input', () => {
+    const searchTerm = searchInput.value.trim();
+    fetchBookings(searchTerm);
+});
 /**
  * Fetches data from the API and handles errors.
  * @param {string} url - The URL to fetch.
