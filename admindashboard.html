@@ -7,6 +7,17 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <!-- Google Material Icons -->
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <style>
+  .loader {
+    border-top-color: #3498db;
+    animation: spin 1s linear infinite;
+  }
+
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+</style>
 </head>
 <body class="bg-gray-100 h-screen w-screen">
 
@@ -218,7 +229,18 @@
               </form>
             </div>
           </div>
+<!-- Loading Spinner -->
+<div id="booking-spinner" class="hidden fixed inset-0 bg-black bg-opacity-30 flex items-center justify-center z-50">
+  <div class="loader ease-linear rounded-full border-4 border-t-4 border-gray-200 h-12 w-12"></div>
+</div>
 
+<!-- Result Modal -->
+<div id="booking-result-modal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+  <div class="bg-white p-6 rounded shadow-md text-center max-w-sm w-full">
+    <p id="booking-result-message" class="text-lg font-medium"></p>
+    <button id="close-result-modal" class="mt-4 bg-blue-500 text-white px-4 py-2 rounded">Close</button>
+  </div>
+</div>
           <!-- Pagination -->
           <div id="pagination" class="text-center mt-6"></div>
         </div>
