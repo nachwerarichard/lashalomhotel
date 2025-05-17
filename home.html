@@ -12,7 +12,20 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400..700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/styles_01.css">
+<link rel="stylesheet" href="css/styles_01.css">   
+<style>
+    #check-date:focus,
+    #check-time:focus {
+        border-color: blue;
+        outline: none; /* Remove the default focus outline */
+        box-shadow: 0 0 5px rgba(0, 0, 255, 0.5); /* Optional: add a subtle shadow */
+    }
+
+    .hidden {
+        display: none !important;
+    }
+</style>
+
 </head>
 <body>
   <div id="loader" class="loader"></div>
@@ -52,7 +65,31 @@
         <div class="hero-content">
             <h1 style="font-weight: 100;">YOUR HOME<br><span class="special-text">Away</span><br> FROM HOME.</h1>
         </div>
-         <div class="hero-content" style="display:flex;flex-direction:column;>
+         <div class="hero-content" style="display:flex;flex-direction:column;">
+    <div class="container" style="">
+        <form id="availability-form">
+            <div class="form-fields">
+                <div class="form-group">
+                    <label for="check-date">Select Date:</label>
+                    <input type="date" id="check-date" required style="border: 1px solid #ccc; padding: 8px; border-radius: 4px;">
+                </div>
+                <div class="form-group">
+                    <label for="check-time">Select Time:</label>
+                    <input type="time" id="check-time" required style="border: 1px solid #ccc; padding: 8px; border-radius: 4px;">
+                </div>
+                <div class="form-group" style="display:flex; align-items: center;">
+                    <button type="button" id="check-availability-btn" style="background-color: #007bff; color: white; padding: 10px 15px; border: none; border-radius: 4px; cursor: pointer; margin-right: 10px;">Check Availability</button>
+                    <a href="book.html" style="text-decoration: none;">
+                        <button type="button" id="book-now-btn" class="hidden" style="background-color: #28a745; color: white; padding: 10px 15px; border: none; border-radius: 4px; cursor: pointer; display: none;">Book Now</button>
+                    </a>
+                </div>
+            </div>
+        </form>
+        <div id="availability-message" style="margin-top: 10px;"></div>
+    </div>
+</div>
+
+       <!--  <div class="hero-content" style="display:flex;flex-direction:column;>
              <div class="container" style="">
               <form id="availability-form">
                 <div class="form-fields">
@@ -74,7 +111,7 @@
        <button type="button" id="book-now-btn" class="hidden">Book Now</button>
         </a></div>
         </div>
-     </div>
+     </div>-->
         <button class="pause-button" id="pause-play-button">❚❚</button>
  
 
@@ -327,5 +364,41 @@
   </div> 
      <script src="script_01.js"></script>
     <script src="js/script.js"></script>
+    <script>
+    const checkAvailabilityBtn = document.getElementById('check-availability-btn');
+    const availabilityMessageDiv = document.getElementById('availability-message');
+    const bookNowBtn = document.getElementById('book-now-btn');
+    const checkDateInput = document.getElementById('check-date');
+    const checkTimeInput = document.getElementById('check-time');
+
+    checkAvailabilityBtn.addEventListener('click', async () => {
+        // Change button text to "Checking..."
+        checkAvailabilityBtn.textContent = 'Checking...';
+        checkAvailabilityBtn.disabled = true; // Disable the button during checking
+
+        const selectedDate = checkDateInput.value;
+        const selectedTime = checkTimeInput.value;
+
+        // Simulate an API call or availability check (replace with your actual logic)
+        await new Promise(resolve => setTimeout(resolve, 2000)); // Simulate a 2-second delay
+
+        const isAvailable = Math.random() < 0.7; // Simulate availability (70% chance)
+
+        // Display the message
+        if (isAvailable) {
+            availabilityMessageDiv.textContent = 'Available!';
+            availabilityMessageDiv.style.color = 'green';
+            bookNowBtn.style.display = 'inline-block'; // Show the "Book Now" button
+        } else {
+            availabilityMessageDiv.textContent = 'Not available.';
+            availabilityMessageDiv.style.color = 'red';
+            bookNowBtn.style.display = 'none'; // Hide the "Book Now" button
+        }
+
+        // Re-enable the button and reset text
+        checkAvailabilityBtn.textContent = 'Check Availability';
+        checkAvailabilityBtn.disabled = false;
+    });
+</script>
 </body>
 </html>
