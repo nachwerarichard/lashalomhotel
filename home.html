@@ -28,6 +28,15 @@
   border-radius: 0.25rem; /* rounded-md */
   transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
 }
+.material-symbols-outlined {
+  font-variation-settings:
+  'FILL' 0,
+  'wght' 400,
+  'GRAD' 0,
+  'opsz' 20,
+      font-size:0.8rem
+}
+
 
   #check-date:focus,
         #check-time:focus {
@@ -104,7 +113,9 @@
          </form>
           <div id="availability-message"></div>
        <a href="book.html">
-       <button type="button" id="book-now-btn" class="hidden">Book Now  → </button>
+       <button type="button" id="book-now-btn" class="hidden">Book Now <span class="material-symbols-outlined">
+arrow_right_alt
+</span></button>
         </a></div>
         </div>
      </div>
