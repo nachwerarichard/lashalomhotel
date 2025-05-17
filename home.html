@@ -359,7 +359,7 @@
             // Simulate a short delay for the "Checking..." state (optional but good UX)
             setTimeout(() => {
                 // Simulated availability response (replace with your actual logic)
-                const isAvailable = Math.random() < 0.7; // Example: 70% chance of being available
+                const isAvailable = Math.random() < 1; // Example: 70% chance of being available
 
                 if (isAvailable) {
                     messageDiv.innerHTML = `<p class="success">Slot available for ${date} at ${time}!</p>`;
