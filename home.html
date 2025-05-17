@@ -339,41 +339,53 @@
   </div> 
      <script src="script_01.js"></script>
     <script src="js/script.js"></script>
-    <script>
+<script>
     const checkAvailabilityBtn = document.getElementById('check-availability-btn');
     const availabilityMessageDiv = document.getElementById('availability-message');
     const bookNowBtn = document.getElementById('book-now-btn');
     const checkDateInput = document.getElementById('check-date');
     const checkTimeInput = document.getElementById('check-time');
 
-    checkAvailabilityBtn.addEventListener('click', async () => {
-        // Change button text to "Checking..."
-        checkAvailabilityBtn.textContent = 'Checking...';
-        checkAvailabilityBtn.disabled = true; // Disable the button during checking
+    function checkAvailability() {
+        const date = checkDateInput.value;
+        const time = checkTimeInput.value;
+        const messageDiv = availabilityMessageDiv;
 
-        const selectedDate = checkDateInput.value;
-        const selectedTime = checkTimeInput.value;
+        if (date && time) {
+            // Change button text to "Checking..." and disable
+            checkAvailabilityBtn.textContent = 'Checking...';
+            checkAvailabilityBtn.disabled = true;
 
-        // Simulate an API call or availability check (replace with your actual logic)
-        await new Promise(resolve => setTimeout(resolve, 2000)); // Simulate a 2-second delay
+            // Simulate a short delay for the "Checking..." state (optional but good UX)
+            setTimeout(() => {
+                // Simulated availability response (replace with your actual logic)
+                const isAvailable = Math.random() < 0.7; // Example: 70% chance of being available
 
-        const isAvailable = Math.random() < 0.7; // Simulate availability (70% chance)
+                if (isAvailable) {
+                    messageDiv.innerHTML = `<p class="success">Slot available for ${date} at ${time}!</p>`;
+                    messageDiv.style.color = 'green';
+                    bookNowBtn.classList.remove('hidden');
+                    bookNowBtn.style.display = 'inline-block'; // Ensure it's visible if previously hidden by CSS
+                    bookNowBtn.dataset.date = date;
+                    bookNowBtn.dataset.time = time;
+                } else {
+                    messageDiv.innerHTML = `<p class="error">Not available for ${date} at ${time}.</p>`;
+                    messageDiv.style.color = 'red';
+                    bookNowBtn.style.display = 'none'; // Hide the 'Book Now' button
+                }
 
-        // Display the message
-        if (isAvailable) {
-            availabilityMessageDiv.textContent = 'Available!';
-            availabilityMessageDiv.style.color = 'green';
-            bookNowBtn.classList.remove('hidden');
+                // Re-enable the button and reset text
+                checkAvailabilityBtn.textContent = 'Check Availability';
+                checkAvailabilityBtn.disabled = false;
+            }, 1000); // Adjust the delay (in milliseconds) as needed
         } else {
-            availabilityMessageDiv.textContent = 'Not available.';
-            availabilityMessageDiv.style.color = 'red';
-            bookNowBtn.style.display = 'none'; // Hide the "Book Now" button
+            messageDiv.innerHTML = `<p class="error">Please select both date and time.</p>`;
+            messageDiv.style.color = 'red';
+            bookNowBtn.style.display = 'none'; // Ensure 'Book Now' is hidden if no date/time selected
         }
+    }
 
-        // Re-enable the button and reset text
-        checkAvailabilityBtn.textContent = 'Check Availability';
-        checkAvailabilityBtn.disabled = false;
-    });
+    checkAvailabilityBtn.addEventListener('click', checkAvailability);
 </script>
 </body>
 </html>
