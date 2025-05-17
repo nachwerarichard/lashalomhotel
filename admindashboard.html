@@ -142,7 +142,12 @@
             <p class="text-lg font-semibold">Welcome to the booking dashboard</p>
             <p class="text-gray-600">Click on Bookings to view them.</p>
           </div>
-
+<div id="success-modal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+    <div class="bg-green-200 p-6 rounded shadow-lg">
+        <p class="text-green-700 font-semibold mb-4">Deletion Successful!</p>
+        <button id="close-success-btn" class="bg-green-500 text-white px-4 py-2 rounded">Okay</button>
+    </div>
+</div>
           <!-- Bookings Section -->
           <div id="bookings-section" class="hidden mt-6 space-y-4">
             <!-- Booking content here -->
@@ -466,7 +471,35 @@ createForm.addEventListener("submit", (event) => {
     });
 });
 </script>
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const confirmDeleteBtn = document.getElementById('confirm-delete-btn');
+    const deleteModal = document.getElementById('delete-modal');
+    const successModal = document.getElementById('success-modal');
 
+    // Function to hide the delete modal
+    function hideDeleteModal() {
+        deleteModal.classList.add('hidden');
+    }
+
+    // Function to show the success modal
+    function showSuccessModal() {
+        successModal.classList.remove('hidden');
+    }
+
+    // Event listener for the "Yes" button in the delete modal
+    confirmDeleteBtn.addEventListener('click', function() {
+        // In a real application, you would perform the actual deletion here.
+        console.log('Deletion confirmed!');
+
+        // Hide the delete modal
+        hideDeleteModal();
+
+        // Show the success modal
+        showSuccessModal();
+    });
+});
+</script>
 
 </body>
 </html>
