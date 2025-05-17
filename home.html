@@ -20,6 +20,31 @@
         outline: none; /* Remove the default focus outline */
         box-shadow: 0 0 5px rgba(0, 0, 255, 0.5); /* Optional: add a subtle shadow */
     }
+        #check-date:focus,
+        #check-time:focus{
+  display: block;
+  width: 100%;
+  padding: 0.5rem 0.75rem;
+  font-size: 1rem;
+  line-height: inherit;
+  color: #4a5568; /* text-gray-700 */
+  background-color: #fff; /* bg-white */
+  border: 1px solid #cbd5e0; /* border-gray-300 */
+  border-radius: 0.25rem; /* rounded-md */
+  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+  #check-date:focus,
+        #check-time:focus {
+  outline: none;
+  border-color: #667eea; /* focus:border-indigo-500 */
+  box-shadow: 0 0 0 0.2rem rgba(88, 103, 221, 0.25); /* focus:ring-indigo-200 */
+}
+
+#check-date-input::placeholder,
+        #check-time-input::placeholder{
+       color: #a0aec0; /* placeholder-gray-400 */
+}
 
     .hidden {
         display: none !important;
@@ -69,11 +94,11 @@
               <form id="availability-form">
                 <div class="form-fields">
                   <div class="form-group">
-                    <label for="check-date">Check In:</label>
+                    <label for="check-date">Check In</label>
                      <input type="date" id="check-date" required>
                   </div>
                   <div class="form-group">
-                  <label for="check-time">Check Out:</label>
+                  <label for="check-time">Check Out</label>
                   <input type="date" id="check-time" required>
                   </div>
                  <div class="form-group">
