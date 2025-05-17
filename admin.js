@@ -262,7 +262,6 @@ document.getElementById('confirm-delete-btn').addEventListener('click', async ()
 
     if (response.ok) {
       showMessage('Booking deleted successfully!', 'success', 'edit-message');
-      fetchBookings();
     } else {
       showMessage(data.message || 'Failed to delete booking.', 'error', 'edit-message');
     }
