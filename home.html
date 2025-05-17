@@ -363,7 +363,7 @@
         if (isAvailable) {
             availabilityMessageDiv.textContent = 'Available!';
             availabilityMessageDiv.style.color = 'green';
-            bookNowBtn.style.display = 'inline-block'; // Show the "Book Now" button
+            bookNowBtn.classList.remove('hidden');
         } else {
             availabilityMessageDiv.textContent = 'Not available.';
             availabilityMessageDiv.style.color = 'red';
