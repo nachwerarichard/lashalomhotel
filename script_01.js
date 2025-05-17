@@ -10,7 +10,7 @@ document.addEventListener('DOMContentLoaded', () => {
   document.getElementById('book-now-btn').addEventListener('click', submitBooking);
 });
 
-function checkAvailability() {
+/*function checkAvailability() {
   const date = document.getElementById('check-date').value;
   const time = document.getElementById('check-time').value;
   const messageDiv = document.getElementById('availability-message');
@@ -30,7 +30,7 @@ function checkAvailability() {
     messageDiv.innerHTML = `<p class="error">Please select both date and time.</p>`;
   }
 }
-
+*/
 function showBookingForm() {
   const btn = document.getElementById('show-booking-form-btn');
   const date = btn.dataset.date;
