@@ -110,6 +110,14 @@ async function fetchBookings(searchTerm = '') {
         <button class="custom-edit-btn bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mr-2" data-id="${booking._id}">Edit</button>
         <button class="custom-delete-btn bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded" data-id="${booking._id}">Delete</button>
     `;
+            let btnHTML = `
+            <button 
+        class="custom-delete-btn bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
+        data-booking-id="${booking._id}">
+        Assign Room
+      </button>
+       
+    `;
     row.innerHTML = `
         <td>${booking._id}</td>
         <td>${booking.service}</td>
@@ -118,13 +126,7 @@ async function fetchBookings(searchTerm = '') {
         <td>${booking.name}</td>
         <td>${booking.email}</td>
         <td>${buttonHTML}</td>
-        <td class="px-2 py-4 border">
-      <button 
-        class="assign-room-btn bg-purple-500 hover:bg-purple-600 text-white px-2 py-1 rounded" 
-        data-booking-id="${booking._id}">
-        Assign Room
-      </button>
-    </td>
+        <td>${btnHTML}</td>
     `;
     console.log('row.innerHTML before append:', row.innerHTML);
     bookingsTableBody.appendChild(row);
