@@ -13,6 +13,33 @@
 
 </head>
 <body class="bg-gray-100 h-screen w-screen">
+  <!-- Room Assignment Modal -->
+<div id="assignRoomModal" class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center z-50">
+  <div class="bg-white rounded-xl p-6 w-full max-w-md shadow-lg relative">
+    <h2 class="text-xl font-bold mb-4">Assign Room</h2>
+
+    <form id="assignRoomForm" class="space-y-4">
+      <input type="hidden" id="bookingIdField" />
+
+      <label class="block">
+        <span class="text-gray-700">Select Room</span>
+        <select id="roomSelect" required class="w-full mt-1 p-2 border rounded bg-gray-100">
+          <option value="">-- Choose Room --</option>
+          <option value="101">Room 101</option>
+          <option value="102">Room 102</option>
+          <option value="103">Room 103</option>
+          <!-- Add more room options here -->
+        </select>
+      </label>
+
+      <div class="flex justify-end gap-2">
+        <button type="button" id="cancelModalBtn" class="px-4 py-2 bg-gray-300 rounded hover:bg-gray-400">Cancel</button>
+        <button type="submit" class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">Assign</button>
+      </div>
+    </form>
+  </div>
+</div>
+
   <div id="create-booking-modal" class="hidden fixed inset-0 top-0 left-0 w-full h-full bg-black bg-opacity-50 flex items-center justify-center z-50">
             <div class="bg-white p-6 rounded shadow-lg w-full max-w-md mx-auto my-auto" style="margin-top: 5%;">
               <div class="flex justify-between items-center mb-4">
@@ -684,5 +711,62 @@ function cleanRoom(index) {
 window.onload = updateRoomTable;
 
 </script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+  const modal = document.getElementById('assignRoomModal');
+  const form = document.getElementById('assignRoomForm');
+  const roomSelect = document.getElementById('roomSelect');
+  const bookingIdField = document.getElementById('bookingIdField');
+  const cancelBtn = document.getElementById('cancelModalBtn');
+
+  // Show modal on Assign Room button click
+  document.addEventListener('click', (e) => {
+    if (e.target.classList.contains('assign-room-btn')) {
+      const bookingId = e.target.getAttribute('data-booking-id');
+      bookingIdField.value = bookingId;
+      modal.classList.remove('hidden');
+      modal.classList.add('flex');
+    }
+  });
+
+  // Hide modal
+  const closeModal = () => {
+    modal.classList.add('hidden');
+    modal.classList.remove('flex');
+    form.reset();
+  };
+
+  cancelBtn.addEventListener('click', closeModal);
+
+  // Submit room assignment
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const bookingId = bookingIdField.value;
+    const selectedRoom = roomSelect.value;
+
+    try {
+      const res = await fetch(`/api/bookings/assign-room/${bookingId}`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ roomNumber: selectedRoom })
+      });
+
+      const data = await res.json();
+
+      if (res.ok) {
+        alert('Room assigned successfully!');
+        closeModal();
+        location.reload(); // Refresh booking table/calendar
+      } else {
+        alert('Error: ' + data.message);
+      }
+    } catch (err) {
+      console.error(err);
+      alert('Something went wrong.');
+    }
+  });
+});
+
+  </script>
 </body>
 </html>
