@@ -108,7 +108,7 @@ async function fetchBookings(searchTerm = '') {
     const row = document.createElement('tr');
     let buttonHTML = `
         <button class="custom-edit-btn bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mr-2" data-id="${booking._id}">Edit</button>
-        <button class="custom-delete-btn bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded" data-id="${booking._id}">Delete</button>
+        <button class="custom-delete-btn bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded" data-id="${booking._id}">Del</button>
         <button class="assign-room-btn bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded" data-id="${booking._id}">Assign Room</button>
 
     `;
