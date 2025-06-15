@@ -248,6 +248,11 @@
                   <tr class="bookingstable" >
                     <td colspan="7" class="text-center p-4">Loading bookings...</td>
                   </tr>
+                  <td class="px-2 py-4 border">
+                    <button class="assign-room-btn bg-purple-500 hover:bg-purple-600 text-white px-2 py-1 rounded" data-booking-id="1">
+                       Assign Room
+                    </button>
+                   </td>
                 </tbody>
               </table>
             </div>
@@ -615,6 +620,69 @@ createForm.addEventListener("submit", (event) => {
     });
 });
 </script>
+<script>
+  // Example initial room state
+const rooms = [
+  { number: 101, status: 'vacant', assignedTo: null },
+  { number: 102, status: 'vacant', assignedTo: null },
+  { number: 103, status: 'vacant', assignedTo: null },
+  { number: 104, status: 'vacant', assignedTo: null },
+  { number: 105, status: 'vacant', assignedTo: null },
+  { number: 106, status: 'vacant', assignedTo: null },
+  { number: 107, status: 'vacant', assignedTo: null },
+  { number: 108, status: 'vacant', assignedTo: null },
+  { number: 109, status: 'vacant', assignedTo: null },
+  { number: 110, status: 'vacant', assignedTo: null },
+];
 
+function updateRoomTable() {
+  const table = document.getElementById('rooms-table');
+  table.innerHTML = '';
+
+  rooms.forEach((room, index) => {
+    const row = document.createElement('tr');
+    row.innerHTML = `
+      <td class="border px-2 py-2">${room.number}</td>
+      <td class="border px-2 py-2 capitalize">${room.status}</td>
+      <td class="border px-2 py-2">${room.assignedTo || '-'}</td>
+      <td class="border px-2 py-2 space-x-2">
+        ${room.status === 'vacant' ? `<button onclick="assignToBooking(${index})" class="bg-blue-500 text-white px-2 py-1 rounded">Assign</button>` : ''}
+        ${room.status === 'occupied' ? `<button onclick="markDirty(${index})" class="bg-red-500 text-white px-2 py-1 rounded">Checkout</button>` : ''}
+        ${room.status === 'dirty' ? `<button onclick="cleanRoom(${index})" class="bg-green-500 text-white px-2 py-1 rounded">Clean</button>` : ''}
+      </td>
+    `;
+    table.appendChild(row);
+  });
+
+  // Update counters
+  document.getElementById('total-rooms').textContent = rooms.length;
+  document.getElementById('reserved-rooms').textContent = rooms.filter(r => r.status === 'reserved').length;
+  document.getElementById('occupied-rooms').textContent = rooms.filter(r => r.status === 'occupied').length;
+  document.getElementById('vacant-rooms').textContent = rooms.filter(r => r.status === 'vacant').length;
+}
+
+function assignToBooking(index) {
+  const name = prompt("Enter Booking Name to assign:");
+  if (name) {
+    rooms[index].status = 'reserved';
+    rooms[index].assignedTo = name;
+    updateRoomTable();
+  }
+}
+
+function markDirty(index) {
+  rooms[index].status = 'dirty';
+  updateRoomTable();
+}
+
+function cleanRoom(index) {
+  rooms[index].status = 'vacant';
+  rooms[index].assignedTo = null;
+  updateRoomTable();
+}
+
+window.onload = updateRoomTable;
+
+</script>
 </body>
 </html>
