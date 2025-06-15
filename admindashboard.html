@@ -500,6 +500,61 @@ createForm.addEventListener("submit", (event) => {
     });
 });
 </script>
+  <script>
+    document.querySelectorAll('.assign-room-btn').forEach(btn => {
+  btn.addEventListener('click', async (e) => {
+    const id = e.target.getAttribute('data-id');
+    // Your assign room logic here
+    document.querySelectorAll('.assign-room-btn').forEach(btn => {
+  btn.addEventListener('click', async (e) => {
+    const id = e.target.getAttribute('data-id');
+
+    try {
+      const response = await fetch(`${API_BASE_URL}/rooms/available`);
+      const rooms = await response.json();
+
+      if (rooms.length === 0) {
+        alert('No available rooms!');
+        return;
+      }
+
+      const roomOptions = rooms.map(r => `Room ${r.roomNumber} (${r.type} - $${r.price})`).join('\n');
+      const choice = prompt(`Available rooms:\n${roomOptions}\n\nEnter room number to assign:`);
+      const selectedRoom = rooms.find(r => r.roomNumber === choice);
+
+      if (!selectedRoom) {
+        alert('Invalid room number selected!');
+        return;
+      }
+
+      const assignRes = await fetch(`${API_BASE_URL}/assign-room`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          bookingId: id,
+          roomId: selectedRoom._id
+        })
+      });
+
+      const result = await assignRes.json();
+      if (assignRes.ok) {
+        alert('Room assigned successfully!');
+        fetchBookings();
+      } else {
+        alert('Failed to assign room: ' + result.error);
+      }
+
+    } catch (err) {
+      console.error(err);
+      alert('An error occurred while assigning room.');
+    }
+  });
+});
+
+  });
+});
+
+  </script>
 
 </body>
 </html>
