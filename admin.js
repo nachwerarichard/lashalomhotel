@@ -370,21 +370,7 @@ document.getElementById('close-result-modal').addEventListener('click', () => {
 /**
  * Attaches event listeners to edit and delete buttons.
  */
-function attachEventListenersToButtons() {
-    document.querySelectorAll('.edit-button').forEach(button => {
-        button.addEventListener('click', () => {
-            const bookingId = button.getAttribute('data-id');
-            editBooking(bookingId);
-        });
-    });
 
-    document.querySelectorAll('.delete-button').forEach(button => {
-        button.addEventListener('click', () => {
-            const bookingId = button.getAttribute('data-id');
-            deleteBooking(bookingId);
-        });
-    });
-}
 
 // Initial load
 document.addEventListener('DOMContentLoaded', () => {
