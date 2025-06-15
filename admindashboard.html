@@ -13,46 +13,6 @@
 
 </head>
 <body class="bg-gray-100 h-screen w-screen">
-  <!-- Room Management Section -->
-<div id="room-management-section" class="mt-8 space-y-6">
-  <h2 class="text-xl font-bold">Room Management</h2>
-
-  <!-- Room Summary -->
-  <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-    <div class="bg-blue-100 p-4 rounded shadow text-center">
-      <p class="text-sm text-gray-600">Total Rooms</p>
-      <p id="total-rooms" class="text-xl font-bold">10</p>
-    </div>
-    <div class="bg-yellow-100 p-4 rounded shadow text-center">
-      <p class="text-sm text-gray-600">Reserved</p>
-      <p id="reserved-rooms" class="text-xl font-bold">0</p>
-    </div>
-    <div class="bg-green-100 p-4 rounded shadow text-center">
-      <p class="text-sm text-gray-600">Occupied</p>
-      <p id="occupied-rooms" class="text-xl font-bold">0</p>
-    </div>
-    <div class="bg-gray-100 p-4 rounded shadow text-center">
-      <p class="text-sm text-gray-600">Vacant</p>
-      <p id="vacant-rooms" class="text-xl font-bold">10</p>
-    </div>
-  </div>
-
-  <!-- Room Table -->
-  <table class="table-auto w-full border mt-4">
-    <thead class="bg-gray-200">
-      <tr>
-        <th class="px-2 py-3 border">Room No</th>
-        <th class="px-2 py-3 border">Status</th>
-        <th class="px-2 py-3 border">Assigned To</th>
-        <th class="px-2 py-3 border">Actions</th>
-      </tr>
-    </thead>
-    <tbody id="rooms-table">
-      <!-- JS will dynamically populate this -->
-    </tbody>
-  </table>
-</div>
-
   <div id="create-booking-modal" class="hidden fixed inset-0 top-0 left-0 w-full h-full bg-black bg-opacity-50 flex items-center justify-center z-50">
             <div class="bg-white p-6 rounded shadow-lg w-full max-w-md mx-auto my-auto" style="margin-top: 5%;">
               <div class="flex justify-between items-center mb-4">
@@ -165,6 +125,9 @@
             <li class="menu-item flex items-center space-x-2 cursor-pointer hover:text-blue-300" data-target="bookings-section">
               <span class="material-icons">book</span><span>Bookings</span>
             </li>
+            <li id="room-management-section" class="flex items-center space-x-2 cursor-pointer hover:text-blue-300">
+              <span class="material-icons">bed</span><span>Room management</span>
+            </li>
             <li class="menu-item flex items-center space-x-2 cursor-pointer hover:text-blue-300" data-target="settings-section">
               <span class="material-icons">settings</span><span>Settings</span>
             </li>
@@ -177,6 +140,46 @@
 
         <!-- Content Area -->
         <div id="content" class="flex-1 p-6 bg-white overflow-y-auto">
+
+             <!-- Room Management Section -->
+<div id="room-management-section" class="mt-8 space-y-6">
+  <h2 class="text-xl font-bold">Room Management</h2>
+
+  <!-- Room Summary -->
+  <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+    <div class="bg-blue-100 p-4 rounded shadow text-center">
+      <p class="text-sm text-gray-600">Total Rooms</p>
+      <p id="total-rooms" class="text-xl font-bold">10</p>
+    </div>
+    <div class="bg-yellow-100 p-4 rounded shadow text-center">
+      <p class="text-sm text-gray-600">Reserved</p>
+      <p id="reserved-rooms" class="text-xl font-bold">0</p>
+    </div>
+    <div class="bg-green-100 p-4 rounded shadow text-center">
+      <p class="text-sm text-gray-600">Occupied</p>
+      <p id="occupied-rooms" class="text-xl font-bold">0</p>
+    </div>
+    <div class="bg-gray-100 p-4 rounded shadow text-center">
+      <p class="text-sm text-gray-600">Vacant</p>
+      <p id="vacant-rooms" class="text-xl font-bold">10</p>
+    </div>
+  </div>
+
+  <!-- Room Table -->
+  <table class="table-auto w-full border mt-4">
+    <thead class="bg-gray-200">
+      <tr>
+        <th class="px-2 py-3 border">Room No</th>
+        <th class="px-2 py-3 border">Status</th>
+        <th class="px-2 py-3 border">Assigned To</th>
+        <th class="px-2 py-3 border">Actions</th>
+      </tr>
+    </thead>
+    <tbody id="rooms-table">
+      <!-- JS will dynamically populate this -->
+    </tbody>
+  </table>
+</div>
           <!-- Dashboard Section -->
           <div id="dashboard-section">
             <p class="text-lg font-semibold">Welcome to the booking dashboard</p>
