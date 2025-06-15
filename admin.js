@@ -118,6 +118,13 @@ async function fetchBookings(searchTerm = '') {
         <td>${booking.name}</td>
         <td>${booking.email}</td>
         <td>${buttonHTML}</td>
+        <td class="px-2 py-4 border">
+      <button 
+        class="assign-room-btn bg-purple-500 hover:bg-purple-600 text-white px-2 py-1 rounded" 
+        data-booking-id="${booking._id}">
+        Assign Room
+      </button>
+    </td>
     `;
     console.log('row.innerHTML before append:', row.innerHTML);
     bookingsTableBody.appendChild(row);
