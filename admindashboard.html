@@ -768,5 +768,43 @@ window.onload = updateRoomTable;
 });
 
   </script>
+  <script>
+    document.addEventListener('click', async (e) => {
+  if (e.target.classList.contains('assign-room-btn')) {
+    const bookingId = e.target.getAttribute('data-booking-id');
+    bookingIdField.value = bookingId;
+
+    // Fetch the booking to get its date
+    const resBooking = await fetch(`/api/bookings/${bookingId}`);
+    const booking = await resBooking.json();
+    const dateStr = new Date(booking.date).toISOString().split('T')[0];
+
+    // Fetch booked rooms for that date
+    const resRooms = await fetch(`/api/bookings/booked-rooms/${dateStr}`);
+    const data = await resRooms.json();
+    const bookedRooms = data.bookedRooms;
+
+    // Enable all options first
+    Array.from(roomSelect.options).forEach(opt => {
+      opt.disabled = false;
+      opt.classList.remove('bg-gray-200', 'text-gray-500');
+    });
+
+    // Disable booked room options
+    bookedRooms.forEach(room => {
+      const opt = Array.from(roomSelect.options).find(o => o.value === room);
+      if (opt) {
+        opt.disabled = true;
+        opt.classList.add('bg-gray-200', 'text-gray-500');
+        opt.textContent += ' (Booked)';
+      }
+    });
+
+    modal.classList.remove('hidden');
+    modal.classList.add('flex');
+  }
+});
+
+  </script>
 </body>
 </html>
