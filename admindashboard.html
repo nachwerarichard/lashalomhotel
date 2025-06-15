@@ -13,33 +13,6 @@
 
 </head>
 <body class="bg-gray-100 h-screen w-screen">
-  <!-- Room Assignment Modal -->
-<div id="assignRoomModal" class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center z-55555">
-  <div class="bg-white rounded-xl p-6 w-full max-w-md shadow-lg relative">
-    <h2 class="text-xl font-bold mb-4">Assign Room</h2>
-
-    <form id="assignRoomForm" class="space-y-4">
-      <input type="hidden" id="bookingIdField" />
-
-      <label class="block">
-        <span class="text-gray-700">Select Room</span>
-        <select id="roomSelect" required class="w-full mt-1 p-2 border rounded bg-gray-100">
-          <option value="">-- Choose Room --</option>
-          <option value="101">Room 101</option>
-          <option value="102">Room 102</option>
-          <option value="103">Room 103</option>
-          <!-- Add more room options here -->
-        </select>
-      </label>
-
-      <div class="flex justify-end gap-2">
-        <button type="button" id="cancelModalBtn" class="px-4 py-2 bg-gray-300 rounded hover:bg-gray-400">Cancel</button>
-        <button type="submit" class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">Assign</button>
-      </div>
-    </form>
-  </div>
-</div>
-
   <div id="create-booking-modal" class="hidden fixed inset-0 top-0 left-0 w-full h-full bg-black bg-opacity-50 flex items-center justify-center z-50">
             <div class="bg-white p-6 rounded shadow-lg w-full max-w-md mx-auto my-auto" style="margin-top: 5%;">
               <div class="flex justify-between items-center mb-4">
@@ -130,8 +103,6 @@
           <li class="menu-item flex items-center space-x-2 cursor-pointer hover:text-blue-300" data-target="settings-section">
             <span class="material-icons">settings</span><span>Settings</span>
           </li>
-
-          
           <li id="logout-btn-mobile" class="menu-item flex items-center space-x-2 cursor-pointer hover:text-blue-300">
             <span class="material-icons">logout</span><span>Logout</span>
           </li>
@@ -154,7 +125,6 @@
             <li class="menu-item flex items-center space-x-2 cursor-pointer hover:text-blue-300" data-target="bookings-section">
               <span class="material-icons">book</span><span>Bookings</span>
             </li>
-            
             <li class="menu-item flex items-center space-x-2 cursor-pointer hover:text-blue-300" data-target="settings-section">
               <span class="material-icons">settings</span><span>Settings</span>
             </li>
@@ -167,61 +137,12 @@
 
         <!-- Content Area -->
         <div id="content" class="flex-1 p-6 bg-white overflow-y-auto">
-    
-            
           <!-- Dashboard Section -->
           <div id="dashboard-section">
             <p class="text-lg font-semibold">Welcome to the booking dashboard</p>
             <p class="text-gray-600">Click on Bookings to view them.</p>
-                   <!-- Room Management Section -->
-<div id="room-management-section" class="mt-8 space-y-6">
-  <h2 class="text-xl font-bold">Room Management</h2>
-
-  <!-- Room Summary -->
-  <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-    <div class="bg-blue-100 p-4 rounded shadow text-center">
-      <p class="text-sm text-gray-600">Total Rooms</p>
-      <p id="total-rooms" class="text-xl font-bold">10</p>
-    </div>
-    <div class="bg-yellow-100 p-4 rounded shadow text-center">
-      <p class="text-sm text-gray-600">Reserved</p>
-      <p id="reserved-rooms" class="text-xl font-bold">0</p>
-    </div>
-    <div class="bg-green-100 p-4 rounded shadow text-center">
-      <p class="text-sm text-gray-600">Occupied</p>
-      <p id="occupied-rooms" class="text-xl font-bold">0</p>
-    </div>
-    <div class="bg-gray-100 p-4 rounded shadow text-center">
-      <p class="text-sm text-gray-600">Vacant</p>
-      <p id="vacant-rooms" class="text-xl font-bold">10</p>
-    </div>
-  </div>
-
-  <!-- Room Table -->
-  <table class="table-auto w-full border mt-4">
-    <thead class="bg-gray-200">
-      <tr>
-        <th class="px-2 py-3 border">Room No</th>
-        <th class="px-2 py-3 border">Status</th>
-        <th class="px-2 py-3 border">Assigned To</th>
-        <th class="px-2 py-3 border">Actions</th>
-      </tr>
-    </thead>
-    <tbody id="rooms-table">
-      <!-- JS will dynamically populate this -->
-    </tbody>
-  </table>
-
-  <div class="max-w-7xl mx-auto">
-    <h1 class="text-3xl font-bold mb-4">Room Calendar View</h1>
-
-    <div id="calendar" class="overflow-auto border rounded shadow bg-white">
-      <!-- Calendar will be inserted here by JavaScript -->
-    </div>
-  </div>
-</div>
           </div>
-     <div id="success-modal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+<div id="success-modal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
     <div class="bg-green-200 p-6 rounded shadow-lg">
         <p class="text-green-700 font-semibold mb-4">Deletion Successful!</p>
         <button id="close-success-btn" class="bg-green-500 text-white px-4 py-2 rounded">Okay</button>
@@ -244,7 +165,6 @@
 
           <!-- Create Booking Button -->
           <button id="open-create-modal" class="ml-auto bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600">+ Create New Booking</button>
-            <button class="custom-delete-btn bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded" data-booking-id="${booking._id}"> Assign Room </button>
 
           <!-- Search Input -->
           
@@ -270,19 +190,12 @@
                     <th class="px-2 py-4 border">Name</th>
                     <th class="px-2 py-4 border">Email</th>
                     <th class="px-2 py-4 border">Actions</th>
-                    <th class="px-2 py-4 border">Assign</th>
                   </tr>
                 </thead>
                 <tbody>
                   <tr class="bookingstable" >
                     <td colspan="7" class="text-center p-4">Loading bookings...</td>
                   </tr>
-                  <td class="px-2 py-4 border">
-                    <button class="assign-room-btn px-2 py-1 bg-blue-500 text-white rounded" data-booking-id="BOOKING_ID_HERE">
-                   Assign Room
-                </button>
-
-                   </td>
                 </tbody>
               </table>
             </div>
@@ -374,69 +287,6 @@
 
   <!-- Scripts -->
   <script>
-    document.addEventListener('DOMContentLoaded', async () => {
-    const calendarContainer = document.getElementById('calendar');
-
-    // Fetch bookings from backend
-    const res = await fetch('https://bookingenginebackend.onrender.com/api/room-calendar');
-    const data = await res.json();
-
-    // Get list of rooms and date range (e.g. next 7 days)
-    const rooms = Object.keys(data);
-    const today = new Date();
-    const dateRange = Array.from({ length: 7 }, (_, i) => {
-        const d = new Date(today);
-        d.setDate(today.getDate() + i);
-        return d;
-    });
-
-    // Create table
-    const table = document.createElement('table');
-    table.className = "min-w-full border-collapse";
-
-    // Header Row
-    const thead = document.createElement('thead');
-    const headRow = document.createElement('tr');
-
-    headRow.innerHTML = `
-        <th class="border p-2 bg-gray-200 text-left">Room</th>
-        ${dateRange.map(d => `<th class="border p-2 bg-gray-200 text-center">${d.toDateString().slice(0, 10)}</th>`).join('')}
-    `;
-    thead.appendChild(headRow);
-    table.appendChild(thead);
-
-    // Body Rows
-    const tbody = document.createElement('tbody');
-
-    rooms.forEach(room => {
-        const row = document.createElement('tr');
-        row.innerHTML = `<td class="border p-2 font-semibold">${room}</td>`;
-
-        dateRange.forEach(date => {
-            const day = new Date(date);
-            let booked = false;
-
-            data[room].forEach(booking => {
-                const start = new Date(booking.checkInDate);
-                const end = new Date(booking.checkOutDate);
-
-                if (day >= start && day < end) {
-                    booked = true;
-                }
-            });
-
-            row.innerHTML += `<td class="border text-center p-2 ${booked ? 'bg-red-400 text-white' : 'bg-green-100'}">${booked ? 'Booked' : ''}</td>`;
-        });
-
-        tbody.appendChild(row);
-    });
-
-    table.appendChild(tbody);
-    calendarContainer.appendChild(table);
-});
-
-  </script>
-  <script>
       
 // Function to show the loading spinner
 function showSpinner() {
@@ -492,7 +342,7 @@ document.getElementById('edit-form').addEventListener('submit', function(event) 
     
   </script>
   <script src="script2.js"></script>
-  <script src="admin.js" ></script>
+  <script src="admin.js" def></script>
   <script src="admin_02.js"></script>
   <script>
     
@@ -650,164 +500,6 @@ createForm.addEventListener("submit", (event) => {
     });
 });
 </script>
-<script>
-  // Example initial room state
-const rooms = [
-  { number: 101, status: 'vacant', assignedTo: null },
-  { number: 102, status: 'vacant', assignedTo: null },
-  { number: 103, status: 'vacant', assignedTo: null },
-  { number: 104, status: 'vacant', assignedTo: null },
-  { number: 105, status: 'vacant', assignedTo: null },
-  { number: 106, status: 'vacant', assignedTo: null },
-  { number: 107, status: 'vacant', assignedTo: null },
-  { number: 108, status: 'vacant', assignedTo: null },
-  { number: 109, status: 'vacant', assignedTo: null },
-  { number: 110, status: 'vacant', assignedTo: null },
-];
 
-function updateRoomTable() {
-  const table = document.getElementById('rooms-table');
-  table.innerHTML = '';
-
-  rooms.forEach((room, index) => {
-    const row = document.createElement('tr');
-    row.innerHTML = `
-      <td class="border px-2 py-2">${room.number}</td>
-      <td class="border px-2 py-2 capitalize">${room.status}</td>
-      <td class="border px-2 py-2">${room.assignedTo || '-'}</td>
-      <td class="border px-2 py-2 space-x-2">
-        ${room.status === 'vacant' ? `<button onclick="assignToBooking(${index})" class="bg-blue-500 text-white px-2 py-1 rounded">Assign</button>` : ''}
-        ${room.status === 'occupied' ? `<button onclick="markDirty(${index})" class="bg-red-500 text-white px-2 py-1 rounded">Checkout</button>` : ''}
-        ${room.status === 'dirty' ? `<button onclick="cleanRoom(${index})" class="bg-green-500 text-white px-2 py-1 rounded">Clean</button>` : ''}
-      </td>
-    `;
-    table.appendChild(row);
-  });
-
-  // Update counters
-  document.getElementById('total-rooms').textContent = rooms.length;
-  document.getElementById('reserved-rooms').textContent = rooms.filter(r => r.status === 'reserved').length;
-  document.getElementById('occupied-rooms').textContent = rooms.filter(r => r.status === 'occupied').length;
-  document.getElementById('vacant-rooms').textContent = rooms.filter(r => r.status === 'vacant').length;
-}
-
-function assignToBooking(index) {
-  const name = prompt("Enter Booking Name to assign:");
-  if (name) {
-    rooms[index].status = 'reserved';
-    rooms[index].assignedTo = name;
-    updateRoomTable();
-  }
-}
-
-function markDirty(index) {
-  rooms[index].status = 'dirty';
-  updateRoomTable();
-}
-
-function cleanRoom(index) {
-  rooms[index].status = 'vacant';
-  rooms[index].assignedTo = null;
-  updateRoomTable();
-}
-
-window.onload = updateRoomTable;
-
-</script>
-  <script>
-    document.addEventListener('DOMContentLoaded', () => {
-  const modal = document.getElementById('assignRoomModal');
-  const form = document.getElementById('assignRoomForm');
-  const roomSelect = document.getElementById('roomSelect');
-  const bookingIdField = document.getElementById('bookingIdField');
-  const cancelBtn = document.getElementById('cancelModalBtn');
-
-  // Show modal on Assign Room button click
-  document.addEventListener('click', (e) => {
-    if (e.target.classList.contains('assign-room-btn')) {
-      const bookingId = e.target.getAttribute('data-booking-id');
-      bookingIdField.value = bookingId;
-      modal.classList.remove('hidden');
-      modal.classList.add('flex');
-    }
-  });
-
-  // Hide modal
-  const closeModal = () => {
-    modal.classList.add('hidden');
-    modal.classList.remove('flex');
-    form.reset();
-  };
-
-  cancelBtn.addEventListener('click', closeModal);
-
-  // Submit room assignment
-  form.addEventListener('submit', async (e) => {
-    e.preventDefault();
-    const bookingId = bookingIdField.value;
-    const selectedRoom = roomSelect.value;
-
-    try {
-      const res = await fetch(`/api/bookings/assign-room/${bookingId}`, {
-        method: 'PUT',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ roomNumber: selectedRoom })
-      });
-
-      const data = await res.json();
-
-      if (res.ok) {
-        alert('Room assigned successfully!');
-        closeModal();
-        location.reload(); // Refresh booking table/calendar
-      } else {
-        alert('Error: ' + data.message);
-      }
-    } catch (err) {
-      console.error(err);
-      alert('Something went wrong.');
-    }
-  });
-});
-
-  </script>
-  <script>
-    document.addEventListener('click', async (e) => {
-  if (e.target.classList.contains('assign-room-btn')) {
-    const bookingId = e.target.getAttribute('data-booking-id');
-    bookingIdField.value = bookingId;
-
-    // Fetch the booking to get its date
-    const resBooking = await fetch(`/api/bookings/${bookingId}`);
-    const booking = await resBooking.json();
-    const dateStr = new Date(booking.date).toISOString().split('T')[0];
-
-    // Fetch booked rooms for that date
-    const resRooms = await fetch(`/api/bookings/booked-rooms/${dateStr}`);
-    const data = await resRooms.json();
-    const bookedRooms = data.bookedRooms;
-
-    // Enable all options first
-    Array.from(roomSelect.options).forEach(opt => {
-      opt.disabled = false;
-      opt.classList.remove('bg-gray-200', 'text-gray-500');
-    });
-
-    // Disable booked room options
-    bookedRooms.forEach(room => {
-      const opt = Array.from(roomSelect.options).find(o => o.value === room);
-      if (opt) {
-        opt.disabled = true;
-        opt.classList.add('bg-gray-200', 'text-gray-500');
-        opt.textContent += ' (Booked)';
-      }
-    });
-
-    modal.classList.remove('hidden');
-    modal.classList.add('flex');
-  }
-});
-
-  </script>
 </body>
 </html>
