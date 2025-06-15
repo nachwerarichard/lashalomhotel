@@ -1,4 +1,4 @@
- .edit-button, .delete-button {
+ .edit-button, .delete-button,.assign-room-btn {
         cursor: pointer;
         margin-right: 5px;
         padding: 5px 10px;
@@ -12,6 +12,14 @@
         border: none;
       }
       .edit-button:hover {
+        background-color: #45a049;
+      }
+.assign-room-btn {
+        background-color: #4CAF50; /* Green */
+        color: white;
+        border: none;
+      }
+      .assign-room-btn:hover {
         background-color: #45a049;
       }
       .delete-button {
