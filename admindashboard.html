@@ -184,6 +184,14 @@
       <!-- JS will dynamically populate this -->
     </tbody>
   </table>
+
+  <div class="max-w-7xl mx-auto">
+    <h1 class="text-3xl font-bold mb-4">Room Calendar View</h1>
+
+    <div id="calendar" class="overflow-auto border rounded shadow bg-white">
+      <!-- Calendar will be inserted here by JavaScript -->
+    </div>
+  </div>
 </div>
           </div>
      <div id="success-modal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
@@ -330,6 +338,69 @@
   </div>
 
   <!-- Scripts -->
+  <script>
+    document.addEventListener('DOMContentLoaded', async () => {
+    const calendarContainer = document.getElementById('calendar');
+
+    // Fetch bookings from backend
+    const res = await fetch('/api/room-calendar');
+    const data = await res.json();
+
+    // Get list of rooms and date range (e.g. next 7 days)
+    const rooms = Object.keys(data);
+    const today = new Date();
+    const dateRange = Array.from({ length: 7 }, (_, i) => {
+        const d = new Date(today);
+        d.setDate(today.getDate() + i);
+        return d;
+    });
+
+    // Create table
+    const table = document.createElement('table');
+    table.className = "min-w-full border-collapse";
+
+    // Header Row
+    const thead = document.createElement('thead');
+    const headRow = document.createElement('tr');
+
+    headRow.innerHTML = `
+        <th class="border p-2 bg-gray-200 text-left">Room</th>
+        ${dateRange.map(d => `<th class="border p-2 bg-gray-200 text-center">${d.toDateString().slice(0, 10)}</th>`).join('')}
+    `;
+    thead.appendChild(headRow);
+    table.appendChild(thead);
+
+    // Body Rows
+    const tbody = document.createElement('tbody');
+
+    rooms.forEach(room => {
+        const row = document.createElement('tr');
+        row.innerHTML = `<td class="border p-2 font-semibold">${room}</td>`;
+
+        dateRange.forEach(date => {
+            const day = new Date(date);
+            let booked = false;
+
+            data[room].forEach(booking => {
+                const start = new Date(booking.checkInDate);
+                const end = new Date(booking.checkOutDate);
+
+                if (day >= start && day < end) {
+                    booked = true;
+                }
+            });
+
+            row.innerHTML += `<td class="border text-center p-2 ${booked ? 'bg-red-400 text-white' : 'bg-green-100'}">${booked ? 'Booked' : ''}</td>`;
+        });
+
+        tbody.appendChild(row);
+    });
+
+    table.appendChild(tbody);
+    calendarContainer.appendChild(table);
+});
+
+  </script>
   <script>
       
 // Function to show the loading spinner
