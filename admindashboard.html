@@ -103,6 +103,9 @@
           <li class="menu-item flex items-center space-x-2 cursor-pointer hover:text-blue-300" data-target="settings-section">
             <span class="material-icons">settings</span><span>Settings</span>
           </li>
+           <li class="menu-item flex items-center space-x-2 cursor-pointer hover:text-blue-300" data-target="room-management-section">
+            <span class="material-icons">bed</span><span>Room mangement</span>
+          </li>
           <li id="logout-btn-mobile" class="menu-item flex items-center space-x-2 cursor-pointer hover:text-blue-300">
             <span class="material-icons">logout</span><span>Logout</span>
           </li>
@@ -140,8 +143,7 @@
 
         <!-- Content Area -->
         <div id="content" class="flex-1 p-6 bg-white overflow-y-auto">
-
-             <!-- Room Management Section -->
+           <!-- Room Management Section -->
 <div id="room-management-section" class="mt-8 space-y-6">
   <h2 class="text-xl font-bold">Room Management</h2>
 
@@ -180,6 +182,7 @@
     </tbody>
   </table>
 </div>
+            
           <!-- Dashboard Section -->
           <div id="dashboard-section">
             <p class="text-lg font-semibold">Welcome to the booking dashboard</p>
@@ -398,7 +401,7 @@ document.getElementById('edit-form').addEventListener('submit', function(event) 
     const closeSidebar = document.getElementById("close-sidebar");
 
     const menuItems = document.querySelectorAll('.menu-item');
-    const sections = ["dashboard-section", "bookings-section", "settings-section"];
+    const sections = ["dashboard-section", "bookings-section", "settings-section","room-management-section"];
 
     loginForm.addEventListener("submit", function (e) {
       e.preventDefault();
