@@ -1,4 +1,3 @@
-
 const API_BASE_URL = 'https://bookingenginebackend.onrender.com/api/bookings'; // Adjust if needed
 const ADMIN_LOGIN_URL = 'https://bookingenginebackend.onrender.com/api/admin/login'; // adjust to your actual endpoint
 
@@ -109,9 +108,7 @@ async function fetchBookings(searchTerm = '') {
     const row = document.createElement('tr');
     let buttonHTML = `
         <button class="custom-edit-btn bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mr-2" data-id="${booking._id}">Edit</button>
-        <button class="custom-delete-btn bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded" data-id="${booking._id}">Del</button>
-        <button class="assign-room-btn bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded" data-id="${booking._id}">Assign Room</button>
-
+        <button class="custom-delete-btn bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded" data-id="${booking._id}">Delete</button>
     `;
     row.innerHTML = `
         <td>${booking._id}</td>
@@ -371,7 +368,21 @@ document.getElementById('close-result-modal').addEventListener('click', () => {
 /**
  * Attaches event listeners to edit and delete buttons.
  */
+function attachEventListenersToButtons() {
+    document.querySelectorAll('.edit-button').forEach(button => {
+        button.addEventListener('click', () => {
+            const bookingId = button.getAttribute('data-id');
+            editBooking(bookingId);
+        });
+    });
 
+    document.querySelectorAll('.delete-button').forEach(button => {
+        button.addEventListener('click', () => {
+            const bookingId = button.getAttribute('data-id');
+            deleteBooking(bookingId);
+        });
+    });
+}
 
 // Initial load
 document.addEventListener('DOMContentLoaded', () => {
