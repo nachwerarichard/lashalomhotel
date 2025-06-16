@@ -129,13 +129,21 @@
             <li class="menu-item flex items-center space-x-2 cursor-pointer hover:text-blue-300" data-target="bookings-section">
               <span class="material-icons">book</span><span>Bookings</span>
             </li>
-                            <li><a href="#" id="rooms-tab" class="block py-2.5 px-4 rounded transition duration-200 hover:bg-gray-700">Rooms</a></li>
 
             <li class="menu-item flex items-center space-x-2 cursor-pointer hover:text-blue-300" data-target="settings-section">
               <span class="material-icons">settings</span><span>Settings</span>
             </li>
-             <li id="rooms-tab" class="menu-item flex items-center space-x-2 cursor-pointer hover:text-blue-300" data-target="settings-section">
-              <span class="material-icons">settings</span><span>Settings</span>
+             <li id="rooms-tab" class="menu-item flex items-center space-x-2 cursor-pointer hover:text-blue-300" data-target="rooms-tab">
+               <aside class="w-64 bg-gray-800 text-white p-4 flex-shrink-0"> <nav>
+            <ul>
+                <li><a href="#" id="dashboard-tab" class="block py-2.5 px-4 rounded transition duration-200 hover:bg-gray-700">Dashboard</a></li>
+                <li><a href="#" id="bookings-tab" class="block py-2.5 px-4 rounded transition duration-200 hover:bg-gray-700">Bookings</a></li>
+                <li><a href="#" id="rooms-tab" class="block py-2.5 px-4 rounded transition duration-200 hover:bg-gray-700">Rooms</a></li>
+                <li><button id="logout-btn" class="w-full text-left py-2.5 px-4 rounded transition duration-200 hover:bg-gray-700 mt-4">Logout</button></li>
+            </ul>
+        </nav>
+    </aside>
+              <span class="material-icons">bed</span><span>Rooms</span>
             </li>
             <li id="logout-btn" class="flex items-center space-x-2 cursor-pointer hover:text-blue-300">
               <span class="material-icons">logout</span><span>Logout</span>
