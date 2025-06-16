@@ -566,6 +566,30 @@ createForm.addEventListener("submit", (event) => {
     });
 });
 </script>
+<script>
+    document.querySelectorAll('.menu-item').forEach(item => {
+    item.addEventListener('click', function() {
+        const targetId = this.dataset.target;
 
+        // Hide all content sections
+        document.getElementById('dashboard-section').classList.add('hidden');
+        document.getElementById('bookings-section').classList.add('hidden');
+        document.getElementById('rooms-section').classList.add('hidden'); // Added this line
+        document.getElementById('settings-section').classList.add('hidden');
+
+        // Show the targeted section
+        document.getElementById(targetId).classList.remove('hidden');
+
+        // Close mobile sidebar if open
+        const mobileSidebar = document.getElementById('mobile-sidebar');
+        if (!mobileSidebar.classList.contains('-translate-x-full')) {
+            mobileSidebar.classList.add('-translate-x-full');
+        }
+    });
+});
+
+// Initial display (e.g., show dashboard on load)
+// document.getElementById('dashboard-section').classList.remove('hidden'); // Or whichever section you want to show by default
+</script>
 </body>
 </html>
