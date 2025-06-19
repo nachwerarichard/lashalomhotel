@@ -153,7 +153,7 @@ async function fetchBookings(searchTerm = '') {
         });
 
         attachEventListenersToButtons();
-        //renderTablePage(currentPage);
+        renderTablePage(currentPage);
         renderPagination();
 
     } catch (error) {
