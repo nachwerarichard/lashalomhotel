@@ -131,7 +131,8 @@ async function fetchBookings(searchTerm = '') {
         <td>${booking.time}</td>
         <td>${booking.name}</td>
         <td>${booking.email}</td>
-        <td>
+        <td>${buttonHTML}</td>
+        
         <td>
   ${
     roomList && roomList.length
@@ -143,9 +144,9 @@ async function fetchBookings(searchTerm = '') {
   }
 </td>
 
-</td>
 
-        <td>${buttonHTML}</td>
+
+       
     `;
     console.log('row.innerHTML before append:', row.innerHTML);
     bookingsTableBody.appendChild(row);
