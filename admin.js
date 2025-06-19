@@ -85,21 +85,47 @@ async function fetchData(url, options = {}) {
 /**
  * Fetches all bookings from the API and displays them in a table.
  */
-let roomList = [];
-async function fetchData(url) {
-  const res = await fetch(url);
-  if (!res.ok) throw new Error('Failed to fetch');
-  return res.json();
+let roomList = []; // Global or accessible variable
+
+async function fetchData(url, options = {}) {
+    // Your existing fetchData implementation
+    // ... make sure this handles successful responses and errors
+    try {
+        const response = await fetch(url, options);
+        if (!response.ok) {
+            const errorText = await response.text();
+            throw new Error(`HTTP error! status: ${response.status}, message: ${errorText}`);
+        }
+        return await response.json();
+    } catch (error) {
+        console.error("Error in fetchData:", error);
+        throw error; // Re-throw to propagate the error
+    }
 }
 
-async function loadRooms() {
-  try {
-    roomList = await fetchData(`${API_BASE_URL}/rooms`);
-    await fetchBookings(); // Call after roomList is ready
-  } catch (err) {
-    console.error('Room loading error:', err);
-  }
+async function fetchRooms() {
+    try {
+        // IMPORTANT: Replace with the actual API endpoint for your rooms
+        // For example: `${API_BASE_URL}/rooms` or `${API_BASE_URL}/admin/rooms`
+        const rooms = await fetchData(`${API_BASE_URL}/your-room-api-endpoint`);
+        roomList = rooms || []; // Ensure roomList is an array, even if empty
+        console.log("Rooms fetched successfully:", roomList); // Confirm data here
+    } catch (error) {
+        console.error("Failed to fetch rooms:", error);
+        roomList = []; // Ensure it's an empty array on error
+    }
 }
+
+async function initializeApp() {
+    console.log("Initializing application...");
+    await fetchRooms(); // FIRST: Fetch rooms
+    await fetchBookings(); // THEN: Fetch bookings, which relies on roomList
+    console.log("Application initialized.");
+}
+
+// Call this once to start everything
+initializeApp();
+
 async function fetchBookings(searchTerm = '') {
     const bookingsTableBody = document.querySelector('#bookings-table tbody');
     console.log('bookingsTableBody:', bookingsTableBody);
