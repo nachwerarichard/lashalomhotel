@@ -85,47 +85,21 @@ async function fetchData(url, options = {}) {
 /**
  * Fetches all bookings from the API and displays them in a table.
  */
-let roomList = []; // Global or accessible variable
-
-async function fetchData(url, options = {}) {
-    // Your existing fetchData implementation
-    // ... make sure this handles successful responses and errors
-    try {
-        const response = await fetch(url, options);
-        if (!response.ok) {
-            const errorText = await response.text();
-            throw new Error(`HTTP error! status: ${response.status}, message: ${errorText}`);
-        }
-        return await response.json();
-    } catch (error) {
-        console.error("Error in fetchData:", error);
-        throw error; // Re-throw to propagate the error
-    }
+let roomList = [];
+async function fetchData(url) {
+  const res = await fetch(url);
+  if (!res.ok) throw new Error('Failed to fetch');
+  return res.json();
 }
 
-async function fetchRooms() {
-    try {
-        // IMPORTANT: Replace with the actual API endpoint for your rooms
-        // For example: `${API_BASE_URL}/rooms` or `${API_BASE_URL}/admin/rooms`
-        const rooms = await fetchData(`${API_BASE_URL}/your-room-api-endpoint`);
-        roomList = rooms || []; // Ensure roomList is an array, even if empty
-        console.log("Rooms fetched successfully:", roomList); // Confirm data here
-    } catch (error) {
-        console.error("Failed to fetch rooms:", error);
-        roomList = []; // Ensure it's an empty array on error
-    }
+async function loadRooms() {
+  try {
+    roomList = await fetchData(`${API_BASE_URL}/rooms`);
+    await fetchBookings(); // Call after roomList is ready
+  } catch (err) {
+    console.error('Room loading error:', err);
+  }
 }
-
-async function initializeApp() {
-    console.log("Initializing application...");
-    await fetchRooms(); // FIRST: Fetch rooms
-    await fetchBookings(); // THEN: Fetch bookings, which relies on roomList
-    console.log("Application initialized.");
-}
-
-// Call this once to start everything
-initializeApp();
-
 async function fetchBookings(searchTerm = '') {
     const bookingsTableBody = document.querySelector('#bookings-table tbody');
     console.log('bookingsTableBody:', bookingsTableBody);
@@ -143,24 +117,13 @@ async function fetchBookings(searchTerm = '') {
         const maxRows = 4;
         const limitedBookings = bookings.slice(0, maxRows);
         console.log('limitedBookings:', limitedBookings);
-                console.log('roomList:', roomList); // Check what roomList holds
-
         bookingsTableBody.innerHTML = '';
-        limitedBookings.forEach(booking => {
-        const row = document.createElement('tr');
-        let buttonHTML = `
-          <button class="custom-edit-btn bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mr-2" data-id="${booking._id}">Edit</button>
-          <button class="custom-delete-btn bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded" data-id="${booking._id}">Delete</button>
-         `;
-
-    // Construct the HTML for the room assignment dropdown
-    const assignRoomDropdownHTML = roomList && roomList.length
-        ? `<select class="assign-room-dropdown" data-id="${booking._id}">
-              <option value="">Assign Room</option>
-              ${roomList.map(r => `<option value="${r.number}">${r.number}</option>`).join('')}
-           </select>`
-        : '<span class="text-red-500">No rooms loaded</span>';
-
+       limitedBookings.forEach(booking => {
+    const row = document.createElement('tr');
+    let buttonHTML = `
+        <button class="custom-edit-btn bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mr-2" data-id="${booking._id}">Edit</button>
+        <button class="custom-delete-btn bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded" data-id="${booking._id}">Delete</button>
+    `;
     row.innerHTML = `
         <td>${booking._id}</td>
         <td>${booking.service}</td>
@@ -168,15 +131,30 @@ async function fetchBookings(searchTerm = '') {
         <td>${booking.time}</td>
         <td>${booking.name}</td>
         <td>${booking.email}</td>
-        <td>${buttonHTML}</td>  <td>${assignRoomDropdownHTML}</td> `;
+        <td>
+        <td>
+  ${
+    roomList && roomList.length
+      ? `<select class="assign-room-dropdown" data-id="${booking._id}">
+          <option value="">Assign Room</option>
+          ${roomList.map(r => `<option value="${r.number}">${r.number}</option>`).join('')}
+        </select>`
+      : '<span class="text-red-500">No rooms loaded</span>'
+  }
+</td>
+
+</td>
+
+        <td>${buttonHTML}</td>
+    `;
     console.log('row.innerHTML before append:', row.innerHTML);
     bookingsTableBody.appendChild(row);
-});
 
+        });
 
         attachEventListenersToButtons();
-       renderTablePage(currentPage);
-       //renderPagination();
+        renderTablePage(currentPage);
+        renderPagination();
 
     } catch (error) {
         bookingsTableBody.innerHTML = '<tr><td colspan="7">Failed to load bookings. Please check your network and backend.</td></tr>';
