@@ -7,6 +7,9 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="css/mystyles.css">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.js"></script>
+
 </head>
 <body class="bg-gray-100 h-screen w-screen">
     <div id="create-booking-modal" class="hidden fixed inset-0 top-0 left-0 w-full h-full bg-black bg-opacity-50 flex items-center justify-center z-50">
@@ -131,6 +134,8 @@
 
                 <div id="content" class="flex-1 p-6 bg-white overflow-y-auto">
                     <div id="dashboard-section" class="">
+                        <div id="booking-calendar" class="mt-4 bg-white p-4 rounded shadow"></div>
+
                         <p class="text-lg font-semibold">Welcome to the booking dashboard</p>
                         <p class="text-gray-600">Click on Bookings to view them.</p>
                     </div>
@@ -166,6 +171,7 @@
                                             <th class="px-2 py-4 border">Name</th>
                                             <th class="px-2 py-4 border">Email</th>
                                             <th class="px-2 py-4 border">Actions</th>
+                                            
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -357,7 +363,33 @@
   <script src="admin.js" def></script>
   <script src="admin_02.js"></script>
   <script src="admin4.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', async function () {
+  const calendarEl = document.getElementById('booking-calendar');
+  const calendar = new FullCalendar.Calendar(calendarEl, {
+    initialView: 'dayGridMonth',
+    events: async (fetchInfo, successCallback, failureCallback) => {
+      try {
+        const res = await fetch(`${API_BASE_URL}/admin`);
+        const bookings = await res.json();
 
+        const events = bookings.map(booking => ({
+          title: `${booking.name} - ${booking.roomNumber || 'No Room'}`,
+          start: booking.date,
+          allDay: true
+        }));
+
+        successCallback(events);
+      } catch (err) {
+        failureCallback(err);
+      }
+    }
+  });
+
+  calendar.render();
+});
+
+</script>
 
 </body>
 </html>
