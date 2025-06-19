@@ -86,8 +86,6 @@ async function fetchData(url, options = {}) {
  * Fetches all bookings from the API and displays them in a table.
  */
 let roomList = [];
-let bookingsData = [];
-
 async function fetchData(url) {
   const res = await fetch(url);
   if (!res.ok) throw new Error('Failed to fetch');
