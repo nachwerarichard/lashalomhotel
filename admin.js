@@ -132,10 +132,17 @@ async function fetchBookings(searchTerm = '') {
         <td>${booking.name}</td>
         <td>${booking.email}</td>
         <td>
-  <select class="assign-room-dropdown" data-id="${booking._id}">
-    <option value="">Assign Room</option>
-    ${roomList.map(r => `<option value="${r.number}">${r.number}</option>`).join('')}
-  </select>
+        <td>
+  ${
+    roomList && roomList.length
+      ? `<select class="assign-room-dropdown" data-id="${booking._id}">
+          <option value="">Assign Room</option>
+          ${roomList.map(r => `<option value="${r.number}">${r.number}</option>`).join('')}
+        </select>`
+      : '<span class="text-red-500">No rooms loaded</span>'
+  }
+</td>
+
 </td>
 
         <td>${buttonHTML}</td>
