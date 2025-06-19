@@ -1,27 +1,28 @@
-console.log("admin.js loaded");
-
-// --- Global Variables ---
-const API_BASE_URL = 'https://bookingenginebackend.onrender.com/api/bookings'; // Base for bookings
-// Assuming your backend mounts the bookings router at '/api/bookings'
-// And your rooms endpoint will be e.g. 'https://bookingenginebackend.onrender.com/api/bookings/rooms'
-const ADMIN_LOGIN_URL = 'https://bookingenginebackend.onrender.com/api/admin/login';
-
-let bookingsData = []; // Stores ALL fetched bookings for pagination/search
-let roomList = [];    // Stores ALL fetched rooms for dropdowns
-let currentPage = 1;  // Current page for pagination
-const rowsPerPage = 4; // Number of rows to display per page
-
-const bookingsTableBody = document.querySelector('#bookings-table tbody');
-const paginationContainer = document.getElementById('pagination-controls'); // Ensure this element exists in your HTML!
-
+const API_BASE_URL = 'https://bookingenginebackend.onrender.com/api/bookings'; // Adjust if needed
+const ADMIN_LOGIN_URL = 'https://bookingenginebackend.onrender.com/api/admin/login'; // adjust to your actual endpoint
+console.log("admin.js loaded")
 // --- Utility Functions ---
-
-function showMessage(message, type, targetId) {
+/**
+ * Displays a message to the user.
+ * @param {string} message - The message to display.
+ * @param {string} type - The type of message ('success' or 'error').
+ * @param {string} targetId - The ID of the element where the message should be displayed.
+ */
+/*function showMessage(message, type, targetId) {
+    const messageDiv = document.getElementById(targetId);
+    messageDiv.textContent = message;
+    messageDiv.className = type;
+    messageDiv.classList.remove('hidden');
+    setTimeout(() => {
+        messageDiv.classList.add('hidden');
+        messageDiv.textContent = '';
+    }, 5000);
+}*/
+/*function showMessage(message, type, targetId) {
     const messageDiv = document.getElementById(targetId);
     if (messageDiv) {
         messageDiv.textContent = message;
-        // Ensure Tailwind classes for styling (e.g., text-green-500, text-red-500, bg-green-100, bg-red-100, p-2, rounded)
-        messageDiv.className = `p-2 rounded mt-2 ${type === 'success' ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'}`;
+        messageDiv.className = type; // Overwrites existing classes
         messageDiv.classList.remove('hidden');
         setTimeout(() => {
             messageDiv.classList.add('hidden');
@@ -30,9 +31,65 @@ function showMessage(message, type, targetId) {
     } else {
         console.error(`Target element with id "${targetId}" not found.`);
     }
+}*/
+ function showMessage(message, type, targetId) {
+        const messageDiv = document.getElementById(targetId);
+        if (messageDiv) {
+            messageDiv.textContent = message;
+            messageDiv.className = type; // Overwrites existing classes
+            messageDiv.classList.remove('hidden');
+            setTimeout(() => {
+                messageDiv.classList.add('hidden');
+                messageDiv.textContent = '';
+            }, 5000);
+        } else {
+            console.error(`Target element with id "${targetId}" not found.`);
+        }
+    }
+document.getElementById('search-btn').addEventListener('click', () => {
+    const searchTerm = document.getElementById('search-input').value.trim();
+    fetchBookings(searchTerm);
+});
+
+document.getElementById('search-input').addEventListener('input', () => {
+    const searchTerm = document.getElementById('search-input').value.trim();
+    fetchBookings(searchTerm);
+});
+document.getElementById('search-input').addEventListener('keypress', (e) => {
+    if (e.key === 'Enter') {
+        document.getElementById('search-btn').click();
+    }
+});
+
+/**
+ * Fetches data from the API and handles errors.
+ * @param {string} url - The URL to fetch.
+ * @param {object} options - Optional fetch options.
+ * @returns {Promise<object>} - The JSON response from the API.
+ */
+async function fetchData(url, options = {}) {
+    try {
+        const response = await fetch(url, options);
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        return await response.json();
+    } catch (error) {
+        console.error('Fetch error:', error);
+        throw error;
+    }
 }
 
+// --- Booking Management ---
+
+/**
+ * Fetches all bookings from the API and displays them in a table.
+ */
+let roomList = []; // Global or accessible variable
+
 async function fetchData(url, options = {}) {
+    // Your existing fetchData implementation
+    // ... make sure this handles successful responses and errors
     try {
         const response = await fetch(url, options);
         if (!response.ok) {
@@ -42,226 +99,152 @@ async function fetchData(url, options = {}) {
         return await response.json();
     } catch (error) {
         console.error("Error in fetchData:", error);
-        throw error;
+        throw error; // Re-throw to propagate the error
     }
 }
 
-// --- Room Fetching ---
 async function fetchRooms() {
     try {
-        // *** CORRECT ROOMS API ENDPOINT ***
-        // Assuming your backend's main app.js has app.use('/api/bookings', bookingsRouter);
-        // and in bookingsRouter, you added router.get('/rooms', ...)
-        const rooms = await fetchData(`${API_BASE_URL}/rooms`); //
-        roomList = rooms || []; // Ensure roomList is an array
-        console.log("Rooms fetched for dropdown:", roomList); // Confirm data here
+        // IMPORTANT: Replace with the actual API endpoint for your rooms
+        // For example: `${API_BASE_URL}/rooms` or `${API_BASE_URL}/admin/rooms`
+        const rooms = await fetchData(`${API_BASE_URL}/your-room-api-endpoint`);
+        roomList = rooms || []; // Ensure roomList is an array, even if empty
+        console.log("Rooms fetched successfully:", roomList); // Confirm data here
     } catch (error) {
         console.error("Failed to fetch rooms:", error);
         roomList = []; // Ensure it's an empty array on error
     }
 }
 
-// --- Render Functions ---
-
-// Function to render a single booking row
-function renderBookingRow(booking) {
-    const row = document.createElement('tr');
-
-    const buttonHTML = `
-        <button class="custom-edit-btn bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mr-2" data-id="${booking._id}">Edit</button>
-        <button class="custom-delete-btn bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded" data-id="${booking._id}">Delete</button>
-    `;
-
-    // Logic for the assign room dropdown
-    const assignRoomDropdownHTML = roomList && roomList.length //
-        ? `<select class="assign-room-dropdown border p-2 rounded" data-id="${booking._id}">
-              <option value="">Assign Room</option>
-              ${roomList.map(r => `<option value="${r.number}" ${booking.roomNumber === r.number ? 'selected' : ''}>${r.number}</option>`).join('')}
-           </select>`
-        : '<span class="text-red-500">No rooms loaded</span>'; //
-
-    row.innerHTML = `
-        <td class="px-6 py-4 whitespace-nowrap">${booking._id}</td>
-        <td class="px-6 py-4 whitespace-nowrap">${booking.service}</td>
-        <td class="px-6 py-4 whitespace-nowrap">${new Date(booking.date).toLocaleDateString()}</td>
-        <td class="px-6 py-4 whitespace-nowrap">${booking.time}</td>
-        <td class="px-6 py-4 whitespace-nowrap">${booking.name}</td>
-        <td class="px-6 py-4 whitespace-nowrap">${booking.email}</td>
-        <td class="px-6 py-4 whitespace-nowrap">${buttonHTML}</td>
-        <td class="px-6 py-4 whitespace-nowrap">${assignRoomDropdownHTML}</td>
-    `;
-    return row;
+async function initializeApp() {
+    console.log("Initializing application...");
+    await fetchRooms(); // FIRST: Fetch rooms
+    await fetchBookings(); // THEN: Fetch bookings, which relies on roomList
+    console.log("Application initialized.");
 }
 
-// Function to render the current page of the table
-function renderTablePage(page) {
-    currentPage = page;
-    bookingsTableBody.innerHTML = ''; // Clear previous content
+// Call this once to start everything
+initializeApp();
 
-    const start = (page - 1) * rowsPerPage;
-    const end = start + rowsPerPage;
-    const paginatedBookings = bookingsData.slice(start, end); // Use the global bookingsData
-
-    if (paginatedBookings.length === 0) {
-        bookingsTableBody.innerHTML = '<tr><td colspan="8" class="px-6 py-4 text-center text-gray-500">No bookings found for this page.</td></tr>'; // 8 columns
-        return;
-    }
-
-    paginatedBookings.forEach(booking => {
-        const row = renderBookingRow(booking); // Use the helper function
-        bookingsTableBody.appendChild(row);
-    });
-
-    // Re-attach event listeners *after* new rows are added to the DOM
-    attachEventListenersToButtons();
-}
-
-// Function to render pagination controls
-function renderPagination() {
-    const totalPages = Math.ceil(bookingsData.length / rowsPerPage);
-
-    if (!paginationContainer) {
-        console.warn("Pagination container not found (ID: pagination-controls). Skipping pagination rendering.");
-        return;
-    }
-
-    paginationContainer.innerHTML = ''; // Clear existing pagination buttons
-
-    // Prev button
-    const prevButton = document.createElement('button');
-    prevButton.textContent = 'Previous';
-    prevButton.classList.add('px-3', 'py-1', 'mx-1', 'border', 'rounded', 'bg-gray-200', 'hover:bg-gray-300');
-    prevButton.disabled = currentPage === 1;
-    prevButton.onclick = () => renderTablePage(currentPage - 1);
-    paginationContainer.appendChild(prevButton);
-
-    // Page number buttons
-    for (let i = 1; i <= totalPages; i++) {
-        const button = document.createElement('button');
-        button.textContent = i;
-        button.classList.add('px-3', 'py-1', 'mx-1', 'border', 'rounded');
-        if (i === currentPage) {
-            button.classList.add('bg-blue-500', 'text-white');
-        } else {
-            button.classList.add('bg-gray-200', 'hover:bg-gray-300');
-        }
-        button.onclick = () => renderTablePage(i);
-        paginationContainer.appendChild(button);
-    }
-
-    // Next button
-    const nextButton = document.createElement('button');
-    nextButton.textContent = 'Next';
-    nextButton.classList.add('px-3', 'py-1', 'mx-1', 'border', 'rounded', 'bg-gray-200', 'hover:bg-gray-300');
-    nextButton.disabled = currentPage === totalPages || totalPages === 0;
-    nextButton.onclick = () => renderTablePage(currentPage + 1);
-    paginationContainer.appendChild(nextButton);
-}
-
-// --- Main Fetch Bookings Function ---
 async function fetchBookings(searchTerm = '') {
-    bookingsTableBody.innerHTML = '<tr><td colspan="8" class="px-6 py-4 text-center text-gray-500">Loading bookings...</td></tr>'; // 8 columns
+    const bookingsTableBody = document.querySelector('#bookings-table tbody');
+    console.log('bookingsTableBody:', bookingsTableBody);
+    bookingsTableBody.innerHTML = '<tr><td colspan="7">Loading bookings...</td></tr>';
 
     try {
         const query = searchTerm ? `?search=${encodeURIComponent(searchTerm)}` : '';
-        // Note: The API_BASE_URL here is for bookings, not admin specifically.
-        // Your backend /admin endpoint is inside the bookings router.
-        const fetchedBookings = await fetchData(`${API_BASE_URL}/admin${query}`);
-        bookingsData = fetchedBookings || []; // Store ALL fetched bookings
-
-        if (!bookingsData || bookingsData.length === 0) {
-            bookingsTableBody.innerHTML = '<tr><td colspan="8" class="px-6 py-4 text-center text-gray-500">No bookings found.</td></tr>'; // 8 columns
-            if (paginationContainer) paginationContainer.innerHTML = ''; // Clear pagination
+        const bookings = await fetchData(`${API_BASE_URL}/admin${query}`);
+        bookingsData = bookings || [];
+        if (!bookings || bookings.length === 0) {
+            bookingsTableBody.innerHTML = '<tr><td colspan="7">No bookings found.</td></tr>';
             return;
         }
 
-        // Render the first page and pagination controls
-        renderTablePage(1); // Start on page 1
-        renderPagination();
+        const maxRows = 4;
+        const limitedBookings = bookings.slice(0, maxRows);
+        console.log('limitedBookings:', limitedBookings);
+                console.log('roomList:', roomList); // Check what roomList holds
+
+        bookingsTableBody.innerHTML = '';
+        limitedBookings.forEach(booking => {
+        const row = document.createElement('tr');
+        let buttonHTML = `
+          <button class="custom-edit-btn bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mr-2" data-id="${booking._id}">Edit</button>
+          <button class="custom-delete-btn bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded" data-id="${booking._id}">Delete</button>
+         `;
+
+    // Construct the HTML for the room assignment dropdown
+    const assignRoomDropdownHTML = roomList && roomList.length
+        ? `<select class="assign-room-dropdown" data-id="${booking._id}">
+              <option value="">Assign Room</option>
+              ${roomList.map(r => `<option value="${r.number}">${r.number}</option>`).join('')}
+           </select>`
+        : '<span class="text-red-500">No rooms loaded</span>';
+
+    row.innerHTML = `
+        <td>${booking._id}</td>
+        <td>${booking.service}</td>
+        <td>${new Date(booking.date).toLocaleDateString()}</td>
+        <td>${booking.time}</td>
+        <td>${booking.name}</td>
+        <td>${booking.email}</td>
+        <td>${buttonHTML}</td>  <td>${assignRoomDropdownHTML}</td> `;
+    console.log('row.innerHTML before append:', row.innerHTML);
+    bookingsTableBody.appendChild(row);
+});
+
+
+        attachEventListenersToButtons();
+      // renderTablePage(currentPage);
+       renderPagination();
 
     } catch (error) {
-        console.error("Error fetching bookings:", error);
-        bookingsTableBody.innerHTML = '<tr><td colspan="8" class="px-6 py-4 text-center text-red-500">Failed to load bookings. Please check your network and backend.</td></tr>'; // 8 columns
+        bookingsTableBody.innerHTML = '<tr><td colspan="7">Failed to load bookings. Please check your network and backend.</td></tr>';
     }
 }
 
-// --- Event Handlers ---
-
-function attachEventListenersToButtons() {
-    // Corrected selectors for your buttons based on your HTML structure
-    document.querySelectorAll('.custom-edit-btn').forEach(button => {
-        button.onclick = (e) => editBooking(e.target.dataset.id); // Call your existing editBooking
-    });
-    document.querySelectorAll('.custom-delete-btn').forEach(button => {
-        button.onclick = (e) => deleteBooking(e.target.dataset.id); // Call your existing deleteBooking
-    });
-    document.querySelectorAll('.assign-room-dropdown').forEach(dropdown => {
-        dropdown.onchange = (e) => handleAssignRoom(e.target.dataset.id, e.target.value);
-    });
-}
-
-document.getElementById('search-btn').addEventListener('click', () => {
-    const searchTerm = document.getElementById('search-input').value.trim();
-    // When searching, you'll want to re-fetch *all* bookings matching the term, then re-render pagination
-    fetchBookings(searchTerm);
-});
-
-document.getElementById('search-input').addEventListener('input', () => {
-    // For live search, re-fetch and re-render.
-    // This can be heavy if many bookings. Consider a debounce or separate client-side filtering if performance is an issue.
-    const searchTerm = document.getElementById('search-input').value.trim();
-    fetchBookings(searchTerm);
-});
-
-document.getElementById('search-input').addEventListener('keypress', (e) => {
-    if (e.key === 'Enter') {
-        document.getElementById('search-btn').click();
-    }
-});
-
-// Event handler for assigning a room
-async function handleAssignRoom(bookingId, roomNumber) {
-    if (!roomNumber) {
-        console.log(`Booking ${bookingId}: Room unassigned.`);
-        return; // Do nothing if "Assign Room" is selected
-    }
+document.querySelectorAll('.assign-room-dropdown').forEach(dropdown => {
+  dropdown.addEventListener('change', async (e) => {
+    const bookingId = e.target.dataset.id;
+    const selectedRoom = e.target.value;
 
     try {
-        // You need the booking's date for the backend conflict check.
-        // Find the booking in bookingsData
-        const bookingToUpdate = bookingsData.find(b => b._id === bookingId);
-        if (!bookingToUpdate) {
-            console.error('Booking not found in local data for assignment.');
-            showMessage('Error: Booking not found for assignment.', 'error', 'edit-message');
-            return;
-        }
+      const res = await fetch(`${API_BASE_URL}/assign-room/${bookingId}`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ roomNumber: selectedRoom, date: booking.date })
+      });
 
-        const response = await fetch(`${API_BASE_URL}/assign-room/${bookingId}`, {
-            method: 'PUT',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ roomNumber, date: bookingToUpdate.date }), // Send the actual booking date
-        });
+      const data = await res.json();
 
-        const data = await response.json();
-
-        if (!response.ok) {
-            throw new Error(data.error || 'Failed to assign room');
-        }
-        showMessage('Room assigned successfully!', 'success', 'edit-message');
-        fetchBookings(); // Refresh table to show assigned room
-
-    } catch (error) {
-        console.error('Error assigning room:', error);
-        showMessage('Failed to assign room: ' + error.message, 'error', 'edit-message');
+      if (!res.ok) throw new Error(data.error || 'Failed to assign room');
+      alert('Room assigned successfully');
+      fetchBookings(); // refresh table
+    } catch (err) {
+      alert(err.message);
     }
-}
+  });
+});
 
-// --- Your existing CRUD functions (editBooking, handleEditSubmit, showDeleteModal, deleteBooking, createBookingManual) ---
-// Just make sure they call fetchBookings() after successful operations to refresh the table.
+/* * Handles editing a booking.
+ * @param {string} id - The ID of the booking to edit.
+ */
+/*async function renBookings(searchTerm = '') {
+    let url = `${API_BASE_URL}/admin`;
+    if (searchTerm) {
+        url += `?search=${encodeURIComponent(searchTerm)}`;
+    }
 
-// Example: `editBooking` calls `fetchBookings()`
+    bookingsTable.querySelector('tbody').innerHTML = '<tr><td colspan="6" class="px-6 py-4 text-center text-gray-500">Loading bookings...</td></tr>';
+
+    try {
+        const response = await fetch(url);
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        const bookings = await response.json();
+        allBookings = bookings; // Store fetched bookings
+        renderBookingsTable(bookings);
+    } catch (error) {
+        console.error('Error fetching bookings:', error);
+        bookingsTable.querySelector('tbody').innerHTML = `<tr><td colspan="6" class="px-6 py-4 text-center text-red-500">Failed to load bookings. Please check your network and backend. Error: ${error.message}</td></tr>`;
+    }
+}*/
+
+// Event listener for the search input
+/*searchInput.addEventListener('input', (event) => {
+    const searchTerm = event.target.value.trim();
+     if (searchTerm === "") {
+        renderBookingsTable(allBookings);
+     }else{
+        fetchBookings(searchTerm);
+     }
+    
+});
+
+// Initial load of bookings
+renBookings();*/
+
 async function editBooking(id) {
     const editForm = document.getElementById('edit-form');
     const editIdInput = document.getElementById('edit-id');
@@ -277,7 +260,7 @@ async function editBooking(id) {
         document.getElementById('edit-email').value = booking.email;
 
         document.getElementById('edit-booking-form').classList.remove('hidden');
-        editForm.removeEventListener('submit', handleEditSubmit); // Prevent duplicate listeners
+        editForm.removeEventListener('submit', handleEditSubmit);
         editForm.addEventListener('submit', handleEditSubmit);
 
     } catch (error) {
@@ -285,6 +268,10 @@ async function editBooking(id) {
     }
 }
 
+/**
+ * Handles the submission of the edit booking form.
+ * @param {Event} event - The form submit event.
+ */
 async function handleEditSubmit(event) {
     event.preventDefault();
 
@@ -300,15 +287,18 @@ async function handleEditSubmit(event) {
     try {
         const response = await fetch(`${API_BASE_URL}/${editId}`, {
             method: 'PUT',
-            headers: { 'Content-Type': 'application/json' },
+            headers: {
+                'Content-Type': 'application/json'
+            },
             body: JSON.stringify(updatedBookingData),
         });
+
         const data = await response.json();
 
         if (response.ok) {
             showMessage('Booking updated successfully!', 'success', 'edit-message');
             document.getElementById('edit-booking-form').classList.add('hidden');
-            await fetchBookings(); // Refresh the table
+            fetchBookings();
         } else {
             showMessage(data.message || 'Failed to update booking.', 'error', 'edit-message');
         }
@@ -317,37 +307,73 @@ async function handleEditSubmit(event) {
     }
 }
 
+/**
+ * Handles deleting a booking.
+ * @param {string} id - The ID of the booking to delete.
+ */
 let deleteId = null;
+
 function showDeleteModal(id) {
-    deleteId = id;
-    document.getElementById('delete-modal').classList.remove('hidden');
-}
-document.getElementById('cancel-delete-btn').addEventListener('click', () => {
-    deleteId = null;
-    document.getElementById('delete-modal').classList.add('hidden');
-});
-document.getElementById('confirm-delete-btn').addEventListener('click', async () => {
-    if (!deleteId) return;
-    try {
-        const response = await fetch(`${API_BASE_URL}/${deleteId}`, { method: 'DELETE' });
-        const data = await response.json();
-        if (response.ok) {
-            showMessage('Booking deleted successfully!', 'success', 'edit-message');
-            await fetchBookings(); // Refresh the table
-        } else {
-            showMessage(data.message || 'Failed to delete booking.', 'error', 'edit-message');
-        }
-    } catch (error) {
-        showMessage('Error deleting booking. Please check your network.', 'error', 'edit-message');
-    } finally {
-        deleteId = null;
-        document.getElementById('delete-modal').classList.add('hidden');
-    }
-});
-function deleteBooking(id) {
-    showDeleteModal(id);
+  deleteId = id;
+  document.getElementById('delete-modal').classList.remove('hidden');
 }
 
+document.getElementById('cancel-delete-btn').addEventListener('click', () => {
+  deleteId = null;
+  document.getElementById('delete-modal').classList.add('hidden');
+});
+
+document.getElementById('confirm-delete-btn').addEventListener('click', async () => {
+  if (!deleteId) return;
+
+  try {
+    const response = await fetch(`${API_BASE_URL}/${deleteId}`, {
+      method: 'DELETE'
+    });
+
+    const data = await response.json();
+
+    if (response.ok) {
+      showMessage('Booking deleted successfully!', 'success', 'edit-message');
+        fetchBookings();
+    } else {
+      showMessage(data.message || 'Failed to delete booking.', 'error', 'edit-message');
+    }
+  } catch (error) {
+    showMessage('Error deleting booking. Please check your network.', 'error', 'edit-message');
+  } finally {
+    deleteId = null;
+    document.getElementById('delete-modal').classList.add('hidden');
+  }
+});
+function deleteBooking(id) {
+  showDeleteModal(id);
+}
+
+/**async function deleteBooking(id) {
+    if (confirm('Are you sure you want to delete this booking?')) {
+        try {
+            const response = await fetch(`${API_BASE_URL}/${id}`, {
+                method: 'DELETE'
+            });
+
+            const data = await response.json();
+
+            if (response.ok) {
+                showMessage('Booking deleted successfully!', 'success', 'edit-message');
+                fetchBookings();
+            } else {
+                showMessage(data.message || 'Failed to delete booking.', 'error', 'edit-message');
+            }
+        } catch (error) {
+            showMessage('Error deleting booking. Please check your network.', 'error', 'edit-message');
+        }
+    }
+}*/
+
+/**
+ * Handles the submission of the create booking form.
+ */
 async function createBookingManual() {
     const createService = document.getElementById('create-service').value;
     const createDate = document.getElementById('create-date').value;
@@ -359,18 +385,36 @@ async function createBookingManual() {
         showMessage('Please fill in all fields.', 'error', 'create-message');
         return;
     }
-    const newBookingData = { service: createService, date: createDate, time: createTime, name: createName, email: createEmail };
 
+    const newBookingData = {
+        service: createService,
+        date: createDate,
+        time: createTime,
+        name: createName,
+        email: createEmail,
+    };
+
+    // Show the spinner
     document.getElementById('booking-spinner').classList.remove('hidden');
+
     try {
         const response = await fetch(`${API_BASE_URL}/manual`, {
             method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
+            headers: {
+                'Content-Type': 'application/json'
+            },
             body: JSON.stringify(newBookingData),
         });
+
         const data = await response.json();
+
+        // Hide spinner
         document.getElementById('booking-spinner').classList.add('hidden');
-        const message = response.ok ? 'Booking created successfully!' : data.message || 'Failed to create booking.';
+
+        // Show result modal
+        const message = response.ok
+            ? 'Booking created successfully!'
+            : data.message || 'Failed to create booking.';
         const resultModal = document.getElementById('booking-result-modal');
         const resultMessage = document.getElementById('booking-result-message');
         resultMessage.textContent = message;
@@ -378,8 +422,9 @@ async function createBookingManual() {
 
         if (response.ok) {
             document.getElementById('create-form').reset();
-            await fetchBookings(); // Refresh the table
+            fetchBookings();
         }
+
     } catch (error) {
         document.getElementById('booking-spinner').classList.add('hidden');
         const resultModal = document.getElementById('booking-result-modal');
@@ -392,71 +437,185 @@ document.getElementById('close-result-modal').addEventListener('click', () => {
     document.getElementById('booking-result-modal').classList.add('hidden');
 });
 
-// --- Admin Login ---
-document.getElementById('admin-login-form').addEventListener('submit', async function (e) {
-    e.preventDefault();
-    const username = document.getElementById('username').value;
-    const password = document.getElementById('password').value;
-    try {
-        const response = await fetch(ADMIN_LOGIN_URL, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ username, password })
+
+/**
+ * Attaches event listeners to edit and delete buttons.
+ */
+function attachEventListenersToButtons() {
+    document.querySelectorAll('.edit-button').forEach(button => {
+        button.addEventListener('click', () => {
+            const bookingId = button.getAttribute('data-id');
+            editBooking(bookingId);
         });
-        const data = await response.json();
-        if (response.ok) {
-            document.getElementById('login-form').classList.add('hidden');
-            document.getElementById('dashboard-content').classList.remove('hidden');
-            await fetchBookings(); // Load bookings after login
-        } else {
-            showMessage(data.message || 'Login failed.', 'error', 'login-message');
+    });
+
+    document.querySelectorAll('.delete-button').forEach(button => {
+        button.addEventListener('click', () => {
+            const bookingId = button.getAttribute('data-id');
+            deleteBooking(bookingId);
+        });
+    });
+}
+
+// Initial load
+document.addEventListener('DOMContentLoaded', () => {
+    fetchBookings();
+});
+document.addEventListener('DOMContentLoaded', () => {
+    fetchBookings();
+
+    const createForm = document.getElementById('create-form');
+    createForm.addEventListener('submit', async (event) => {
+        event.preventDefault();
+
+        const newBooking = {
+            service: document.getElementById('create-service').value,
+            date: document.getElementById('create-date').value,
+            time: document.getElementById('create-time').value,
+            name: document.getElementById('create-name').value,
+            email: document.getElementById('create-email').value,
+        };
+
+        try {
+            const response = await fetch(API_BASE_URL, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(newBooking)
+            });
+
+            const data = await response.json();
+
+            if (response.ok) {
+                showMessage('Booking created successfully!', 'success', 'create-message');
+                createForm.reset();
+                fetchBookings();
+            } else {
+                showMessage(data.message || 'Failed to create booking.', 'error', 'create-message');
+            }
+        } catch (error) {
+            showMessage('Error creating booking. Please check your network.', 'error', 'create-message');
         }
-    } catch (err) {
-        showMessage('Network error during login.', 'error', 'login-message');
+    });
+});
+document.getElementById('admin-login-form').addEventListener('submit', async function (e) {
+  e.preventDefault();
+
+  const username = document.getElementById('username').value;
+  const password = document.getElementById('password').value;
+
+  try {
+    const response = await fetch(ADMIN_LOGIN_URL, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ username, password })
+    });
+
+    const data = await response.json();
+
+    if (response.ok) {
+      // Hide login, show dashboard
+      document.getElementById('login-form').classList.add('hidden');
+      document.getElementById('dashboard-content').classList.remove('hidden');
+      fetchBookings(); // load bookings
+    } else {
+      showMessage(data.message || 'Login failed.', 'error', 'login-message');
     }
+  } catch (err) {
+    showMessage('Network error during login.', 'error', 'login-message');
+  }
 });
 
 // --- Logout Function ---
 function handleLogout() {
+    // Optionally clear any session data
+    // sessionStorage.clear(); // If you're using sessionStorage
+    // localStorage.clear();   // If you're using localStorage
+
+    // Hide dashboard and show login form
     document.getElementById('dashboard-content').classList.add('hidden');
     document.getElementById('login-form').classList.remove('hidden');
-    showMessage('You have been logged out.', 'success', 'login-message'); // Use login-message for consistency
+
+    showMessage('You have been logged out.', 'success', 'create-message'); // Or another target ID
 }
+
+// --- Add Event Listener to Logout Button ---
 document.getElementById('logout-btn').addEventListener('click', handleLogout);
 
-// --- Tab Navigation ---
 document.getElementById('dashboard-tab').addEventListener('click', function () {
-    document.getElementById('dashboard-section').style.display = 'block';
-    document.getElementById('bookings-section').style.display = 'none';
-});
-document.getElementById('bookings-tab').addEventListener('click', function () {
-    document.getElementById('dashboard-section').style.display = 'none';
-    document.getElementById('bookings-section').style.display = 'block';
-    fetchBookings(); // Re-fetch bookings when switching to bookings tab
+  document.getElementById('dashboard-section').style.display = 'block';
+  document.getElementById('bookings-section').style.display = 'none';
 });
 
-// --- Initial App Load ---
-async function initializeApp() {
-    console.log("Initializing application...");
-    await fetchRooms(); // Fetch rooms first
-    // The initial fetchBookings will happen upon successful login or if not behind login.
-    // If you always want to load bookings on DOMContentLoaded, even before login,
-    // you can uncomment await fetchBookings() here.
-    // For an admin panel, it typically loads after successful login.
-    console.log("Application initialized.");
+document.getElementById('bookings-tab').addEventListener('click', function () {
+  document.getElementById('dashboard-section').style.display = 'none';
+  document.getElementById('bookings-section').style.display = 'block';
+});
+
+document.getElementById('search-input').addEventListener('input', function () {
+    const searchValue = this.value.toLowerCase();
+    const tableRows = document.querySelectorAll('#bookings-table tbody tr');
+
+    tableRows.forEach(row => {
+        const rowText = row.innerText.toLowerCase();
+        row.style.display = rowText.includes(searchValue) ? '' : 'none';
+    });
+});
+
+/**let bookingData = []; // store all bookings
+let currentPag = 1;
+const rowsPerPag = 4;
+function renderPage() {
+    const bookingsTableBody = document.querySelector('#bookings-table tbody');
+    bookingsTableBody.innerHTML = '';
+
+    const startIndex = (currentPag - 1) * rowsPerPag;
+    const endIndex = Math.min(startIndex + rowsPerPag, bookingData.length);
+    const currentBookings = bookingData.slice(startIndex, endIndex);
+
+    currentBookings.forEach(booking => {
+        const row = document.createElement('tr');
+        row.innerHTML = `
+            <td>${booking._id}</td>
+            <td>${booking.service}</td>
+            <td>${new Date(booking.date).toLocaleDateString()}</td>
+            <td>${booking.time}</td>
+            <td>${booking.name}</td>
+            <td>${booking.email}</td>
+            <td>
+                <button class="edit-button" data-id="${booking._id}">Edit</button>
+                <button class="delete-button" data-id="${booking._id}">Delete</button>
+            </td>
+        `;
+        bookingsTableBody.appendChild(row);
+    });
+
+    attachEventListenersToButtons();
+    updatePaginationControls();
+}
+/*
+
+/**function updatePaginationControls() {
+    const totalPages = Math.ceil(bookingData.length / rowsPerPag);
+    document.getElementById('prev-page').disabled = currentPag === 1;
+    document.getElementById('next-page').disabled = currentPag === totalPages || totalPages === 0;
+    document.getElementById('page-info').textContent = `Page ${currentPag} of ${totalPages}`;
 }
 
-// Listen for DOM content loaded to start the app
-document.addEventListener('DOMContentLoaded', () => {
-    initializeApp();
-    // Event listener for manual booking form submit
-    const createForm = document.getElementById('create-form');
-    if (createForm) { // Check if form exists
-        createForm.addEventListener('submit', async (event) => {
-            event.preventDefault();
-            // Your form submission logic is in createBookingManual,
-            // so this listener should likely just call that.
-            createBookingManual();
-        });
+document.getElementById('prev-page').addEventListener('click', () => {
+    if (currentPag > 1) {
+        currentPag--;
+        renderPage();
     }
 });
+
+document.getElementById('next-page').addEventListener('click', () => {
+    const totalPages = Math.ceil(bookingData.length / rowsPerPag);
+    if (currentPag < totalPages) {
+        currentPag++;
+        renderPage();
+    }
+});*/
