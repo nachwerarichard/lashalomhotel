@@ -175,8 +175,8 @@ async function fetchBookings(searchTerm = '') {
 
 
         attachEventListenersToButtons();
-       // renderTablePage(currentPage);
-        //renderPagination();
+        renderTablePage(currentPage);
+        renderPagination();
 
     } catch (error) {
         bookingsTableBody.innerHTML = '<tr><td colspan="7">Failed to load bookings. Please check your network and backend.</td></tr>';
