@@ -117,6 +117,8 @@ async function fetchBookings(searchTerm = '') {
         const maxRows = 4;
         const limitedBookings = bookings.slice(0, maxRows);
         console.log('limitedBookings:', limitedBookings);
+                console.log('roomList:', roomList); // Check what roomList holds
+
         bookingsTableBody.innerHTML = '';
         limitedBookings.forEach(booking => {
         const row = document.createElement('tr');
