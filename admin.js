@@ -117,6 +117,13 @@ async function fetchBookings(searchTerm = '') {
         <td>${booking.time}</td>
         <td>${booking.name}</td>
         <td>${booking.email}</td>
+        <td>
+  <select class="assign-room-dropdown" data-id="${booking._id}">
+    <option value="">Assign Room</option>
+    ${roomList.map(r => `<option value="${r.number}">${r.number}</option>`).join('')}
+  </select>
+</td>
+
         <td>${buttonHTML}</td>
     `;
     console.log('row.innerHTML before append:', row.innerHTML);
@@ -132,6 +139,29 @@ async function fetchBookings(searchTerm = '') {
         bookingsTableBody.innerHTML = '<tr><td colspan="7">Failed to load bookings. Please check your network and backend.</td></tr>';
     }
 }
+
+document.querySelectorAll('.assign-room-dropdown').forEach(dropdown => {
+  dropdown.addEventListener('change', async (e) => {
+    const bookingId = e.target.dataset.id;
+    const selectedRoom = e.target.value;
+
+    try {
+      const res = await fetch(`${API_BASE_URL}/assign-room/${bookingId}`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ roomNumber: selectedRoom, date: booking.date })
+      });
+
+      const data = await res.json();
+
+      if (!res.ok) throw new Error(data.error || 'Failed to assign room');
+      alert('Room assigned successfully');
+      fetchBookings(); // refresh table
+    } catch (err) {
+      alert(err.message);
+    }
+  });
+});
 
 /* * Handles editing a booking.
  * @param {string} id - The ID of the booking to edit.
