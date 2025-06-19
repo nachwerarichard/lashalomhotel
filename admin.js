@@ -86,6 +86,23 @@ async function fetchData(url, options = {}) {
 /**
  * Fetches all bookings from the API and displays them in a table.
  */
+let roomList = [];
+let bookingsData = [];
+
+async function fetchData(url) {
+  const res = await fetch(url);
+  if (!res.ok) throw new Error('Failed to fetch');
+  return res.json();
+}
+
+async function loadRooms() {
+  try {
+    roomList = await fetchData(`${API_BASE_URL}/rooms`);
+    await fetchBookings(); // Call after roomList is ready
+  } catch (err) {
+    console.error('Room loading error:', err);
+  }
+}
 async function fetchBookings(searchTerm = '') {
     const bookingsTableBody = document.querySelector('#bookings-table tbody');
     console.log('bookingsTableBody:', bookingsTableBody);
