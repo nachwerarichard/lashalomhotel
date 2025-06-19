@@ -6,85 +6,88 @@
     <title>Booking Engine Admin Dashboard</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="css/mystyles.css">
+    <!-- Include this if you want more specific icons beyond Material Icons -->
+    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"> -->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 </head>
-<body class="bg-gray-100 h-screen w-screen flex flex-col">
-    <!-- NEW/UPDATED: Create New Booking Modal -->
-    <div id="create-booking-modal" class="hidden fixed inset-0 top-0 left-0 w-full h-full bg-black bg-opacity-50 flex items-center justify-center z-50 overflow-y-auto py-8">
-        <div class="bg-white p-6 rounded shadow-lg w-full max-w-md mx-auto my-auto">
+<body class="bg-gray-100 h-screen w-screen">
+
+    <!-- Create New Booking Modal (Keep as is) -->
+    <div id="create-booking-modal" class="hidden fixed inset-0 top-0 left-0 w-full h-full bg-black bg-opacity-50 flex items-center justify-center z-50">
+        <div class="bg-white p-6 rounded shadow-lg w-full max-w-md mx-auto my-auto" style="margin-top: 5%;">
             <div class="flex justify-between items-center mb-4">
                 <h3 class="text-lg font-bold">Create New Booking</h3>
-                <span id="close-create-modal" class="text-xl cursor-pointer material-icons">close</span>
+                <span id="close-create-modal" class="text-xl cursor-pointer">&times;</span>
             </div>
             <form id="create-form" class="space-y-3">
                 <div>
                     <label for="create-service" class="block mb-1">Service:</label>
                     <select id="create-service" class="w-full p-2 border rounded">
-                        <option value="Room Booking">Room Booking</option>
-                        <option value="Appointment">Appointment</option>
-                        <!-- Add other services like Spa, Restaurant, etc. -->
+                        <option value="room">Room Booking</option>
+                        <option value="appointment">Appointment</option>
                     </select>
                 </div>
-                <!-- NEW FIELDS FOR ROOM BOOKINGS -->
                 <div>
-                    <label for="create-check-in-date" class="block mb-1">Check-in Date:</label>
-                    <input type="date" id="create-check-in-date" required class="w-full p-2 border rounded" />
+                    <label for="create-date" class="block mb-1">Date:</label>
+                    <input type="date" id="create-date" required class="w-full p-2 border rounded" />
                 </div>
                 <div>
-                    <label for="create-check-out-date" class="block mb-1">Check-out Date:</label>
-                    <input type="date" id="create-check-out-date" required class="w-full p-2 border rounded" />
+                    <label for="create-time" class="block mb-1">Time:</label>
+                    <input type="time" id="create-time" required class="w-full p-2 border rounded" />
                 </div>
                 <div>
-                    <label for="create-num-guests" class="block mb-1">Number of Guests:</label>
-                    <input type="number" id="create-num-guests" value="1" min="1" required class="w-full p-2 border rounded" />
-                </div>
-                <div>
-                    <label for="create-assign-room" class="block mb-1">Assign Room:</label>
-                    <select id="create-assign-room" class="w-full p-2 border rounded">
-                        <option value="">Select a room (Available)</option>
-                        <!-- Options populated by JS -->
-                    </select>
-                </div>
-                <!-- END NEW FIELDS -->
-                <div>
-                    <label for="create-name" class="block mb-1">Client Name:</label>
+                    <label for="create-name" class="block mb-1">Name:</label>
                     <input type="text" id="create-name" required class="w-full p-2 border rounded" />
                 </div>
                 <div>
-                    <label for="create-email" class="block mb-1">Client Email:</label>
+                    <label for="create-email" class="block mb-1">Email:</label>
                     <input type="email" id="create-email" required class="w-full p-2 border rounded" />
                 </div>
-                <button type="submit" class="bg-green-500 text-white px-4 py-2 rounded w-full hover:bg-green-600" id="create-booking-button">Create Booking</button>
+                <button type="submit" class="bg-green-500 text-white px-4 py-2 rounded w-full" id="create-booking-button">Create Booking</button>
                 <div id="create-message" class="hidden text-sm text-red-500 mt-2"></div>
             </form>
         </div>
     </div>
-    <!-- Removed booking_success_modal, using booking-result-modal below -->
 
+    <!-- Booking Success Modal (Keep as is) -->
+    <div id="booking_success_modal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+        <div class="bg-white p-6 rounded shadow-lg text-center">
+            <h2 class="text-2xl font-semibold text-green-600 mb-4">Success!</h2>
+            <p id="success-message-text" class="text-gray-700 mb-4">Your booking has been created successfully.</p>
+            <button id="close-success-modal" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                Close
+            </button>
+        </div>
+    </div>
+
+    <!-- Main App Container -->
     <div class="h-full w-full flex flex-col">
+        <!-- Login Form (Keep as is) -->
         <div id="login-form" class="bg-white p-6 rounded shadow-md w-full max-w-md mx-auto my-auto">
             <h2 class="text-2xl font-bold mb-4 text-center">Admin Login</h2>
             <form id="admin-login-form" class="space-y-4">
                 <div>
                     <label for="username" class="block mb-1">Username:</label>
-                    <input type="text" id="username" class="w-full px-3 py-2 border rounded" autocomplete="username"/>
+                    <input type="text" id="username" class="w-full px-3 py-2 border rounded" />
                 </div>
                 <div>
                     <label for="password" class="block mb-1">Password:</label>
-                    <input type="password" id="password" class="w-full px-3 py-2 border rounded" autocomplete="current-password"/>
+                    <input type="password" id="password" class="w-full px-3 py-2 border rounded" />
                 </div>
                 <button type="submit" class="w-full bg-blue-500 text-white py-2 rounded hover:bg-blue-600">Login</button>
                 <div id="login-message" class="hidden text-red-500 text-sm mt-2"></div>
             </form>
         </div>
 
+        <!-- Dashboard Content -->
         <div id="dashboard-content" class="hidden flex-grow w-full flex flex-col">
-            <!-- Mobile Header with Hamburger -->
+            <!-- Top bar with hamburger (Mobile Sidebar Toggle) -->
             <div class="bg-gray-800 text-white p-4 md:hidden flex justify-between items-center">
                 <span id="hamburger-btn" class="material-icons cursor-pointer">menu</span>
-                <span class="text-lg font-semibold">Admin Panel</span>
+                <span class="text-lg font-semibold"></span>
             </div>
 
+            <!-- Mobile Sidebar (Keep as is, but ensure data-target for Rooms is 'rooms-section') -->
             <aside id="mobile-sidebar" class="fixed top-0 left-0 h-full w-64 bg-gray-800 text-white p-4 transform -translate-x-full transition-transform duration-300 z-50 md:hidden">
                 <div class="flex justify-between items-center mb-6">
                     <div class="flex items-center space-x-2">
@@ -103,9 +106,9 @@
                     <li class="menu-item flex items-center space-x-2 cursor-pointer hover:text-blue-300" data-target="rooms-section">
                         <span class="material-icons">bed</span><span>Rooms</span>
                     </li>
-                    <!-- NEW: Room Blocking Menu Item -->
+                    <!-- NEW: Room Blocking Menu Item for Mobile -->
                     <li class="menu-item flex items-center space-x-2 cursor-pointer hover:text-blue-300" data-target="room-blocking-section">
-                        <span class="material-icons">block</span><span>Room Blocks</span>
+                        <span class="material-icons">block</span><span>Room Blocking</span>
                     </li>
                     <!-- END NEW -->
                     <li class="menu-item flex items-center space-x-2 cursor-pointer hover:text-blue-300" data-target="settings-section">
@@ -117,9 +120,10 @@
                 </ul>
             </aside>
 
+            <!-- Main content wrapper -->
             <div class="flex flex-grow overflow-hidden">
-                <!-- Desktop Sidebar -->
-                <aside class="hidden md:block w-48 bg-gray-800 text-white p-4 flex-shrink-0">
+                <!-- Desktop Sidebar (Keep as is, but ensure data-target for Rooms is 'rooms-section') -->
+                <aside class="hidden md:block w-48 bg-gray-800 text-white p-4">
                     <div class="flex items-center space-x-2 mb-6">
                         <img src="logo.png" alt="Logo" class="h-8 w-8"/>
                         <span class="text-xl font-bold">Richy</span>
@@ -134,9 +138,9 @@
                         <li id="rooms-tab" class="menu-item flex items-center space-x-2 cursor-pointer hover:text-blue-300" data-target="rooms-section">
                             <span class="material-icons">bed</span><span>Rooms</span>
                         </li>
-                         <!-- NEW: Room Blocking Menu Item -->
+                        <!-- NEW: Room Blocking Menu Item for Desktop -->
                         <li class="menu-item flex items-center space-x-2 cursor-pointer hover:text-blue-300" data-target="room-blocking-section">
-                            <span class="material-icons">block</span><span>Room Blocks</span>
+                            <span class="material-icons">block</span><span>Room Blocking</span>
                         </li>
                         <!-- END NEW -->
                         <li class="menu-item flex items-center space-x-2 cursor-pointer hover:text-blue-300" data-target="settings-section">
@@ -148,11 +152,11 @@
                     </ul>
                 </aside>
 
+                <!-- Content Area -->
                 <div id="content" class="flex-1 p-6 bg-white overflow-y-auto">
-                    <!-- General Message Area for Dashboard/Table level messages -->
-                    <div id="dashboard-message-area" class="hidden p-3 rounded text-sm mb-4"></div>
 
-                    <div id="dashboard-section" class="">
+                    <!-- Dashboard Section (Updated for reservation count) -->
+                    <div id="dashboard-section">
                         <h2 class="text-3xl font-bold mb-6 text-gray-800">Admin Dashboard</h2>
                         <div id="dashboard-summary" class="grid grid-cols-1 md:grid-cols-3 gap-6">
                             <div class="bg-white p-6 rounded-lg shadow-md">
@@ -163,25 +167,37 @@
                                 <h3 class="text-xl font-semibold text-gray-700 mb-2">Available Rooms</h3>
                                 <p id="available-rooms" class="text-4xl font-bold text-green-600">0</p>
                             </div>
-                            <!-- NEW: Total Reservations -->
                             <div class="bg-white p-6 rounded-lg shadow-md">
-                                <h3 class="text-xl font-semibold text-gray-700 mb-2">Active Reservations</h3>
-                                <p id="active-reservations" class="text-4xl font-bold text-purple-600">0</p>
+                                <h3 class="text-xl font-semibold text-gray-700 mb-2">Confirmed Reservations</h3>
+                                <p id="confirmed-reservations" class="text-4xl font-bold text-purple-600">0</p>
                             </div>
                             <!-- Add more as needed, e.g., "Today's Sales" -->
                         </div>
                     </div>
 
+                    <!-- Bookings Section (Updated Table Headers) -->
                     <div id="bookings-section" class="hidden mt-6 space-y-4">
+                        <!-- Delete Modal (Keep as is, ensure ID is 'delete-booking-modal' for clarity) -->
+                        <div id="delete-booking-modal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+                            <div class="bg-white p-6 rounded shadow-lg">
+                                <p class="mb-4">Are you sure you want to delete this booking?</p>
+                                <div class="flex justify-end space-x-2">
+                                    <button id="confirm-delete-btn" class="bg-red-500 text-white px-4 py-2 rounded">Yes</button>
+                                    <button id="cancel-delete-btn" class="bg-gray-300 px-4 py-2 rounded">No</button>
+                                </div>
+                            </div>
+                        </div>
                         <h2 class="text-xl font-bold">Bookings</h2>
 
-                        <div class="flex justify-between items-center mb-4">
+                        <button id="open-create-modal" class="ml-auto bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600">+ Create New Booking</button>
+
+                        <div class="flex justify-start">
                             <input type="text" id="search-input" placeholder="Search bookings..." class="border p-2 rounded w-64" />
-                            <button id="open-create-modal" class="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600">+ Create New Booking</button>
+                            <button id="search-btn"class="bg-gray-500 text-white px-4 py-2 rounded">Search</button>
                         </div>
 
                         <div class="flex flex-col md:flex-row gap-6">
-                            <div class="w-full overflow-x-auto">
+                            <div class="w-full">
                                 <table id="bookings-table" class="table-auto border w-full">
                                     <thead class="bg-gray-200 ">
                                         <tr class="text-left">
@@ -189,112 +205,64 @@
                                             <th class="px-2 py-4 border">Service</th>
                                             <th class="px-2 py-4 border">Name</th>
                                             <th class="px-2 py-4 border">Email</th>
-                                            <th class="px-2 py-4 border">Check-in Date</th> <!-- NEW COLUMN -->
-                                            <th class="px-2 py-4 border">Check-out Date</th><!-- NEW COLUMN -->
-                                            <th class="px-2 py-4 border">Room No.</th>    <!-- NEW COLUMN -->
-                                            <th class="px-2 py-4 border">Status</th>      <!-- NEW COLUMN -->
+                                            <th class="px-2 py-4 border">Check-in Date</th> <!-- NEW -->
+                                            <th class="px-2 py-4 border">Check-out Date</th><!-- NEW -->
+                                            <th class="px-2 py-4 border">Room No.</th>    <!-- NEW -->
+                                            <th class="px-2 py-4 border">Status</th>      <!-- NEW -->
                                             <th class="px-2 py-4 border">Actions</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <tr class="bookingstable" >
-                                            <!-- colSpan updated from 7 to 9 to match new columns -->
+                                            <!-- colspan updated from 7 to 9 to match new columns -->
                                             <td colspan="9" class="text-center p-4">Loading bookings...</td>
                                         </tr>
                                     </tbody>
                                 </table>
                             </div>
-                        </div>
-                    </div>
-
-                    <!-- REPURPOSED AND UPDATED: Edit Booking Modal (was edit-booking-form) -->
-                    <div id="edit-booking-modal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 overflow-y-auto py-8">
-                        <div class="bg-white p-6 rounded shadow-lg w-full max-w-md mx-auto my-auto">
-                            <h3 class="text-lg font-bold mb-4">Edit Booking</h3>
-                            <form id="edit-form" class="space-y-3">
-                                <input type="hidden" id="edit-id" />
-                                <div>
-                                    <label for="edit-service-modal" class="block mb-1">Service:</label>
-                                    <select id="edit-service-modal" class="w-full p-2 border rounded">
-                                        <option value="Room Booking">Room Booking</option>
-                                        <option value="Appointment">Appointment</option>
-                                    </select>
-                                </div>
-                                <div>
-                                    <label for="edit-name-modal" class="block mb-1">Name:</label>
-                                    <input type="text" id="edit-name-modal" required class="w-full p-2 border rounded" readonly/>
-                                </div>
-                                <div>
-                                    <label for="edit-email-modal" class="block mb-1">Email:</label>
-                                    <input type="email" id="edit-email-modal" required class="w-full p-2 border rounded" readonly/>
-                                </div>
-                                <!-- NEW/UPDATED DATE FIELDS FOR EDIT -->
-                                <div>
-                                    <label for="edit-check-in-date-modal" class="block mb-1">Check-in Date:</label>
-                                    <input type="date" id="edit-check-in-date-modal" required class="w-full p-2 border rounded" />
-                                </div>
-                                <div>
-                                    <label for="edit-check-out-date-modal" class="block mb-1">Check-out Date:</label>
-                                    <input type="date" id="edit-check-out-date-modal" required class="w-full p-2 border rounded" />
-                                </div>
-                                <div>
-                                    <label for="edit-num-guests-modal" class="block mb-1">Number of Guests:</label>
-                                    <input type="number" id="edit-num-guests-modal" value="1" min="1" required class="w-full p-2 border rounded" />
-                                </div>
-                                <div>
-                                    <label for="edit-assign-room" class="block mb-1">Assign Room:</label>
-                                    <select id="edit-assign-room" class="w-full p-2 border rounded">
-                                        <option value="">Select a room (Available)</option>
-                                        <!-- Options populated by JS -->
-                                    </select>
-                                </div>
-                                <div>
-                                    <label for="edit-booking-status-modal" class="block mb-1">Booking Status:</label>
-                                    <select id="edit-booking-status-modal" class="w-full p-2 border rounded">
-                                        <option value="Pending">Pending</option>
-                                        <option value="Confirmed">Confirmed</option>
-                                        <option value="Checked-In">Checked-In</option>
-                                        <option value="Checked-Out">Checked-Out</option>
-                                        <option value="Cancelled">Cancelled</option>
-                                    </select>
-                                </div>
-                                <!-- END NEW/UPDATED DATE FIELDS -->
-
-                                <div class="flex space-x-2 justify-end">
-                                    <button type="button" id="cancel-edit-booking-modal-btn" class="bg-gray-300 px-4 py-2 rounded">Cancel</button>
-                                    <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded">Save Changes</button>
-                                </div>
-                                <div id="edit-message" class="hidden text-sm text-red-500"></div>
-                            </form>
-                        </div>
-                    </div>
-                    <!-- END UPDATED: Edit Booking Modal -->
-
-                    <!-- Existing Modals - Ensure these are outside main content sections -->
-                    <div id="delete-modal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-                        <div class="bg-white p-6 rounded shadow-lg">
-                            <p class="mb-4">Are you sure you want to delete this booking?</p>
-                            <div class="flex justify-end space-x-2">
-                                <button id="confirm-delete-btn" class="bg-red-500 text-white px-4 py-2 rounded">Yes</button>
-                                <button id="cancel-delete-btn" class="bg-gray-300 px-4 py-2 rounded">No</button>
+                            <!-- The old edit-booking-form is removed as it's replaced by the new modal -->
+                            <div id="loading-spinner" class="hidden fixed top-0 left-0 w-full h-full bg-black bg-opacity-50 flex justify-center items-center">
+                                <div class="animate-spin rounded-full h-16 w-16 border-t-4 border-b-4 border-blue-500"></div>
                             </div>
-                            <div id="delete-booking-message" class="hidden text-sm text-red-500 mt-2"></div>
                         </div>
+
+                        <!-- Success Modal (for general success messages) -->
+                        <div id="success-modal" class="hidden fixed top-0 left-0 w-full h-full bg-black bg-opacity-50 flex justify-center items-center">
+                            <div class="bg-green-100 border-l-4 border-green-500 shadow-md rounded p-6 w-full md:w-1/2 lg:w-1/3">
+                                <div class="flex items-center mb-4">
+                                    <div class="bg-green-500 text-white rounded-full p-2">
+                                        <svg class="h-6 w-6 fill-current" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-8.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1  0 001.414 0l4-4z" clip-rule="evenodd" />
+                                        </svg>
+                                    </div>
+                                    <h2 class="ml-3 text-xl font-semibold text-green-700">Success!</h2>
+                                </div>
+                                <p id="success-message-text" class="text-gray-700 mb-4">Your action was completed successfully.</p>
+                                <div class="flex justify-end">
+                                    <button onclick="document.getElementById('success-modal').classList.add('hidden')" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+                                        Okay
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Booking Spinner (Keep as is) -->
+                        <div id="booking-spinner" class="hidden fixed inset-0 bg-black bg-opacity-30 flex items-center justify-center z-50">
+                            <div class="loader ease-linear rounded-full border-4 border-t-4 border-gray-200 h-12 w-12"></div>
+                        </div>
+
+                        <!-- Booking Result Modal (Keep as is) -->
+                        <div id="booking-result-modal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+                            <div class="bg-white p-6 rounded shadow-md text-center max-w-sm w-full">
+                                <p id="booking-result-message" class="text-lg font-medium"></p>
+                                <button id="close-result-modal" class="mt-4 bg-blue-500 text-white px-4 py-2 rounded">Close</button>
+                            </div>
+                        </div>
+                        <div id="pagination" class="text-center mt-6"></div>
                     </div>
 
-                    <div id="loading-spinner" class="hidden fixed top-0 left-0 w-full h-full bg-black bg-opacity-50 flex justify-center items-center z-50">
-                        <div class="animate-spin rounded-full h-16 w-16 border-t-4 border-b-4 border-blue-500"></div>
-                    </div>
-                    <!-- Combined success modal for various actions -->
-                    <div id="booking-result-modal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-                        <div class="bg-white p-6 rounded shadow-md text-center max-w-sm w-full">
-                            <p id="booking-result-message" class="text-lg font-medium"></p>
-                            <button id="close-result-modal" class="mt-4 bg-blue-500 text-white px-4 py-2 rounded">Close</button>
-                        </div>
-                    </div>
-                    <!-- End existing modals -->
-
-                    <div id="rooms-section" class="hidden mb-8 mt-6 space-y-4">
+                    <!-- Room Management Section (Keep as is) -->
+                    <div id="rooms-section" class="hidden mb-8">
                         <h2 class="text-3xl font-bold mb-6 text-gray-800">Room Management</h2>
                         <button id="add-room-btn" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded mb-4">Add New Room</button>
                         <div class="overflow-x-auto bg-white rounded-lg shadow-md p-4">
@@ -311,20 +279,21 @@
                                     </tr>
                                 </thead>
                                 <tbody class="bg-white divide-y divide-gray-200">
-                                    </tbody>
+                                </tbody>
                             </table>
                         </div>
 
-                        <div id="room-modal" class="fixed inset-0 bg-gray-600 bg-opacity-50 hidden flex justify-center items-center z-50 overflow-y-auto py-8">
-                            <div class="bg-white p-8 rounded-lg shadow-lg w-full max-w-md mx-auto my-auto">
+                        <!-- Room Add/Edit Modal (Keep as is) -->
+                        <div id="room-modal" class="fixed inset-0 bg-gray-600 bg-opacity-50 hidden flex justify-center items-center z-50">
+                            <div class="bg-white p-8 rounded-lg shadow-lg w-full max-w-md">
                                 <h3 id="room-modal-title" class="text-2xl font-bold mb-4 text-gray-800">Add/Edit Room</h3>
-                                <form id="room-form" class="space-y-3">
+                                <form id="room-form">
                                     <input type="hidden" id="room-id">
-                                    <div>
+                                    <div class="mb-4">
                                         <label for="room-number" class="block text-gray-700 text-sm font-bold mb-2">Room Number:</label>
                                         <input type="text" id="room-number" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" required>
                                     </div>
-                                    <div>
+                                    <div class="mb-4">
                                         <label for="room-type" class="block text-gray-700 text-sm font-bold mb-2">Room Type:</label>
                                         <select id="room-type" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" required>
                                             <option value="">Select Type</option>
@@ -337,15 +306,15 @@
                                             <option value="Other">Other</option>
                                         </select>
                                     </div>
-                                    <div>
+                                    <div class="mb-4">
                                         <label for="room-capacity" class="block text-gray-700 text-sm font-bold mb-2">Capacity:</label>
                                         <input type="number" id="room-capacity" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" required min="1">
                                     </div>
-                                    <div>
+                                    <div class="mb-4">
                                         <label for="room-price" class="block text-gray-700 text-sm font-bold mb-2">Price Per Night (UGX):</label>
                                         <input type="number" id="room-price" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" required min="0" step="any">
                                     </div>
-                                    <div>
+                                    <div class="mb-4">
                                         <label for="room-status" class="block text-gray-700 text-sm font-bold mb-2">Status:</label>
                                         <select id="room-status" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" required>
                                             <option value="Available">Available</option>
@@ -374,7 +343,7 @@
                     </div>
 
                     <!-- NEW: Room Blocking Section -->
-                    <section id="room-blocking-section" class="mb-8 mt-6 space-y-4 hidden">
+                    <section id="room-blocking-section" class="mb-8 hidden">
                         <h2 class="text-3xl font-bold mb-6 text-gray-800">Room Blocking</h2>
                         <div class="bg-white p-6 rounded-lg shadow-md">
                             <form id="room-block-form" class="space-y-4">
@@ -401,7 +370,7 @@
                                 <button type="submit" class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded">Block Room</button>
                             </form>
 
-                            <h3 class="text-xl font-bold mt-8 mb-4 text-gray-800">Current Room Blocks</h3>
+                            <h3 class="text-xl font-bold mt-8 mb-4">Current Room Blocks</h3>
                             <div class="overflow-x-auto bg-white rounded-lg shadow-md p-4">
                                 <table id="room-blocks-table" class="min-w-full divide-y divide-gray-200">
                                     <thead class="bg-gray-50">
@@ -422,17 +391,17 @@
                     </section>
                     <!-- END NEW: Room Blocking Section -->
 
-
+                    <!-- Settings Section (Keep as is) -->
                     <div id="settings-section" class="hidden mt-6 space-y-4">
                         <h2 class="text-xl font-bold">Settings</h2>
                         <p class="text-gray-600">Manage your admin preferences here.</p>
-                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Delete Room Modal (Already existing, ensure it's outside main content sections) -->
+    <!-- Room Delete Modal (Keep as is) -->
     <div id="delete-room-modal" class="fixed inset-0 bg-gray-600 bg-opacity-50 hidden flex justify-center items-center z-50">
         <div class="bg-white p-8 rounded-lg shadow-lg w-full max-w-sm">
             <h3 class="text-xl font-bold mb-4 text-gray-800">Confirm Deletion</h3>
@@ -444,10 +413,77 @@
             </div>
         </div>
     </div>
-    <!-- Removed duplicate success-modal, using booking-result-modal above for consistency -->
 
-  <!-- IMPORTANT: REPLACE ALL YOUR SCRIPT TAGS WITH THIS SINGLE ONE -->
-  <script src="admin5.js"></script>
+    <!-- General Success Modal (Keep as is) -->
+    <div id="success-modal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+        <div class="bg-green-200 p-6 rounded shadow-lg">
+            <p class="text-green-700 font-semibold mb-4">Deletion Successful!</p>
+            <button id="close-success-btn" class="bg-green-500 text-white px-4 py-2 rounded">Okay</button>
+        </div>
+    </div>
+
+    <!-- NEW: Booking Edit Modal (This is positioned at the end of the body as an overlay) -->
+    <div id="booking-edit-modal" class="fixed inset-0 bg-gray-600 bg-opacity-50 hidden flex justify-center items-center z-50">
+        <div class="bg-white p-6 rounded-lg shadow-xl w-full max-w-md">
+            <h2 id="booking-modal-title" class="text-2xl font-bold mb-4">Edit Booking</h2>
+            <form id="booking-edit-form" class="space-y-4">
+                <input type="hidden" id="booking-id-input">
+
+                <div>
+                    <label for="booking-name-modal" class="block text-gray-700 text-sm font-bold mb-2">Guest Name:</label>
+                    <input type="text" id="booking-name-modal" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" readonly>
+                </div>
+                <div>
+                    <label for="booking-email-modal" class="block text-gray-700 text-sm font-bold mb-2">Guest Email:</label>
+                    <input type="email" id="booking-email-modal" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" readonly>
+                </div>
+                <div>
+                    <label for="booking-check-in-modal" class="block text-gray-700 text-sm font-bold mb-2">Check-in Date:</label>
+                    <input type="date" id="booking-check-in-modal" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" readonly>
+                </div>
+                <div>
+                    <label for="booking-check-out-modal" class="block text-gray-700 text-sm font-bold mb-2">Check-out Date:</label>
+                    <input type="date" id="booking-check-out-modal" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" readonly>
+                </div>
+
+                <!-- Room Assignment -->
+                <div>
+                    <label for="assign-room" class="block text-gray-700 text-sm font-bold mb-2">Assign Room:</label>
+                    <select id="assign-room" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                        <option value="">Select a room (Available)</option>
+                        <!-- Options will be loaded dynamically by JS -->
+                    </select>
+                </div>
+
+                <!-- Booking Status Update -->
+                <div>
+                    <label for="booking-status-modal" class="block text-gray-700 text-sm font-bold mb-2">Status:</label>
+                    <select id="booking-status-modal" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                        <option value="Pending">Pending</option>
+                        <option value="Confirmed">Confirmed</option>
+                        <option value="Checked-In">Checked-In</option>
+                        <option value="Checked-Out">Checked-Out</option>
+                        <option value="Cancelled">Cancelled</option>
+                    </select>
+                </div>
+
+                <div id="booking-message" class="hidden p-3 rounded text-sm mt-4"></div>
+
+                <div class="flex justify-end space-x-4">
+                    <button type="button" id="cancel-booking-edit-btn" class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded">Cancel</button>
+                    <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Save Changes</button>
+                </div>
+            </form>
+        </div>
+    </div>
+  <!-- Scripts -->
+  
+  <script src="script2.js"></script>
+  <script src="admin2.js"></script>
+  <script src="admin.js" def></script>
+  <script src="admin_02.js"></script>
+  <script src="admin4.js"></script>
+
 
 </body>
 </html>
