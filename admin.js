@@ -1,4 +1,4 @@
-<script>
+
 const API_BASE_URL = 'https://bookingenginebackend.onrender.com/api/bookings';
 const ADMIN_LOGIN_URL = 'https://bookingenginebackend.onrender.com/api/admin/login';
 
@@ -315,4 +315,4 @@ document.getElementById('bookings-tab').addEventListener('click', () => {
     document.getElementById('dashboard-section').style.display = 'none';
     document.getElementById('bookings-section').style.display = 'block';
 });
-</script>
+
