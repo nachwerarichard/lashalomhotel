@@ -113,10 +113,14 @@ async function fetchBookings(searchTerm = '') {
     row.innerHTML = `
         <td>${booking._id}</td>
         <td>${booking.service}</td>
-        <td>${new Date(booking.date).toLocaleDateString()}</td>
+        <td>${new Date(booking.idate).toLocaleDateString()}</td>
+        <td>${new Date(booking.odate).toLocaleDateString()}</td>
         <td>${booking.time}</td>
         <td>${booking.name}</td>
         <td>${booking.email}</td>
+        <td>${booking.total}</td>
+        <td>${booking.paid}</td>
+        <td>${booking.balance}</td>
         <td>${buttonHTML}</td>
     `;
     console.log('row.innerHTML before append:', row.innerHTML);
