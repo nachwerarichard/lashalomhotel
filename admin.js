@@ -100,7 +100,7 @@ async function fetchBookings(searchTerm = '') {
             return;
         }
 
-        const maxRows = 5;
+        const maxRows = 10;
         const limitedBookings = bookings.slice(0, maxRows);
         console.log('limitedBookings:', limitedBookings);
         bookingsTableBody.innerHTML = '';
