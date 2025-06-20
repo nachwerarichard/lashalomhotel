@@ -1,6 +1,11 @@
 const API_BASE_URL = 'https://bookingenginebackend.onrender.com/api/bookings'; // Adjust if needed
 const ADMIN_LOGIN_URL = 'https://bookingenginebackend.onrender.com/api/admin/login'; // adjust to your actual endpoint
 
+// --- Global variables for pagination ---
+let bookingsData = []; // Stores all fetched bookings
+let currentPage = 1;
+const rowsPerPage = 5; // Maximum number of rows per page
+
 // --- Utility Functions ---
 
 /**
@@ -26,12 +31,12 @@ function showMessage(message, type, targetId) {
 
 document.getElementById('search-btn').addEventListener('click', () => {
     const searchTerm = document.getElementById('search-input').value.trim();
-    fetchBookings(searchTerm);
+    filterAndRenderBookings(searchTerm);
 });
 
 document.getElementById('search-input').addEventListener('input', () => {
     const searchTerm = document.getElementById('search-input').value.trim();
-    fetchBookings(searchTerm);
+    filterAndRenderBookings(searchTerm);
 });
 
 document.getElementById('search-input').addEventListener('keypress', (e) => {
@@ -62,48 +67,100 @@ async function fetchData(url, options = {}) {
 // --- Booking Management ---
 
 /**
- * Fetches all bookings from the API and displays them in a table.
+ * Fetches all bookings from the API, stores them, and then renders the first page.
  */
-async function fetchBookings(searchTerm = '') {
+async function fetchBookings() {
     const bookingsTableBody = document.querySelector('#bookings-table tbody');
-    console.log('bookingsTableBody:', bookingsTableBody);
     bookingsTableBody.innerHTML = '<tr><td colspan="7">Loading bookings...</td></tr>';
 
     try {
-        const query = searchTerm ? `?search=${encodeURIComponent(searchTerm)}` : '';
-        const bookings = await fetchData(`${API_BASE_URL}/admin${query}`);
+        const bookings = await fetchData(`${API_BASE_URL}/admin`);
+        bookingsData = bookings || []; // Store all fetched bookings
 
-        if (!bookings || bookings.length === 0) {
+        if (bookingsData.length === 0) {
             bookingsTableBody.innerHTML = '<tr><td colspan="7">No bookings found.</td></tr>';
+            document.getElementById('pagination-controls').classList.add('hidden'); // Hide pagination if no bookings
             return;
         }
 
-        bookingsTableBody.innerHTML = '';
-        bookings.forEach(booking => {
-            const row = document.createElement('tr');
-            let buttonHTML = `
-                <button class="custom-edit-btn bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mr-2" data-id="${booking._id}">Edit</button>
-                <button class="custom-delete-btn bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded" data-id="${booking._id}">Delete</button>
-            `;
-            row.innerHTML = `
-                <td>${booking._id}</td>
-                <td>${booking.service}</td>
-                <td>${new Date(booking.date).toLocaleDateString()}</td>
-                <td>${booking.time}</td>
-                <td>${booking.name}</td>
-                <td>${booking.email}</td>
-                <td>${buttonHTML}</td>
-            `;
-            console.log('row.innerHTML before append:', row.innerHTML);
-            bookingsTableBody.appendChild(row);
-        });
-
-        attachEventListenersToButtons();
+        document.getElementById('pagination-controls').classList.remove('hidden');
+        currentPage = 1; // Reset to first page when new data is fetched
+        renderBookingsTablePage();
 
     } catch (error) {
         bookingsTableBody.innerHTML = '<tr><td colspan="7">Failed to load bookings. Please check your network and backend.</td></tr>';
+        document.getElementById('pagination-controls').classList.add('hidden'); // Hide pagination on error
     }
 }
+
+/**
+ * Renders the bookings for the current page in the table.
+ */
+function renderBookingsTablePage() {
+    const bookingsTableBody = document.querySelector('#bookings-table tbody');
+    bookingsTableBody.innerHTML = ''; // Clear existing rows
+
+    const startIndex = (currentPage - 1) * rowsPerPage;
+    const endIndex = startIndex + rowsPerPage;
+    const bookingsToDisplay = bookingsData.slice(startIndex, endIndex);
+
+    if (bookingsToDisplay.length === 0) {
+        bookingsTableBody.innerHTML = '<tr><td colspan="7">No bookings found for this page.</td></tr>';
+        return;
+    }
+
+    bookingsToDisplay.forEach(booking => {
+        const row = document.createElement('tr');
+        const buttonHTML = `
+            <button class="custom-edit-btn bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mr-2" data-id="${booking._id}">Edit</button>
+            <button class="custom-delete-btn bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded" data-id="${booking._id}">Delete</button>
+        `;
+        row.innerHTML = `
+            <td>${booking._id}</td>
+            <td>${booking.service}</td>
+            <td>${new Date(booking.date).toLocaleDateString()}</td>
+            <td>${booking.time}</td>
+            <td>${booking.name}</td>
+            <td>${booking.email}</td>
+            <td>${buttonHTML}</td>
+        `;
+        bookingsTableBody.appendChild(row);
+    });
+
+    attachEventListenersToButtons();
+    renderPaginationControls();
+}
+
+/**
+ * Updates the pagination controls (previous, next, page info).
+ */
+function renderPaginationControls() {
+    const totalPages = Math.ceil(bookingsData.length / rowsPerPage);
+    document.getElementById('prev-page').disabled = currentPage === 1;
+    document.getElementById('next-page').disabled = currentPage === totalPages || totalPages === 0;
+    document.getElementById('page-info').textContent = `Page ${currentPage} of ${totalPages || 1}`; // Show "Page 1 of 1" if no bookings
+}
+
+/**
+ * Filters bookings based on search term and renders the first page of results.
+ * @param {string} searchTerm - The term to search for.
+ */
+function filterAndRenderBookings(searchTerm = '') {
+    const filteredBookings = bookingsData.filter(booking => {
+        const rowText = `${booking._id} ${booking.service} ${new Date(booking.date).toLocaleDateString()} ${booking.time} ${booking.name} ${booking.email}`.toLowerCase();
+        return rowText.includes(searchTerm.toLowerCase());
+    });
+
+    // Temporarily update bookingsData to reflect filtered results for pagination calculation
+    const originalBookingsData = [...bookingsData]; // Store original
+    bookingsData = filteredBookings;
+
+    currentPage = 1; // Always go to the first page of filtered results
+    renderBookingsTablePage();
+
+    bookingsData = originalBookingsData; // Restore original for next fetch/filter
+}
+
 
 /**
  * Handles editing a booking.
@@ -162,7 +219,7 @@ async function handleEditSubmit(event) {
         if (response.ok) {
             showMessage('Booking updated successfully!', 'success', 'edit-message');
             document.getElementById('edit-booking-form').classList.add('hidden');
-            fetchBookings();
+            fetchBookings(); // Re-fetch all bookings to refresh the table with updated data
         } else {
             showMessage(data.message || 'Failed to update booking.', 'error', 'edit-message');
         }
@@ -199,7 +256,7 @@ document.getElementById('confirm-delete-btn').addEventListener('click', async ()
 
         if (response.ok) {
             showMessage('Booking deleted successfully!', 'success', 'edit-message');
-            fetchBookings();
+            fetchBookings(); // Re-fetch all bookings to refresh the table
         } else {
             showMessage(data.message || 'Failed to delete booking.', 'error', 'edit-message');
         }
@@ -268,7 +325,7 @@ async function createBookingManual(event) {
 
         if (response.ok) {
             document.getElementById('create-form').reset();
-            fetchBookings();
+            fetchBookings(); // Re-fetch all bookings to include the new one
         }
 
     } catch (error) {
@@ -311,6 +368,22 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const createForm = document.getElementById('create-form');
     createForm.addEventListener('submit', createBookingManual);
+
+    // Pagination button event listeners
+    document.getElementById('prev-page').addEventListener('click', () => {
+        if (currentPage > 1) {
+            currentPage--;
+            renderBookingsTablePage();
+        }
+    });
+
+    document.getElementById('next-page').addEventListener('click', () => {
+        const totalPages = Math.ceil(bookingsData.length / rowsPerPage);
+        if (currentPage < totalPages) {
+            currentPage++;
+            renderBookingsTablePage();
+        }
+    });
 });
 
 document.getElementById('admin-login-form').addEventListener('submit', async function (e) {
@@ -363,14 +436,12 @@ document.getElementById('dashboard-tab').addEventListener('click', function () {
 document.getElementById('bookings-tab').addEventListener('click', function () {
     document.getElementById('dashboard-section').style.display = 'none';
     document.getElementById('bookings-section').style.display = 'block';
+    // When switching to the bookings tab, ensure the table is rendered for the current page
+    renderBookingsTablePage();
 });
 
+// Modified search input listener to use the new filterAndRenderBookings
 document.getElementById('search-input').addEventListener('input', function () {
-    const searchValue = this.value.toLowerCase();
-    const tableRows = document.querySelectorAll('#bookings-table tbody tr');
-
-    tableRows.forEach(row => {
-        const rowText = row.innerText.toLowerCase();
-        row.style.display = rowText.includes(searchValue) ? '' : 'none';
-    });
+    const searchValue = this.value.trim();
+    filterAndRenderBookings(searchValue);
 });
