@@ -100,7 +100,7 @@ async function fetchBookings(searchTerm = '') {
             return;
         }
 
-        const maxRows = 4;
+        const maxRows = 15;
         const limitedBookings = bookings.slice(0, maxRows);
         console.log('limitedBookings:', limitedBookings);
         bookingsTableBody.innerHTML = '';
@@ -126,8 +126,8 @@ async function fetchBookings(searchTerm = '') {
         });
 
         attachEventListenersToButtons();
-        renderTablePage(currentPage);
-        renderPagination();
+        //renderTablePage(currentPage);
+        //renderPagination();
 
     } catch (error) {
         bookingsTableBody.innerHTML = '<tr><td colspan="7">Failed to load bookings. Please check your network and backend.</td></tr>';
