@@ -25,6 +25,7 @@
                         <select id="room" >
                             <option value="">Delux 1</option>
                             <option value="">Delux 2</option>
+                             <option value="">Standard</option>
                         </select>
                     </div>
                     <div class="input-group">
@@ -85,7 +86,7 @@ bookingForm.addEventListener('submit', async function(event) {
     const people = parseInt(document.getElementById('people').value);
     const phoneNo = document.getElementById('phoneNo').value;
     const bookingData = {
-        name, room: roomNumber, checkIn, checkOut,
+        name, room: roomType, checkIn, checkOut,
          people , phoneNo
     };
 
@@ -121,7 +122,6 @@ bookingForm.addEventListener('submit', async function(event) {
         renderHousekeepingRooms(); // Update housekeeping view as room status might change
     } catch (error) {
         console.error('Error saving booking:', error);
-        showMessageBox('Error', `Failed to save booking: ${error.message}`);
     }
 });
 
