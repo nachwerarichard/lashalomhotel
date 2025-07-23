@@ -11,47 +11,37 @@
     <h1 class="text-2xl font-semibold text-center mb-6">Book Now</h1>
 
     <form class="space-y-4" id="booking-form">
+      
       <div>
-        <label for="service" class="block text-sm font-medium text-gray-700">Select Service:</label>
-        <select id="service" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
-          <option value="room">Room Booking</option>
-          <option value="appointment">Appointment</option>
-        </select>
-      </div>
-
-      <div>
-        <label for="date" class="block text-sm font-medium text-gray-700">Select Date:</label>
-        <input type="date" id="date" class="mt-1 w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"/>
-      </div>
-
-      <div>
-        <label for="time" class="block text-sm font-medium text-gray-700">Select Time:</label>
-        <input type="time" id="time" class="mt-1 w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"/>
-      </div>
-
-      <div>
-        <label for="name" class="block text-sm font-medium text-gray-700">Your Name:</label>
+        <label for="name" class="block text-sm font-medium text-gray-700"> Name</label>
         <input type="text" id="name" required class="mt-1 w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"/>
       </div>
-
       <div>
-        <label for="email" class="block text-sm font-medium text-gray-700">Your Email:</label>
-        <input type="email" id="email" required class="mt-1 w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"/>
+        <label for="number" class="block text-sm font-medium text-gray-700">Phone  Number</label>
+        <input type="number" id="time" class="mt-1 w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"/>
       </div>
-
+      <div>
+        <label for="date" class="block text-sm font-medium text-gray-700">Check In</label>
+        <input type="date" id="date" class="mt-1 w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"/>
+      </div>
+       <div>
+        <label for="date" class="block text-sm font-medium text-gray-700">Check Out</label>
+        <input type="date" id="date" class="mt-1 w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"/>
+      </div>
+      <div>
+        <label for="room" class="block text-sm font-medium text-gray-700">Room type</label>
+        <input type="room" id="time" class="mt-1 w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"/>
+      </div>
       <button type="button" id="book-now-btn" class="w-full bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 transition">
         Book Now
       </button>
-
       <div id="message" class="hidden mt-4 text-sm text-center text-green-600"></div>
     </form>
   </div>
 <div id="booking-success-modal" class="fixed z-10 inset-0 overflow-y-auto hidden" aria-labelledby="modal-title" role="dialog" aria-modal="true">
     <div class="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
       <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" aria-hidden="true" id="modal-overlay"></div>
-
       <span class="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
-
       <div class="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-md sm:w-full">
         <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
           <div class="sm:flex sm:items-start">
