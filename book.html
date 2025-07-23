@@ -16,10 +16,7 @@
         <label for="name" class="block text-sm font-medium text-gray-700"> Name</label>
         <input type="text" id="name" required class="mt-1 w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"/>
       </div>
-      <div>
-        <label for="number" class="block text-sm font-medium text-gray-700">Phone  Number</label>
-        <input type="number" id="time" class="mt-1 w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"/>
-      </div>
+      
       <div>
         <label for="date" class="block text-sm font-medium text-gray-700">Check In</label>
         <input type="date" id="date" class="mt-1 w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"/>
@@ -29,8 +26,15 @@
         <input type="date" id="date" class="mt-1 w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"/>
       </div>
       <div>
+        <label for="number" class="block text-sm font-medium text-gray-700">Phone  Number</label>
+        <input type="number" id="time" class="mt-1 w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"/>
+      </div>
+       <div>
         <label for="room" class="block text-sm font-medium text-gray-700">Room type</label>
-        <input type="room" id="time" class="mt-1 w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"/>
+        <select id="room" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+          <option value="room">Delux1</option>
+          <option value="appointment">Delux2</option>
+        </select>
       </div>
       <button type="button" id="book-now-btn" class="w-full bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 transition">
         Book Now
@@ -70,7 +74,6 @@
       </div>
     </div>
   </div>
-  <script src="script_01.js"></script>
   <script>
     document.addEventListener('DOMContentLoaded', () => {
   const bookNowBtn = document.getElementById('book-now-btn');
@@ -105,6 +108,72 @@
     modalOverlay.classList.add('hidden');
   });
 });
+  </script>
+  <script>
+    const API_BASE_URL = 'https://patrinahhotelpms.onrender.com/api'; // Your Render backend URL
+
+    bookingForm.addEventListener('submit', async function(event) {
+    event.preventDefault();
+
+    const id = document.getElementById('bookingId').value; // Will be empty for new, existing for edit
+    const name = document.getElementById('name').value;
+    const roomNumber = document.getElementById('room').value;
+    const checkIn = document.getElementById('checkIn').value;
+    const checkOut = document.getElementById('checkOut').value;
+    const nights = parseFloat(nightsInput.value);
+    const amtPerNight = parseFloat(amtPerNightInput.value);
+    const totalDue = parseFloat(totalDueInput.value); // Room total due
+    const amountPaid = parseFloat(amountPaidInput.value); // Room amount paid
+    const balance = parseFloat(balanceInput.value); // Room balance
+    const paymentStatus = document.getElementById('paymentStatus').value;
+    const people = parseInt(document.getElementById('people').value);
+    const nationality = document.getElementById('nationality').value;
+    const address = document.getElementById('address').value;
+    const phoneNo = document.getElementById('phoneNo').value;
+    const nationalIdNo = document.getElementById('nationalIdNo').value;
+
+    const bookingData = {
+        name, room: roomNumber, checkIn, checkOut, nights, amtPerNight,
+        totalDue, amountPaid, balance, paymentStatus, people, nationality,
+        address, phoneNo, nationalIdNo
+    };
+
+    try {
+        let response;
+        let message;
+        if (id) {
+            // Edit existing booking
+            response = await fetch(`${API_BASE_URL}/bookings/${id}`, {
+                method: 'PUT',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(bookingData)
+            });
+            message = 'Booking updated successfully!';
+        } else {
+            // Add new booking
+            response = await fetch(`${API_BASE_URL}/bookings`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(bookingData)
+            });
+            message = 'New booking added successfully!';
+        }
+
+        if (!response.ok) {
+            const errorData = await response.json();
+            throw new Error(errorData.message || `HTTP error! status: ${response.status}`);
+        }
+
+        showMessageBox('Success', message);
+        renderBookings(currentPage); // Re-render to show updated list
+        closeBookingModal();
+        renderHousekeepingRooms(); // Update housekeeping view as room status might change
+    } catch (error) {
+        console.error('Error saving booking:', error);
+        showMessageBox('Error', `Failed to save booking: ${error.message}`);
+    }
+});
+
   </script>
 </body>
 </html>
