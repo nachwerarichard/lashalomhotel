@@ -83,22 +83,11 @@ bookingForm.addEventListener('submit', async function(event) {
     const roomNumber = document.getElementById('room').value;
     const checkIn = document.getElementById('checkIn').value;
     const checkOut = document.getElementById('checkOut').value;
-    const nights = parseFloat(nightsInput.value);
-    const amtPerNight = parseFloat(amtPerNightInput.value);
-    const totalDue = parseFloat(totalDueInput.value); // Room total due
-    const amountPaid = parseFloat(amountPaidInput.value); // Room amount paid
-    const balance = parseFloat(balanceInput.value); // Room balance
-    const paymentStatus = document.getElementById('paymentStatus').value;
     const people = parseInt(document.getElementById('people').value);
-    const nationality = document.getElementById('nationality').value;
-    const address = document.getElementById('address').value;
     const phoneNo = document.getElementById('phoneNo').value;
-    const nationalIdNo = document.getElementById('nationalIdNo').value;
-
     const bookingData = {
-        name, room: roomNumber, checkIn, checkOut, nights, amtPerNight,
-        totalDue, amountPaid, balance, paymentStatus, people, nationality,
-        address, phoneNo, nationalIdNo
+        name, room: roomNumber, checkIn, checkOut,
+         people , phoneNo
     };
 
     try {
