@@ -13,7 +13,6 @@
     <!-- Booking Modal (Add/Edit Booking) -->
     <div id="bookingModal" class="modal">
         <div class="modal-content">
-            <span class="close-button" onclick="closeBookingModal()">&times;</span>
             <h2 id="modalTitle">Add New Booking</h2>
             <form id="bookingForm">
                 <input type="hidden" id="bookingId">
@@ -25,7 +24,8 @@
                     <div class="input-group">
                         <label for="room">Room Number:</label>
                         <select id="room" required>
-                            <option value="">Select a Room</option>
+                            <option value="">Delux 1</option>
+                            <option value="">Delux 2</option>
                         </select>
                     </div>
                     <div class="input-group">
@@ -36,10 +36,7 @@
                         <label for="checkOut">Check-out Date:</label>
                         <input type="date" id="checkOut" required>
                     </div>
-                    <div class="input-group">
-                        <label for="nights">Nights:</label>
-                        <input type="number" id="nights" readonly>
-                    </div>
+                    
                     
                    
                     
