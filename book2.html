@@ -65,35 +65,14 @@ const API_BASE_URL = 'https://patrinahhotelpms.onrender.com/api'; // Your Render
 
 
 // --- DOM Elements ---
-const loginContainer = document.getElementById('login-container');
-const mainContent = document.getElementById('main-content');
-const loginForm = document.getElementById('loginForm');
-const usernameInput = document.getElementById('username');
-const passwordInput = document.getElementById('password');
-const loginMessageBox = document.getElementById('loginMessageBox');
-const loginMessageBoxTitle = document.getElementById('loginMessageBoxTitle');
-const loginMessageBoxContent = document.getElementById('loginMessageBoxContent');
 
-const navLinks = document.querySelectorAll('aside nav ul li a:not(#logoutBtn)');
-const sections = document.querySelectorAll('main .section');
+
 const bookingModal = document.getElementById('bookingModal');
 const bookingForm = document.getElementById('bookingForm');
-const bookingsTableBody = document.querySelector('#bookingsTable tbody');
 const roomSelect = document.getElementById('room');
 const checkInInput = document.getElementById('checkIn');
 const checkOutInput = document.getElementById('checkOut');
-const nightsInput = document.getElementById('nights');
-const amtPerNightInput = document.getElementById('amtPerNight');
-const totalDueInput = document.getElementById('totalDue'); // Room Total Due
-const amountPaidInput = document.getElementById('amountPaid'); // Room Amount Paid
-const balanceInput = document.getElementById('balance'); // Room Balance
-const bookingSearchInput = document.getElementById('bookingSearch');
-const reportDateInput = document.getElementById('reportDate');
-const housekeepingRoomGrid = document.getElementById('housekeepingRoomGrid');
-const messageBox = document.getElementById('messageBox');
-const messageBoxTitle = document.getElementById('messageBoxTitle');
-const messageBoxContent = document.getElementById('messageBoxContent');
-const logoutBtn = document.getElementById('logoutBtn');
+
 
 
 bookingForm.addEventListener('submit', async function(event) {
