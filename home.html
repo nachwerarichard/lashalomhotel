@@ -16,7 +16,7 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=east" />  
 <style>
     .form-group #check-availability-btn {
-    background-color:#014a3f;
+    background-color: #014a3f;
     color: #fff;
     padding: 10px 20px;
     border: none;
@@ -24,8 +24,65 @@
     font-size: 1rem;
     font-weight: bold;
     cursor: pointer;
-    transition: background-color 0.3s ease, transform 0.2s ease;
+    transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease; /* Added box-shadow to transition */
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    /* Initial state for animation */
+    position: relative; /* Needed for pseudo-elements or more complex animations */
+    overflow: hidden; /* Ensures any overflow from hover effects stays within bounds */
+}
+
+/* Hover effect: Changes background, slightly lifts, and adds a subtle glow */
+.form-group #check-availability-btn:hover {
+    background-color: #006655; /* Slightly lighter shade for hover */
+    transform: translateY(-3px) scale(1.02); /* Lifts and slightly scales up */
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3); /* More pronounced shadow */
+}
+
+/* Active effect: When the button is clicked, it "depresses" */
+.form-group #check-availability-btn:active {
+    background-color: #003322; /* Darker shade when clicked */
+    transform: translateY(1px); /* Moves down slightly to simulate a press */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Softer shadow when pressed */
+}
+
+/* Optional: Adding a subtle "pulse" animation for attention */
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.01); /* A very slight increase */
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+.form-group #check-availability-btn {
+    /* ... existing styles ... */
+    animation: pulse 2s infinite ease-in-out; /* Apply the pulse animation */
+}
+
+/* Optional: Adding a "ripple" effect on click using a pseudo-element */
+.form-group #check-availability-btn::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 5px;
+    height: 5px;
+    background: rgba(255, 255, 255, 0.5); /* White ripple */
+    border-radius: 50%;
+    opacity: 0;
+    transform: scale(1);
+    transition: transform 0.5s, opacity 0.5s;
+}
+
+.form-group #check-availability-btn:active::after {
+    transform: scale(20); /* Scales out the ripple */
+    opacity: 1;
+    transition: transform 0.5s, opacity 0.5s; /* Applies transition on active state as well */
+}
 </style>
 </head>
 <body>
