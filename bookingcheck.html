@@ -4,6 +4,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Book Your Stay</title>
+    <link rel="shortcut icon" type="image/x-icon" href="hotelpics/svg/icon01.png" />
+    <link rel="stylesheet" href="css/styles.css">
+     <link rel="stylesheet" href="css/style_03.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400..700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/styles_01.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=east" /> 
     <style>
         /* Basic styles for the widget to make it look decent on its own */
         body {
@@ -203,6 +213,33 @@
     </style>
 </head>
 <body>
+    <div id="content" style="display: none;">
+    <nav class="navbar">
+        <div class="logo">Hotel</div>
+        <div class="nav-links" id="navLinks">
+            <a href="home.html" class="active">Home</a>
+            <a href="rooms.html">Accommodation</a>
+            <a href="dining.html">Wine&Dine</a>
+            <a href="health.html">Health&SPA</a>
+            <a href="experience.html">Attractions</a>
+            <a ></a>
+            <div class="dropdown">
+                <a href="#more" class="dropbtn">More <i class="fas fa-chevron-down"></i></a>
+                <div class="dropdown-content">
+                    <a href="about.html">About Us</a>
+                <a href="gallery.html">Gallery</a>
+                <a href="contact.html">Contact Us</a>
+                <a href="careers.html">Careers</a>
+                </div>
+            </div>
+        </div>
+        <div class="logoright"><a href="bookingcheck.html"><button id="booknow" >Book Now</button></a></div>
+        <div class="hamburger" id="hamburger">
+            <div class="bar bar1"></div>
+            <div class="bar bar2"></div>
+            <div class="bar bar3"></div>
+        </div>
+    </nav>
     <div class="booking-widget-container">
         <h2>Book Your Stay</h2>
 
@@ -284,6 +321,47 @@
             <button onclick="closePublicMessageBox()" class="btn btn-primary">OK</button>
         </div>
     </div>
+<div class="whatsapp-float">
+    <a href="https://api.whatsapp.com/send?phone=1234567890" target="_blank" rel="noopener noreferrer">
+      <img src="hotelpics/svg/vecteezy_whatsapp-logo-png-whatsapp-icon-png-whatsapp-transparent_18930748.png" alt="WhatsApp">
+    </a>
+    </div>
+    <div class="footer">
+        <div class="footer-container">
+            <div class="footer-section">
+                <h4>Contact Us</h4>
+                <p> Hotel</p>
+                <p>Mbale City</p>
+                <p>Email: info@hotel.com</p>
+                <p>Phone: +256 706732078</p>
+            </div>
+            <div class="footer-section">
+                <h4>Follow Us</h4>
+                <ul>
+                    <li> <a href="https://twitter.com/HeritanceHotels"><img src="twitter-icon.png" alt="">Twitter</a></li>
+                   <li> <a href="https://www.facebook.com/SrilankanHotels/"><img src="facebook-icon.png" alt="">Facebook</a></li>
+                    <li><a href="https://www.instagram.com/srilanka.hotels/"><img src="instagram-icon.png" alt="">Instagram</a></li>
+                    <li><a href="https://lk.linkedin.com/company/cinnamon-hotels-resorts"><img src="linkedin-icon.png" alt="">LinkedIn</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="about.html">About Us</a></li>
+                    <li><a href="home.html">Home</a></li>
+                    <li><a href="rooms.html">Accommodation</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                    <li><a href="gallery.html">Gallery</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 Hotel. All rights reserved.</p>
+        </div>
+    </div>  
+  </div> 
+     <script src="script_01.js"></script>
+    <script src="js/script.js"></script>
 
     <script >
         // public_booking_widget.js - Frontend JavaScript for Public Room Booking Widget
