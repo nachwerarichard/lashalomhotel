@@ -256,7 +256,7 @@
                         <input type="text" id="guestName" required>
                     </div>
                     <div class="input-group">
-                        <label for="guestEmail">Email Address:</label> <input type="email" id="guestEmail" required>
+                        <label for="gemail">Email Address:</label> <input type="email" id="gemail" required>
                     </div>
                     <div class="input-group">
                         <label for="guestNationality">Nationality:</label>
@@ -321,7 +321,7 @@ const bookingTotalDueInput = document.getElementById('bookingTotalDue');
 const bookingPeopleInput = document.getElementById('bookingPeople');
 
 // New Email Field
-const guestEmailInput = document.getElementById('guestEmail');
+const gemailInput = document.getElementById('gemail');
 
 const publicMessageBox = document.getElementById('publicMessageBox');
 const publicMessageBoxTitle = document.getElementById('publicMessageBoxTitle');
@@ -555,7 +555,7 @@ publicBookingForm.addEventListener('submit', async (event) => {
 
     const bookingData = {
         name: document.getElementById('guestName').value,
-        guestEmail: guestEmailInput.value, // Added email field
+        gemail: gemailInput.value, // Added email field
         room: bookingRoomNumberInput.value, // The specific room number chosen
         checkIn: bookingCheckInInput.value,
         checkOut: bookingCheckOutInput.value,
@@ -573,12 +573,12 @@ publicBookingForm.addEventListener('submit', async (event) => {
     };
 
     // More client-side validation for guest details
-    if (!bookingData.name || !bookingData.phoneNo || !bookingData.guestEmail) { // Added email validation
+    if (!bookingData.name || !bookingData.phoneNo || !bookingData.gemail) { // Added email validation
         showPublicMessageBox('Validation Error', 'Full Name, Email Address, and Phone Number are required.', true);
         return;
     }
     // Basic email format validation
-    if (!/\S+@\S+\.\S+/.test(bookingData.guestEmail)) {
+    if (!/\S+@\S+\.\S+/.test(bookingData.gemail)) {
         showPublicMessageBox('Validation Error', 'Please enter a valid email address.', true);
         return;
     }
@@ -607,7 +607,7 @@ publicBookingForm.addEventListener('submit', async (event) => {
         const emailSendResponse = await fetch(`${API_BASE_URL}/public/send-booking-confirmation`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ ...confirmedBooking, email: bookingData.guestEmail }) // Ensure email is explicitly included
+            body: JSON.stringify({ ...confirmedBooking, email: bookingData.gemail }) // Ensure email is explicitly included
         });
 
         if (!emailSendResponse.ok) {
@@ -617,7 +617,7 @@ publicBookingForm.addEventListener('submit', async (event) => {
             // Just inform the user about the email failure.
             showPublicMessageBox('Booking Confirmed!', `Your booking for Room ${confirmedBooking.room} is confirmed! Booking ID: ${confirmedBooking.id}. However, there was an issue sending the confirmation email: ${emailErrorData.message}`, true);
         } else {
-            showPublicMessageBox('Success!', `Your booking for Room ${confirmedBooking.room} is confirmed! Booking ID: ${confirmedBooking.id}. A confirmation email has been sent to ${bookingData.guestEmail}.`, false);
+            showPublicMessageBox('Success!', `Your booking for Room ${confirmedBooking.room} is confirmed! Booking ID: ${confirmedBooking.id}. A confirmation email has been sent to ${bookingData.gemail}.`, false);
         }
 
         // Reset the form and hide sections after successful booking
