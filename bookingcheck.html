@@ -52,6 +52,7 @@
         .input-group input[type="date"],
         .input-group input[type="number"],
         .input-group input[type="text"],
+        .input-group input[type="email"], /* Added style for email input */
         .input-group select {
             width: calc(100% - 24px); /* Account for padding */
             padding: 12px;
@@ -65,6 +66,7 @@
         .input-group input[type="date"]:focus,
         .input-group input[type="number"]:focus,
         .input-group input[type="text"]:focus,
+        .input-group input[type="email"]:focus, /* Added style for email input */
         .input-group select:focus {
             border-color: #3498db;
             box-shadow: 0 0 8px rgba(52, 152, 219, 0.2);
@@ -219,8 +221,7 @@
                 <label for="roomTypeSelect">Room Type:</label>
                 <select id="roomTypeSelect">
                     <option value="Any">Any Type</option>
-                    <!-- Room types will be loaded here by JS -->
-                </select>
+                    </select>
             </div>
             <div class="input-group">
                 <label for="numberOfPeople">Number of Guests:</label>
@@ -232,8 +233,7 @@
         <div id="availabilityResults" class="availability-results" style="display: none;">
             <h3>Available Rooms</h3>
             <div id="availableRoomTypesContainer">
-                <!-- Available room types will be displayed here -->
-            </div>
+                </div>
             <div id="noAvailabilityMessage" class="message-box error-message" style="display: none;">
                 No rooms available for the selected criteria. Please adjust your dates or room type.
             </div>
@@ -254,6 +254,9 @@
                     <div class="input-group">
                         <label for="guestName">Full Name:</label>
                         <input type="text" id="guestName" required>
+                    </div>
+                    <div class="input-group">
+                        <label for="guestEmail">Email Address:</label> <input type="email" id="guestEmail" required>
                     </div>
                     <div class="input-group">
                         <label for="guestNationality">Nationality:</label>
@@ -316,6 +319,9 @@ const bookingNightsInput = document.getElementById('bookingNights');
 const bookingAmtPerNightInput = document.getElementById('bookingAmtPerNight');
 const bookingTotalDueInput = document.getElementById('bookingTotalDue');
 const bookingPeopleInput = document.getElementById('bookingPeople');
+
+// New Email Field
+const guestEmailInput = document.getElementById('guestEmail');
 
 const publicMessageBox = document.getElementById('publicMessageBox');
 const publicMessageBoxTitle = document.getElementById('publicMessageBoxTitle');
@@ -549,6 +555,7 @@ publicBookingForm.addEventListener('submit', async (event) => {
 
     const bookingData = {
         name: document.getElementById('guestName').value,
+        email: guestEmailInput.value, // Added email field
         room: bookingRoomNumberInput.value, // The specific room number chosen
         checkIn: bookingCheckInInput.value,
         checkOut: bookingCheckOutInput.value,
@@ -566,12 +573,17 @@ publicBookingForm.addEventListener('submit', async (event) => {
     };
 
     // More client-side validation for guest details
-    if (!bookingData.name || !bookingData.phoneNo) {
-        showPublicMessageBox('Validation Error', 'Full Name and Phone Number are required.', true);
+    if (!bookingData.name || !bookingData.phoneNo || !bookingData.email) { // Added email validation
+        showPublicMessageBox('Validation Error', 'Full Name, Email Address, and Phone Number are required.', true);
+        return;
+    }
+    // Basic email format validation
+    if (!/\S+@\S+\.\S+/.test(bookingData.email)) {
+        showPublicMessageBox('Validation Error', 'Please enter a valid email address.', true);
         return;
     }
 
-    showPublicMessageBox('Booking...', 'Confirming your booking. Please wait...');
+    showPublicMessageBox('Booking...', 'Confirming your booking and sending confirmation. Please wait...');
 
     try {
         const response = await fetch(`${API_BASE_URL}/public/bookings`, {
@@ -586,7 +598,27 @@ publicBookingForm.addEventListener('submit', async (event) => {
         }
 
         const result = await response.json();
-        showPublicMessageBox('Success!', `Your booking for Room ${result.booking.room} is confirmed! Booking ID: ${result.booking.id}`, false);
+        const confirmedBooking = result.booking; // Capture the confirmed booking details
+
+        // --- Send Email Confirmation ---
+        // We'll use the /public/send-booking-confirmation endpoint
+        // This endpoint expects the entire booking object in its body,
+        // which matches the `confirmedBooking` structure.
+        const emailSendResponse = await fetch(`${API_BASE_URL}/public/send-booking-confirmation`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ ...confirmedBooking, email: bookingData.email }) // Ensure email is explicitly included
+        });
+
+        if (!emailSendResponse.ok) {
+            const emailErrorData = await emailSendResponse.json();
+            console.error('Error sending confirmation email:', emailErrorData.message);
+            // Don't throw here, as the booking itself was successful.
+            // Just inform the user about the email failure.
+            showPublicMessageBox('Booking Confirmed!', `Your booking for Room ${confirmedBooking.room} is confirmed! Booking ID: ${confirmedBooking.id}. However, there was an issue sending the confirmation email: ${emailErrorData.message}`, true);
+        } else {
+            showPublicMessageBox('Success!', `Your booking for Room ${confirmedBooking.room} is confirmed! Booking ID: ${confirmedBooking.id}. A confirmation email has been sent to ${bookingData.email}.`, false);
+        }
 
         // Reset the form and hide sections after successful booking
         publicBookingForm.reset();
@@ -616,7 +648,6 @@ cancelBookingBtn.addEventListener('click', () => {
     // numberOfPeopleInput.value = '1';
     showPublicMessageBox('Cancelled', 'Booking process cancelled.', false);
 });
-
     </script>
 </body>
 </html>
