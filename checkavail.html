@@ -1,0 +1,700 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Your Stay</title>
+    <style>
+        /* Basic styles for the widget to make it look decent on its own */
+        body {
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f8f8f8;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            min-height: 100vh;
+            box-sizing: border-box;
+        }
+
+        .booking-widget-container {
+            background-color: #ffffff;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 600px;
+            box-sizing: border-box;
+        }
+
+        h2 {
+            color: #2c3e50;
+            margin-top: 0;
+            margin-bottom: 25px;
+            font-size: 2em;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 10px;
+            text-align: center;
+        }
+
+        .input-group {
+            margin-bottom: 15px;
+        }
+
+        .input-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #555;
+            font-weight: bold;
+        }
+
+        .input-group input[type="date"],
+        .input-group input[type="number"],
+        .input-group input[type="text"],
+        .input-group input[type="email"], /* Added style for email input */
+        .input-group select {
+            width: calc(100% - 24px); /* Account for padding */
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            font-size: 1em;
+            box-sizing: border-box;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .input-group input[type="date"]:focus,
+        .input-group input[type="number"]:focus,
+        .input-group input[type="text"]:focus,
+        .input-group input[type="email"]:focus, /* Added style for email input */
+        .input-group select:focus {
+            border-color: #3498db;
+            box-shadow: 0 0 8px rgba(52, 152, 219, 0.2);
+            outline: none;
+        }
+
+        .btn {
+            padding: 12px 25px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1em;
+            font-weight: bold;
+            transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            margin-top: 10px;
+        }
+
+        .btn-primary {
+            background-color: #3498db;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background-color: #2980b9;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .btn-secondary {
+            background-color: #95a5a6;
+            color: white;
+        }
+
+        .btn-secondary:hover {
+            background-color: #7f8c8d;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .message-box {
+            background-color: #e0f7fa;
+            border: 1px solid #b2ebf2;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 20px;
+            text-align: center;
+            color: #00796b;
+            font-weight: bold;
+            display: none; /* Hidden by default */
+        }
+
+        .error-message {
+            background-color: #ffebee;
+            border: 1px solid #ffcdd2;
+            color: #c62828;
+        }
+
+        .success-message {
+            background-color: #e8f5e9;
+            border: 1px solid #c8e6c9;
+            color: #2e7d32;
+        }
+
+        .availability-results {
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px dashed #ccc;
+        }
+
+        .availability-results h3 {
+            color: #2c3e50;
+            margin-bottom: 15px;
+            font-size: 1.5em;
+        }
+
+        .room-type-card {
+            background-color: #f0f8ff; /* Light blue background */
+            border: 1px solid #add8e6;
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 15px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .room-type-card h4 {
+            margin-top: 0;
+            margin-bottom: 5px;
+            color: #3498db;
+            font-size: 1.2em;
+        }
+
+        .room-type-card p {
+            margin: 0;
+            font-size: 0.9em;
+            color: #666;
+        }
+
+        .room-type-card .available-rooms-list {
+            font-weight: bold;
+            color: #28a745; /* Green for available rooms */
+        }
+
+        .room-type-card button {
+            margin-top: 10px;
+        }
+
+        .guest-details-form {
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px dashed #ccc;
+            display: none; /* Hidden until a room type is selected */
+        }
+
+        .guest-details-form h3 {
+            color: #2c3e50;
+            margin-bottom: 15px;
+            font-size: 1.5em;
+        }
+
+        .guest-details-form .form-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 15px;
+        }
+
+        @media (min-width: 480px) {
+            .guest-details-form .form-grid {
+                grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            }
+        }
+
+        /* Styles for the image gallery */
+        .room-picture-gallery {
+            display: flex;
+            gap: 10px;
+            overflow-x: auto;
+            padding-bottom: 10px;
+            margin-top: 10px;
+            border-top: 1px solid #eee;
+            padding-top: 10px;
+        }
+
+        .room-picture-gallery img {
+            width: 150px;
+            height: 100px;
+            object-fit: cover;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+    </style>
+</head>
+<body>
+    <div class="booking-widget-container">
+        <h2>Book Your Stay</h2>
+
+        <div id="bookingFormSection">
+            <div class="input-group">
+                <label for="checkInDate">Check-in Date:</label>
+                <input type="date" id="checkInDate" required>
+            </div>
+            <div class="input-group">
+                <label for="checkOutDate">Check-out Date:</label>
+                <input type="date" id="checkOutDate" required>
+            </div>
+            <div class="input-group">
+                <label for="roomTypeSelect">Room Type:</label>
+                <select id="roomTypeSelect">
+                    <option value="Any">Any Type</option>
+                </select>
+            </div>
+            <div class="input-group">
+                <label for="numberOfRooms">Number of Rooms:</label>
+                <input type="number" id="numberOfRooms" min="1" value="1" required>
+            </div>
+            <div class="input-group">
+                <label for="numberOfPeople">Number of Guests:</label>
+                <input type="number" id="numberOfPeople" min="1" value="1" required>
+            </div>
+            <button class="btn btn-primary" id="checkAvailabilityBtn">Check Availability</button>
+        </div>
+
+        <div id="availabilityResults" class="availability-results" style="display: none;">
+            <h3>Available Rooms</h3>
+            <div id="availableRoomTypesContainer">
+            </div>
+            <div id="noAvailabilityMessage" class="message-box error-message" style="display: none;">
+                No rooms available for the selected criteria. Please adjust your dates or room type.
+            </div>
+        </div>
+
+        <div id="guestDetailsForm" class="guest-details-form">
+            <h3>Guest Details for <span id="selectedRoomTypeDisplay"></span></h3>
+            <form id="publicBookingForm">
+                <input type="hidden" id="bookingRoomNumbers">
+                <input type="hidden" id="bookingCheckIn">
+                <input type="hidden" id="bookingCheckOut">
+                <input type="hidden" id="bookingNights">
+                <input type="hidden" id="bookingAmtPerNight">
+                <input type="hidden" id="bookingTotalDue">
+                <input type="hidden" id="bookingPeople">
+                <input type="hidden" id="bookingNumberOfRooms">
+
+                <div class="form-grid">
+                    <div class="input-group">
+                        <label for="guestName">Full Name:</label>
+                        <input type="text" id="guestName" required>
+                    </div>
+                    <div class="input-group">
+                        <label for="guestEmail">Email Address:</label> <input type="email" id="guestEmail" required>
+                    </div>
+                    <div class="input-group">
+                        <label for="guestNationality">Nationality:</label>
+                        <input type="text" id="guestNationality">
+                    </div>
+                    <div class="input-group">
+                        <label for="guestAddress">Address:</label>
+                        <input type="text" id="guestAddress">
+                    </div>
+                    <div class="input-group">
+                        <label for="guestPhoneNo">Phone Number:</label>
+                        <input type="text" id="guestPhoneNo" required>
+                    </div>
+                    <div class="input-group">
+                        <label for="guestNationalIdNo">National ID No. (Optional):</label>
+                        <input type="text" id="guestNationalIdNo">
+                    </div>
+                </div>
+                <p>Number of Rooms: <strong id="finalNumberOfRooms">0</strong></p>
+                <p>Total Due: <strong id="finalTotalDue">0.00</strong></p>
+                <button class="btn btn-primary" type="submit">Confirm Booking</button>
+                <button class="btn btn-secondary" type="button" id="cancelBookingBtn">Cancel</button>
+            </form>
+        </div>
+
+        <div id="publicMessageBox" class="message-box" style="display: none;">
+            <h3 id="publicMessageBoxTitle"></h3>
+            <p id="publicMessageBoxContent"></p>
+            <button onclick="closePublicMessageBox()" class="btn btn-primary">OK</button>
+        </div>
+    </div>
+    <script >
+        // public_booking_widget.js - Frontend JavaScript for Public Room Booking Widget
+
+        const API_BASE_URL = 'https://patrinahhotelpms.onrender.com/api'; // Your Render backend URL
+
+        // --- DOM Elements ---
+        const checkInDateInput = document.getElementById('checkInDate');
+        const checkOutDateInput = document.getElementById('checkOutDate');
+        const roomTypeSelect = document.getElementById('roomTypeSelect');
+        const numberOfRoomsInput = document.getElementById('numberOfRooms'); // New input
+        const numberOfPeopleInput = document.getElementById('numberOfPeople');
+        const checkAvailabilityBtn = document.getElementById('checkAvailabilityBtn');
+
+        const availabilityResultsSection = document.getElementById('availabilityResults');
+        const availableRoomTypesContainer = document.getElementById('availableRoomTypesContainer');
+        const noAvailabilityMessage = document.getElementById('noAvailabilityMessage');
+
+        const guestDetailsFormSection = document.getElementById('guestDetailsForm');
+        const publicBookingForm = document.getElementById('publicBookingForm');
+        const selectedRoomTypeDisplay = document.getElementById('selectedRoomTypeDisplay');
+        const finalNumberOfRoomsSpan = document.getElementById('finalNumberOfRooms'); // New display
+        const finalTotalDueSpan = document.getElementById('finalTotalDue');
+        const cancelBookingBtn = document.getElementById('cancelBookingBtn');
+
+        // Hidden fields for booking data
+        const bookingRoomNumbersInput = document.getElementById('bookingRoomNumbers'); // Updated to store multiple rooms
+        const bookingCheckInInput = document.getElementById('bookingCheckIn');
+        const bookingCheckOutInput = document.getElementById('bookingCheckOut');
+        const bookingNightsInput = document.getElementById('bookingNights');
+        const bookingAmtPerNightInput = document.getElementById('bookingAmtPerNight');
+        const bookingTotalDueInput = document.getElementById('bookingTotalDue');
+        const bookingPeopleInput = document.getElementById('bookingPeople');
+        const bookingNumberOfRoomsInput = document.getElementById('bookingNumberOfRooms'); // New hidden input
+
+        // Guest Details Fields
+        const guestEmailInput = document.getElementById('guestEmail');
+
+        const publicMessageBox = document.getElementById('publicMessageBox');
+        const publicMessageBoxTitle = document.getElementById('publicMessageBoxTitle');
+        const publicMessageBoxContent = document.getElementById('publicMessageBoxContent');
+
+        let allRoomTypes = []; // To store fetched room types with their details (including pictures)
+        let availableRoomsBySelectedType = {}; // To store available rooms after an availability check
+
+        // --- Utility Functions ---
+
+        /**
+         * Displays a custom message box to the user.
+         * @param {string} title - The title of the message box.
+         * @param {string} message - The content message.
+         * @param {boolean} isError - True if it's an error message, false for success/info.
+         */
+        function showPublicMessageBox(title, message, isError = false) {
+            publicMessageBoxTitle.textContent = title;
+            publicMessageBoxContent.textContent = message;
+            publicMessageBox.classList.remove('error-message', 'success-message');
+            if (isError) {
+                publicMessageBox.classList.add('error-message');
+            } else {
+                publicMessageBox.classList.add('success-message');
+            }
+            publicMessageBox.style.display = 'block';
+        }
+
+        /**
+         * Closes the custom message box.
+         */
+        function closePublicMessageBox() {
+            publicMessageBox.style.display = 'none';
+        }
+
+        /**
+         * Calculates the number of nights between two dates.
+         * @param {string} checkInStr - Check-in date string (YYYY-MM-DD).
+         * @param {string} checkOutStr - Check-out date string (YYYY-MM-DD).
+         * @returns {number} Number of nights, or 0 if dates are invalid.
+         */
+        function calculateNights(checkInStr, checkOutStr) {
+            const checkInDate = new Date(checkInStr);
+            const checkOutDate = new Date(checkOutStr);
+
+            if (checkInDate && checkOutDate && checkOutDate > checkInDate) {
+                const diffTime = Math.abs(checkOutDate - checkInDate);
+                const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+                return diffDays;
+            }
+            return 0;
+        }
+
+        // --- Initial Setup ---
+
+        /**
+         * Fetches room types and populates the dropdown.
+         * Assumes backend returns an array of objects like: [{ type: 'Deluxe', pictures: ['url1', 'url2'] }, ...]
+         */
+        async function populateRoomTypeDropdown() {
+            try {
+                const response = await fetch(`${API_BASE_URL}/public/room-types`);
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                const types = await response.json();
+                allRoomTypes = types; // Store all room types with their data
+
+                roomTypeSelect.innerHTML = '<option value="Any">Any Type</option>';
+                types.forEach(type => {
+                    const option = document.createElement('option');
+                    option.value = type.type;
+                    option.textContent = type.type;
+                    roomTypeSelect.appendChild(option);
+                });
+            } catch (error) {
+                console.error('Error fetching room types:', error);
+                showPublicMessageBox('Error', 'Failed to load room types. Please try again later.', true);
+            }
+        }
+
+        // Set today's date as min for check-in
+        document.addEventListener('DOMContentLoaded', () => {
+            const today = new Date();
+            const todayFormatted = today.toISOString().split('T')[0];
+            checkInDateInput.min = todayFormatted;
+            checkOutDateInput.min = todayFormatted;
+
+            checkInDateInput.addEventListener('change', () => {
+                if (checkInDateInput.value) {
+                    checkOutDateInput.min = checkInDateInput.value;
+                    if (checkOutDateInput.value && new Date(checkOutDateInput.value) < new Date(checkInDateInput.value)) {
+                        checkOutDateInput.value = checkInDateInput.value;
+                    }
+                }
+            });
+
+            populateRoomTypeDropdown();
+        });
+
+
+        // --- Availability Check ---
+
+        checkAvailabilityBtn.addEventListener('click', async () => {
+            const checkIn = checkInDateInput.value;
+            const checkOut = checkOutDateInput.value;
+            const roomType = roomTypeSelect.value;
+            const numberOfRooms = parseInt(numberOfRoomsInput.value); // Get number of rooms requested
+            const numberOfPeople = parseInt(numberOfPeopleInput.value);
+
+            // Basic client-side validation
+            if (!checkIn || !checkOut) {
+                showPublicMessageBox('Validation Error', 'Please select both check-in and check-out dates.', true);
+                return;
+            }
+            if (new Date(checkOut) <= new Date(checkIn)) {
+                showPublicMessageBox('Validation Error', 'Check-out date must be after check-in date.', true);
+                return;
+            }
+            if (isNaN(numberOfRooms) || numberOfRooms < 1) {
+                showPublicMessageBox('Validation Error', 'Number of rooms must be at least 1.', true);
+                return;
+            }
+            if (isNaN(numberOfPeople) || numberOfPeople < 1) {
+                showPublicMessageBox('Validation Error', 'Number of guests must be at least 1.', true);
+                return;
+            }
+
+            // Hide previous results/forms
+            availabilityResultsSection.style.display = 'none';
+            guestDetailsFormSection.style.display = 'none';
+            noAvailabilityMessage.style.display = 'none';
+            availableRoomTypesContainer.innerHTML = '';
+            showPublicMessageBox('Checking...', 'Searching for available rooms...');
+
+            try {
+                // Pass number of rooms to the API call
+                const response = await fetch(`${API_BASE_URL}/public/rooms/available?checkIn=${checkIn}&checkOut=${checkOut}&roomType=${roomType}&people=${numberOfPeople}&numberOfRooms=${numberOfRooms}`);
+                if (!response.ok) {
+                    const errorData = await response.json();
+                    throw new Error(errorData.message || `HTTP error! status: ${response.status}`);
+                }
+
+                availableRoomsBySelectedType = await response.json(); // Store the full response
+
+                closePublicMessageBox(); // Hide "Checking..." message
+
+                const hasAvailableRooms = Object.keys(availableRoomsBySelectedType).length > 0;
+
+                if (hasAvailableRooms) {
+                    availabilityResultsSection.style.display = 'block';
+                    noAvailabilityMessage.style.display = 'none';
+
+                    for (const type in availableRoomsBySelectedType) {
+                        const roomsOfType = availableRoomsBySelectedType[type];
+                        const roomTypeDetails = allRoomTypes.find(t => t.type === type);
+                        const pictures = roomTypeDetails ? roomTypeDetails.pictures : [];
+
+                        if (roomsOfType.length >= numberOfRooms) { // Check if enough rooms are available
+                            const card = document.createElement('div');
+                            card.classList.add('room-type-card');
+                            
+                            let galleryHTML = pictures.length > 0 ? 
+                                `<div class="room-picture-gallery">
+                                    ${pictures.map(pic => `<img src="${pic}" alt="${type} room picture">`).join('')}
+                                </div>` : '';
+
+                            card.innerHTML = `
+                                <h4>${type}</h4>
+                                <p>Available Rooms: <span class="available-rooms-list">${roomsOfType.join(', ')}</span></p>
+                                ${galleryHTML}
+                                <button class="btn btn-primary book-now-btn" data-room-type="${type}">Book This Type</button>
+                            `;
+                            availableRoomTypesContainer.appendChild(card);
+                        }
+                    }
+                    
+                    // Re-check for any available rooms after filtering by quantity
+                    if (availableRoomTypesContainer.innerHTML === '') {
+                         noAvailabilityMessage.style.display = 'block';
+                    }
+
+                    // Add event listeners to the new "Book Now" buttons
+                    document.querySelectorAll('.book-now-btn').forEach(button => {
+                        button.addEventListener('click', handleBookNowClick);
+                    });
+
+                } else {
+                    availabilityResultsSection.style.display = 'block';
+                    noAvailabilityMessage.style.display = 'block';
+                }
+
+            } catch (error) {
+                console.error('Error checking availability:', error);
+                showPublicMessageBox('Error', `Failed to check availability: ${error.message}`, true);
+            }
+        });
+
+        /**
+         * Handles the click on a "Book This Type" button.
+         * Shows the guest details form and pre-fills booking data.
+         * @param {Event} event - The click event.
+         */
+        function handleBookNowClick(event) {
+            const selectedType = event.target.dataset.roomType;
+            const availableRooms = availableRoomsBySelectedType[selectedType];
+            const roomsToBook = parseInt(numberOfRoomsInput.value);
+
+            if (!availableRooms || availableRooms.length < roomsToBook) {
+                showPublicMessageBox('Error', 'Not enough rooms of this type are currently available.', true);
+                return;
+            }
+
+            // Select the required number of rooms
+            const chosenRoomNumbers = availableRooms.slice(0, roomsToBook);
+
+            // Calculate nights
+            const nights = calculateNights(checkInDateInput.value, checkOutDateInput.value);
+            if (nights === 0) {
+                showPublicMessageBox('Error', 'Invalid dates selected for booking.', true);
+                return;
+            }
+
+            // Assume a default amount per night for now. This should come from the backend.
+            const amtPerNight = 100.00; // Example default rate
+            const totalDue = (nights * amtPerNight * roomsToBook).toFixed(2); // Calculate total for all rooms
+
+            // Populate hidden fields and display elements
+            bookingRoomNumbersInput.value = JSON.stringify(chosenRoomNumbers); // Store as JSON string
+            bookingCheckInInput.value = checkInDateInput.value;
+            bookingCheckOutInput.value = checkOutDateInput.value;
+            bookingNightsInput.value = nights;
+            bookingAmtPerNightInput.value = amtPerNight;
+            bookingTotalDueInput.value = totalDue;
+            bookingPeopleInput.value = numberOfPeopleInput.value;
+            bookingNumberOfRoomsInput.value = roomsToBook;
+
+            selectedRoomTypeDisplay.textContent = `${selectedType} (${roomsToBook} rooms)`;
+            finalNumberOfRoomsSpan.textContent = roomsToBook;
+            finalTotalDueSpan.textContent = parseFloat(totalDue).toFixed(2);
+
+            // Show guest details form, hide availability results
+            availabilityResultsSection.style.display = 'none';
+            guestDetailsFormSection.style.display = 'block';
+
+            // Scroll to the guest details form
+            guestDetailsFormSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+
+        // --- Guest Details and Booking Submission ---
+
+        publicBookingForm.addEventListener('submit', async (event) => {
+            event.preventDefault();
+
+            const roomsToBook = JSON.parse(bookingRoomNumbersInput.value);
+            const totalDue = parseFloat(bookingTotalDueInput.value);
+
+            // Create an array of booking objects, one for each room
+            const bookingDataArray = roomsToBook.map(roomNumber => ({
+                name: document.getElementById('guestName').value,
+                guestEmail: guestEmailInput.value,
+                room: roomNumber, // Specific room number
+                checkIn: bookingCheckInInput.value,
+                checkOut: bookingCheckOutInput.value,
+                nights: parseInt(bookingNightsInput.value),
+                amtPerNight: parseFloat(bookingAmtPerNightInput.value),
+                totalDue: totalDue / roomsToBook, // Distribute total cost per room
+                amountPaid: 0,
+                balance: totalDue / roomsToBook,
+                paymentStatus: 'Pending',
+                people: Math.ceil(parseInt(bookingPeopleInput.value) / roomsToBook), // Distribute guests per room
+                nationality: document.getElementById('guestNationality').value,
+                address: document.getElementById('guestAddress').value,
+                phoneNo: document.getElementById('guestPhoneNo').value,
+                nationalIdNo: document.getElementById('guestNationalIdNo').value
+            }));
+
+            // More client-side validation for guest details
+            if (!bookingDataArray[0].name || !bookingDataArray[0].phoneNo || !bookingDataArray[0].guestEmail) {
+                showPublicMessageBox('Validation Error', 'Full Name, Email Address, and Phone Number are required.', true);
+                return;
+            }
+            if (!/\S+@\S+\.\S+/.test(bookingDataArray[0].guestEmail)) {
+                showPublicMessageBox('Validation Error', 'Please enter a valid email address.', true);
+                return;
+            }
+
+            showPublicMessageBox('Booking...', `Confirming your booking for ${roomsToBook.length} rooms... Please wait.`);
+
+            try {
+                // Send a single request to the backend with the array of bookings
+                const response = await fetch(`${API_BASE_URL}/public/bookings/multiple`, { // New endpoint for multiple bookings
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(bookingDataArray)
+                });
+
+                if (!response.ok) {
+                    const errorData = await response.json();
+                    throw new Error(errorData.message || `HTTP error! status: ${response.status}`);
+                }
+
+                const result = await response.json();
+                const confirmedBookings = result.bookings;
+
+                // --- Send Email Confirmation ---
+                const emailSendResponse = await fetch(`${API_BASE_URL}/public/send-booking-confirm-multiple`, { // New endpoint for multiple bookings
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        email: bookingDataArray[0].guestEmail,
+                        bookings: confirmedBookings // Send the array of confirmed bookings
+                    })
+                });
+
+                if (!emailSendResponse.ok) {
+                    const emailErrorData = await emailSendResponse.json();
+                    console.error('Error sending confirmation email:', emailErrorData.message);
+                    showPublicMessageBox('Booking Confirmed!', `Your booking for ${confirmedBookings.length} rooms is confirmed! However, there was an issue sending the confirmation email.`, true);
+                } else {
+                    showPublicMessageBox('Success!', `Your booking for ${confirmedBookings.length} rooms is confirmed! A confirmation email has been sent to ${bookingDataArray[0].guestEmail}.`, false);
+                }
+
+                // Reset the form and hide sections after successful booking
+                publicBookingForm.reset();
+                checkInDateInput.value = '';
+                checkOutDateInput.value = '';
+                roomTypeSelect.value = 'Any';
+                numberOfRoomsInput.value = '1';
+                numberOfPeopleInput.value = '1';
+
+                guestDetailsFormSection.style.display = 'none';
+                availabilityResultsSection.style.display = 'none';
+
+            } catch (error) {
+                console.error('Error confirming booking:', error);
+                showPublicMessageBox('Booking Failed', `Failed to confirm booking: ${error.message}. Please try again.`, true);
+            }
+        });
+
+        // Cancel button for guest details form
+        cancelBookingBtn.addEventListener('click', () => {
+            guestDetailsFormSection.style.display = 'none';
+            availabilityResultsSection.style.display = 'none';
+            publicBookingForm.reset();
+            showPublicMessageBox('Cancelled', 'Booking process cancelled.', false);
+        });
+    </script>
+</body>
+</html>
