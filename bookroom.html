@@ -218,21 +218,31 @@
 
                 if (keys.length > 0) {
                     availabilityResultsSection.style.display = 'block';
-                    keys.forEach(type => {
-                        const rooms = availableRoomsBySelectedType[type];
-                        if (rooms.length > 0) {
-                            const card = document.createElement('div');
-                            card.className = 'room-type-card';
-                            card.innerHTML = `
-                                <h4>${type}</h4>
-                                <p>Available: <strong>${rooms.length} rooms</strong></p>
-                                <p style="font-size: 0.8em; color: #7f8c8d;">Perfect for ${people} guests</p>
-                                <button class="btn-primary book-now-btn" data-type="${type}" style="margin-top:15px">Select Room</button>
-                            `;
-                            container.appendChild(card);
-                        }
-                    });
+                    // Add a simple mapping object
+const roomImages = {
+    "Deluxe": "",
+    "Standard": "",
+    "Suite": ""
+};
 
+keys.forEach(type => {
+    const rooms = availableRoomsBySelectedType[type];
+    // Get the image URL from our mapping, or use a default placeholder
+    const imageUrl = roomImages[type] || "https://via.placeholder.com/400x250?text=Hotel+Room";
+
+    if (rooms.length > 0) {
+        const card = document.createElement('div');
+        card.className = 'room-type-card';
+        card.innerHTML = `
+            <img src="${imageUrl}" class="room-image" alt="${type}">
+            <h4>${type}</h4>
+            <p>Available: <strong>${rooms.length} rooms</strong></p>
+            <p style="font-size: 0.8em; color: #7f8c8d;">Perfect for ${people} guests</p>
+            <button class="btn-primary book-now-btn" data-type="${type}" style="margin-top:15px">Select Room</button>
+        `;
+        container.appendChild(card);
+    }
+});
                     document.querySelectorAll('.book-now-btn').forEach(btn => {
                         btn.addEventListener('click', (e) => handleBookNow(e.target.dataset.type));
                     });
