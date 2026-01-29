@@ -196,6 +196,7 @@
         const nextBtn = document.getElementById('nextBtn');
         const checkAvailabilityBtn = document.getElementById('checkAvailabilityBtn');
         const availabilityResultsSection = document.getElementById('availabilityResults');
+        
 
         let availableRoomsBySelectedType = {};
 
@@ -276,6 +277,8 @@ function calculateNights(checkInStr, checkOutStr) {
 }
         
         function handleBookNow(type) {
+                const availableRooms = availableRoomsBySelectedType[selectedType];
+
         const chosenRoomNumber = availableRooms[0];
     // 1. Get the dates from the input elements
     const checkInStr = document.getElementById('checkInDate').value;
