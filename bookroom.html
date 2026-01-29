@@ -290,6 +290,26 @@ keys.forEach(type => {
         init();
 
         function closePublicMessageBox() { document.getElementById('publicMessageBox').style.display = 'none'; }
+
+
+        // Add this logic to your script section
+const cancelBookingBtn = document.getElementById('cancelBookingBtn');
+const guestDetailsFormSection = document.getElementById('guestDetailsForm');
+const availabilityResultsSection = document.getElementById('availabilityResults');
+
+cancelBookingBtn.addEventListener('click', () => {
+    // 1. Hide the guest details form
+    guestDetailsFormSection.style.display = 'none';
+
+    // 2. Show the room results (carousel) again
+    availabilityResultsSection.style.display = 'block';
+
+    // 3. Optional: Clear the guest form fields so they are fresh for next time
+    document.getElementById('publicBookingForm').reset();
+    
+    // 4. Scroll back to the room results smoothly
+    availabilityResultsSection.scrollIntoView({ behavior: 'smooth' });
+});
     </script>
 </body>
 </html>
