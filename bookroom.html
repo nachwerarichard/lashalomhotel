@@ -228,7 +228,7 @@ const roomImages = {
 keys.forEach(type => {
     const rooms = availableRoomsBySelectedType[type];
     // Get the image URL from our mapping, or use a default placeholder
-    const imageUrl = roomImages[type] || "https://via.placeholder.com/400x250?text=Hotel+Room";
+    const imageUrl = roomImages[type] || "multimedia/pics/room_1_a.jpg";
 
     if (rooms.length > 0) {
         const card = document.createElement('div');
