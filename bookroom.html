@@ -198,11 +198,8 @@
         const availabilityResultsSection = document.getElementById('availabilityResults');
 
         const bookingCheckInInput = document.getElementById('bookingCheckIn');
-const bookingCheckOutInput = document.getElementById('bookingCheckOut');
-const bookingNightsInput = document.getElementById('bookingNights');
-const bookingAmtPerNightInput = document.getElementById('bookingAmtPerNight');
-const bookingTotalDueInput = document.getElementById('bookingTotalDue');
-const bookingPeopleInput = document.getElementById('bookingPeople');
+        const bookingCheckOutInput = document.getElementById('bookingCheckOut');
+        const bookingPeopleInput = document.getElementById('bookingPeople');
         
 
         let availableRoomsBySelectedType = {};
@@ -422,19 +419,9 @@ publicBookingForm.addEventListener('submit', async (event) => {
         room: document.getElementById('bookingRoomNumber').value, // The specific room number chosen
         checkIn: bookingCheckInInput.value,
         checkOut: bookingCheckOutInput.value,
-        nights: parseInt(bookingNightsInput.value),
-        amtPerNight: parseFloat(bookingAmtPerNightInput.value),
-        totalDue: parseFloat(bookingTotalDueInput.value),
-        amountPaid: 0, // Public bookings are initially unpaid
-        balance: parseFloat(bookingTotalDueInput.value), // Balance is full amount initially
-        paymentStatus: 'Pending', // Public bookings are initially pending payment
         people: parseInt(bookingPeopleInput.value),
-        nationality: document.getElementById('guestNationality').value,
-        address: document.getElementById('guestAddress').value,
         phoneNo: document.getElementById('guestPhoneNo').value,
-        nationalIdNo: document.getElementById('guestNationalIdNo').value
     };
-
     // More client-side validation for guest details
     if (!bookingData.name || !bookingData.phoneNo || !bookingData.guestEmail) { // Added email validation
         showPublicMessageBox('Validation Error', 'Full Name, Email Address, and Phone Number are required.', true);
