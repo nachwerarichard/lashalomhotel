@@ -263,7 +263,18 @@ keys.forEach(type => {
             }
         });
 
+function calculateNights(checkInStr, checkOutStr) {
+    const checkIn = new Date(checkInStr);
+    const checkOut = new Date(checkOutStr);
 
+    if (checkIn && checkOut && checkOut > checkIn) {
+        const diffTime = Math.abs(checkOut - checkIn);
+        // Convert milliseconds to days
+        return Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+    }
+    return 0;
+}
+        
         function handleBookNow(type) {
     // 1. Get the dates from the input elements
     const checkInStr = document.getElementById('checkInDate').value;
