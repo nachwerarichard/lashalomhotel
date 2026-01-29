@@ -263,19 +263,51 @@ keys.forEach(type => {
             }
         });
 
+
         function handleBookNow(type) {
+    // 1. Get the dates from the input elements
+    const checkInStr = document.getElementById('checkInDate').value;
+    const checkOutStr = document.getElementById('checkOutDate').value;
+
+    // 2. Calculate the number of nights
+    const nights = calculateNights(checkInStr, checkOutStr);
+
+    if (nights <= 0) {
+        alert("Please select valid check-in and check-out dates first.");
+        return;
+    }
+
+    // 3. Define prices (Update these to match your actual rates)
+    const priceList = {
+        "Standard": 100.00,
+        "Deluxe": 150.00,
+        "Suite": 250.00,
+        "Any": 100.00 // Default fallback
+    };
+
+    // Get price based on type, or use 100 as a default if type isn't found
+    const ratePerNight = priceList[type] || 100.00;
+    const totalDue = (nights * ratePerNight).toFixed(2);
+            
             const rooms = availableRoomsBySelectedType[type];
             document.getElementById('bookingRoomNumber').value = rooms[0];
             document.getElementById('selectedRoomTypeDisplay').textContent = type;
             document.getElementById('availabilityResults').style.display = 'none';
             document.getElementById('guestDetailsForm').style.display = 'block';
             
-            // Calculate dummy total (Logic from your original code)
-            const nights = 1; // You should calculate this using your calculateNights function
-            document.getElementById('finalTotalDue').textContent = (nights * 100).toFixed(2);
-            document.getElementById('bookingTotalDue').value = nights * 100;
-        }
 
+    // 5. Update the UI Display
+    document.getElementById('selectedRoomTypeDisplay').textContent = type;
+    document.getElementById('finalTotalDue').textContent = totalDue;
+    document.getElementById('bookingTotalDue').value = totalDue;
+
+    // 6. Switch Views
+    document.getElementById('availabilityResults').style.display = 'none';
+    document.getElementById('guestDetailsForm').style.display = 'block';
+    
+    // Scroll to the form
+    document.getElementById('guestDetailsForm').scrollIntoView({ behavior: 'smooth' });
+}
         // Initialize room types (Simplified for brevity)
         async function init() {
             const res = await fetch(`${API_BASE_URL}/public/room-types`);
