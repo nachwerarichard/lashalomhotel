@@ -488,6 +488,7 @@ publicBookingForm.addEventListener('submit', async (event) => {
 });
 
         function showPublicMessageBox(title, message, isError = false) {
+                publicMessageBoxContent.textContent = message;
     
     publicMessageBox.classList.remove('error-message', 'success-message');
     if (isError) {
