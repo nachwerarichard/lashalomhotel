@@ -311,6 +311,9 @@ function calculateNights(checkInStr, checkOutStr) {
     const ratePerNight = priceList[type] || 100.00;
     const totalDue = (nights * ratePerNight).toFixed(2);
 
+ bookingCheckInInput.value = checkInDateInput.value;
+    bookingCheckOutInput.value = checkOutDateInput.value;
+    bookingPeopleInput.value = numberOfPeopleInput.value;
 
             
             const rooms = availableRoomsBySelectedType[type];
