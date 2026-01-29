@@ -8,50 +8,59 @@
     <script src="bookroom.js"></script>
     <style>
         :root {
-            --primary: #2563eb;
-            --primary-hover: #1d4ed8;
-            --bg-body: #f3f4f6;
-            --bg-card: #ffffff;
-            --text-main: #1f2937;
-            --text-muted: #6b7280;
-            --border-color: #e5e7eb;
-            --radius: 12px;
-            --shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            --primary-color: #1a2a6c;
+            --accent-color: #b89130;
+            --text-color: #333;
+            --bg-color: #f4f7f6;
+            --border-style: 1px solid #e0e0e0;
         }
 
         body {
             font-family: 'Inter', sans-serif;
             margin: 0;
             padding: 40px 20px;
-            background-color: var(--bg-body);
-            color: var(--text-main);
-            display: flex;
-            justify-content: center;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
         }
 
         .booking-widget-container {
-            background-color: var(--bg-card);
+            background-color: #ffffff;
             padding: 40px;
-            border-radius: var(--radius);
-            box-shadow: var(--shadow);
+            border-radius: 16px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.05);
             width: 100%;
             max-width: 900px;
+            margin: 0 auto;
+            border: var(--border-style);
         }
 
         h2 {
-            font-weight: 600;
-            font-size: 1.75rem;
+            color: var(--primary-color);
             margin-bottom: 30px;
+            font-weight: 600;
             text-align: center;
-            letter-spacing: -0.025em;
+            letter-spacing: -0.5px;
         }
 
-        /* Responsive Grid for Form */
+        h3 {
+            font-size: 1.2rem;
+            color: var(--primary-color);
+            margin-bottom: 20px;
+            border-left: 4px solid var(--accent-color);
+            padding-left: 15px;
+        }
+
+        /* Form Layout Grid */
         .form-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            grid-template-columns: repeat(2, 1fr);
             gap: 20px;
             margin-bottom: 25px;
+            padding: 25px;
+            border: var(--border-style);
+            border-radius: 12px;
+            background-color: #fafafa;
         }
 
         .input-group {
@@ -59,158 +68,147 @@
             flex-direction: column;
         }
 
+        .input-group.full-width {
+            grid-column: span 2;
+        }
+
         .input-group label {
-            font-size: 0.875rem;
-            font-weight: 600;
             margin-bottom: 8px;
-            color: var(--text-main);
+            font-size: 0.85rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            color: #666;
+            letter-spacing: 0.5px;
         }
 
         .input-group input, 
         .input-group select {
             padding: 12px 16px;
-            border: 1px solid var(--border-color);
+            border: 1px solid #ddd;
             border-radius: 8px;
             font-size: 1rem;
-            transition: all 0.2s;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
             outline: none;
-            background-color: #fafafa;
         }
 
         .input-group input:focus, 
         .input-group select:focus {
-            border-color: var(--primary);
-            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
-            background-color: #fff;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(26, 42, 108, 0.1);
         }
 
         /* Buttons */
         .btn-primary {
-            background-color: var(--primary);
+            background-color: var(--primary-color);
             color: white;
             border: none;
             border-radius: 8px;
-            padding: 14px 24px;
+            padding: 15px 30px;
             cursor: pointer;
             font-weight: 600;
             font-size: 1rem;
-            transition: background 0.2s;
             width: 100%;
+            transition: background 0.3s ease;
         }
 
         .btn-primary:hover {
-            background-color: var(--primary-hover);
+            background-color: #121e4d;
         }
 
-        .btn-ghost {
+        .btn-secondary {
             background: transparent;
-            color: var(--text-muted);
-            border: 1px solid var(--border-color);
+            color: #777;
+            border: 1px solid #ccc;
+            padding: 12px;
             border-radius: 8px;
-            padding: 10px;
             cursor: pointer;
             width: 100%;
             margin-top: 10px;
         }
 
-        /* Carousel & Cards */
+        /* Carousel Enhancements */
         .carousel-wrapper {
             position: relative;
-            margin: 30px 0;
-            padding: 0 10px;
+            padding: 10px 40px;
+            margin-bottom: 30px;
         }
 
         #availableRoomTypesContainer {
             display: flex;
             overflow-x: auto;
             gap: 20px;
-            padding: 10px 0;
-            scrollbar-width: none;
+            padding: 15px 5px;
+            scrollbar-width: thin;
         }
 
         .room-type-card {
-            min-width: 300px;
+            min-width: 260px;
             background: #fff;
-            border: 1px solid var(--border-color);
-            border-radius: var(--radius);
-            padding: 0;
-            overflow: hidden;
-            transition: transform 0.2s, box-shadow 0.2s;
+            border: var(--border-style);
+            border-radius: 12px;
+            padding: 15px;
+            text-align: center;
+            transition: transform 0.2s;
         }
 
         .room-type-card:hover {
             transform: translateY(-4px);
-            box-shadow: var(--shadow);
+            border-color: var(--accent-color);
         }
 
-        .room-card-content {
-            padding: 20px;
-        }
-
-        .room-card-content h4 { margin: 0 0 10px 0; font-size: 1.2rem; }
-        .room-price { color: var(--primary); font-weight: 700; font-size: 1.1rem; }
-
-        .nav-btn {
-            background: #fff;
-            border: 1px solid var(--border-color);
-            color: var(--text-main);
-            border-radius: 50%;
-            width: 44px;
-            height: 44px;
-            cursor: pointer;
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            z-index: 5;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
-        }
-
-        .prev-btn { left: -22px; }
-        .next-btn { right: -22px; }
-
-        /* Messages */
-        .message-box {
-            margin-top: 20px;
-            padding: 16px;
+        .room-image {
+            width: 100%;
+            height: 160px;
             border-radius: 8px;
-            text-align: center;
-            font-size: 0.95rem;
+            object-fit: cover;
+            margin-bottom: 12px;
         }
-        .error-message { background: #fef2f2; color: #991b1b; border: 1px solid #fee2e2; }
-        .success-message { background: #f0fdf4; color: #166534; border: 1px solid #dcfce7; }
 
-        .guest-details-form {
+        .price-tag {
+            color: var(--accent-color);
+            font-weight: bold;
+            font-size: 1.2rem;
+            display: block;
+            margin: 10px 0;
+        }
+
+        /* Message Boxes */
+        .message-box {
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 20px;
             display: none;
-            margin-top: 40px;
-            padding-top: 30px;
-            border-top: 2px solid var(--border-color);
+            border: 1px solid;
         }
 
-        #finalTotalDue { color: var(--primary); font-size: 1.5rem; }
+        .error-message { background: #fff5f5; border-color: #feb2b2; color: #c53030; }
+        .success-message { background: #f0fff4; border-color: #9ae6b4; color: #276749; }
+
+        @media (max-width: 600px) {
+            .form-grid { grid-template-columns: 1fr; }
+            .input-group.full-width { grid-column: span 1; }
+        }
     </style>
 </head>
 <body>
 
     <div class="booking-widget-container">
-        <h2>Experience Excellence</h2>
+        <h2>Reserve Your Experience</h2>
 
         <div id="bookingFormSection">
             <div class="form-grid">
                 <div class="input-group">
-                    <label>Check-in</label>
+                    <label>Check-in Date</label>
                     <input type="date" id="checkInDate" required>
                 </div>
                 <div class="input-group">
-                    <label>Check-out</label>
+                    <label>Check-out Date</label>
                     <input type="date" id="checkOutDate" required>
                 </div>
-            </div>
-            
-            <div class="form-grid">
                 <div class="input-group">
-                    <label>Room Category</label>
+                    <label>Room Type</label>
                     <select id="roomTypeSelect">
-                        <option value="Any">All Room Types</option>
+                        <option value="Any">Any Type</option>
                     </select>
                 </div>
                 <div class="input-group">
@@ -218,30 +216,28 @@
                     <input type="number" id="numberOfPeople" min="1" value="1" required>
                 </div>
             </div>
-            
             <button class="btn-primary" id="checkAvailabilityBtn">Search Availability</button>
         </div>
 
         <div id="availabilityResults" style="display: none;">
-            <h3 style="margin-top: 40px; text-align: center;">Select Your Room</h3>
+            <hr style="margin: 40px 0; border: 0; border-top: 1px solid #eee;">
+            <h3>Select Your Room</h3>
             <div class="carousel-wrapper">
-                <button class="nav-btn prev-btn" id="prevBtn">←</button>
+                <button class="nav-btn prev-btn" id="prevBtn">&#10094;</button>
                 <div id="availableRoomTypesContainer">
                     </div>
-                <button class="nav-btn next-btn" id="nextBtn">→</button>
+                <button class="nav-btn next-btn" id="nextBtn">&#10095;</button>
             </div>
             <div id="noAvailabilityMessage" class="message-box error-message">
-                No rooms available for these dates. Try adjusting your search.
+                No rooms found for these dates. Please try different dates.
             </div>
         </div>
 
-        <div id="guestDetailsForm" class="guest-details-form">
-            <h3 style="margin-bottom: 20px;">Complete Your Reservation</h3>
-            <p style="color: var(--text-muted); margin-bottom: 25px;">Selected: <span id="selectedRoomTypeDisplay" style="color: var(--text-main); font-weight: 600;"></span></p>
-            
+        <div id="guestDetailsForm" class="guest-details-form" style="display:none; margin-top: 40px;">
+            <h3>Guest Information</h3>
             <form id="publicBookingForm">
                 <div class="form-grid">
-                    <div class="input-group">
+                    <div class="input-group full-width">
                         <label>Full Name</label>
                         <input type="text" id="guestName" placeholder="John Doe" required>
                     </div>
@@ -249,25 +245,27 @@
                         <label>Email Address</label>
                         <input type="email" id="guestEmail" placeholder="john@example.com" required>
                     </div>
+                    <div class="input-group">
+                        <label>Phone Number</label>
+                        <input type="text" id="guestPhoneNo" placeholder="+1 234 567 890" required>
+                    </div>
                 </div>
-                <div class="input-group" style="margin-bottom: 20px;">
-                    <label>Phone Number</label>
-                    <input type="text" id="guestPhoneNo" placeholder="+1 (555) 000-0000" required>
+                
+                <div style="text-align: right; margin-bottom: 20px; padding: 0 10px;">
+                    <span style="font-size: 1.1rem; color: #666;">Grand Total:</span>
+                    <span style="font-size: 1.8rem; font-weight: 600; color: var(--primary-color); margin-left: 10px;">
+                        $<span id="finalTotalDue">0.00</span>
+                    </span>
                 </div>
 
-                <div style="background: #f9fafb; padding: 20px; border-radius: 8px; text-align: right; margin-bottom: 20px;">
-                    <span style="color: var(--text-muted); font-size: 0.9rem;">Total Amount Due</span>
-                    <div id="finalTotalDue">$0.00</div>
-                </div>
-
-                <button class="btn-primary" type="submit">Confirm Reservation</button>
-                <button type="button" id="cancelBookingBtn" class="btn-ghost">Modify Search</button>
+                <button class="btn-primary" type="submit">Complete Booking</button>
+                <button type="button" id="cancelBookingBtn" class="btn-secondary">Go Back</button>
             </form>
         </div>
 
         <div id="publicMessageBox" class="message-box">
             <p id="publicMessageBoxContent"></p>
-            <button onclick="closePublicMessageBox()" class="btn-primary" style="width: auto; padding: 8px 30px;">Close</button>
+            <button onclick="closePublicMessageBox()" class="btn-primary" style="width: auto;">Dismiss</button>
         </div>
     </div>
 
