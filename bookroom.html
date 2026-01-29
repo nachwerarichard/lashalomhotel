@@ -286,7 +286,6 @@ function calculateNights(checkInStr, checkOutStr) {
     // 1. Get the dates from the input elements
     const checkInStr = document.getElementById('checkInDate').value;
     const checkOutStr = document.getElementById('checkOutDate').value;
-    const choosenRoomNumber = document.getElementById('bookingRoomNumber').value = chosenRoomNumber;
 
     // 2. Calculate the number of nights
     const nights = calculateNights(checkInStr, checkOutStr);
@@ -311,7 +310,6 @@ function calculateNights(checkInStr, checkOutStr) {
 
             
             const rooms = availableRoomsBySelectedType[type];
-            document.getElementById('bookingRoomNumber').value = rooms[0];
             document.getElementById('selectedRoomTypeDisplay').textContent = type;
             document.getElementById('availabilityResults').style.display = 'none';
             document.getElementById('guestDetailsForm').style.display = 'block';
@@ -416,7 +414,6 @@ publicBookingForm.addEventListener('submit', async (event) => {
     const bookingData = {
         name: document.getElementById('guestName').value,
         guestEmail: document.getElementById('guestEmail').value, // Added email field
-        room: document.getElementById('bookingRoomNumber').value, // The specific room number chosen
         checkIn: bookingCheckInInput.value,
         checkOut: bookingCheckOutInput.value,
         people: parseInt(bookingPeopleInput.value),
