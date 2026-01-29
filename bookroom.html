@@ -362,7 +362,7 @@ publicBookingForm.addEventListener('submit', async (event) => {
 
     const bookingData = {
         name: document.getElementById('guestName').value,
-        guestEmail: guestEmailInput.value, // Added email field
+        guestEmail: document.getElementById('guestEmail').value, // Added email field
         room: bookingRoomNumberInput.value, // The specific room number chosen
         checkIn: bookingCheckInInput.value,
         checkOut: bookingCheckOutInput.value,
