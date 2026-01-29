@@ -276,9 +276,11 @@ function calculateNights(checkInStr, checkOutStr) {
 }
         
         function handleBookNow(type) {
+        const chosenRoomNumber = availableRooms[0];
     // 1. Get the dates from the input elements
     const checkInStr = document.getElementById('checkInDate').value;
     const checkOutStr = document.getElementById('checkOutDate').value;
+    const choosenRoomNumber = document.getElementById('bookingRoomNumberInput').value = chosenRoomNumber;
 
     // 2. Calculate the number of nights
     const nights = calculateNights(checkInStr, checkOutStr);
@@ -299,6 +301,8 @@ function calculateNights(checkInStr, checkOutStr) {
     // Get price based on type, or use 100 as a default if type isn't found
     const ratePerNight = priceList[type] || 100.00;
     const totalDue = (nights * ratePerNight).toFixed(2);
+
+
             
             const rooms = availableRoomsBySelectedType[type];
             document.getElementById('bookingRoomNumber').value = rooms[0];
