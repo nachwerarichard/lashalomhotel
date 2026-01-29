@@ -312,6 +312,8 @@ cancelBookingBtn.addEventListener('click', () => {
 });
 
         document.addEventListener('DOMContentLoaded', () => {
+            const checkInDateInput = document.getElementById('checkInDate').value;
+            const checkOutDateInput = document.getElementById('checkOutDate').value;
     const today = new Date();
     const todayFormatted = today.toISOString().split('T')[0];
     checkInDateInput.min = todayFormatted;
