@@ -258,8 +258,10 @@ keys.forEach(type => {
         card.innerHTML = `
             <img src="${imageUrl}" class="room-image" alt="${type}">
             <h4>${type}</h4>
-            <p>Available: <strong>${rooms.length} rooms</strong></p>
-            <p style="font-size: 0.8em; color: #7f8c8d;">Perfect for ${people} guests</p>
+            <p> <strong>${rooms.length} rooms Available</strong></p>
+<p style="font-size: 0.8em; color: #7f8c8d; display: flex; align-items: center; gap: 4px;">
+  <span>👤</span> <span>max. 2</span>
+</p>
             <button class="btn-primary book-now-btn" data-type="${type}" style="margin-top:15px">Select Room</button>
         `;
         container.appendChild(card);
