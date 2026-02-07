@@ -433,12 +433,8 @@ publicBookingForm.addEventListener('submit', async (event) => {
         // We'll use the /public/send-booking-confirmation endpoint
         // This endpoint expects the entire booking object in its body,
         // which matches the `confirmedBooking` structure.
-        const emailSendResponse = await fetch(`${API_BASE_URL}/public/send-booking-confirm`, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ ...confirmedBooking, email: bookingData.guestEmail }) // Ensure email is explicitly included
-        });
-
+        
+showMessage("Booking confirmed");
 
         // Reset the form and hide sections after successful booking
         publicBookingForm.reset();
