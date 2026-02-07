@@ -434,7 +434,7 @@ publicBookingForm.addEventListener('submit', async (event) => {
         // This endpoint expects the entire booking object in its body,
         // which matches the `confirmedBooking` structure.
         
-                   showPublicMessageBox('Success!', `Booking confirmed! Room(s): ${bookedRoomNumbers}. A confirmation email has been sent.`);
+                   showPublicMessageBox('Success!', `Booking confirmed! Room(s): ${bookedRoomNumbers}.`);
 
         // Reset the form and hide sections after successful booking
         publicBookingForm.reset();
