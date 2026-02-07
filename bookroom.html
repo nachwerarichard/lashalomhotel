@@ -424,7 +424,10 @@ publicBookingForm.addEventListener('submit', async (event) => {
         }
 
         const result = await response.json();
-        const confirmedBooking = result.booking; // Capture the confirmed booking details
+        const confirmedBookings = result.bookings; // Note the 's' - it's an array
+
+// Create a string of all room numbers booked
+        const bookedRoomNumbers = confirmedBookings.map(b => b.room).join(', ');
 
         // --- Send Email Confirmation ---
         // We'll use the /public/send-booking-confirmation endpoint
@@ -441,9 +444,10 @@ publicBookingForm.addEventListener('submit', async (event) => {
             console.error('Error sending confirmation email:', emailErrorData.message);
             // Don't throw here, as the booking itself was successful.
             // Just inform the user about the email failure.
-            showPublicMessageBox('Booking Confirmed!', `Your booking for Room ${confirmedBooking.room} is confirmed! Booking ID: ${confirmedBooking.id}. However, there was an issue sending the confirmation email: ${emailErrorData.message}`, true);
+       showPublicMessageBox('Success!', `Booking confirmed! Room(s): ${bookedRoomNumbers}. There was an issue sending confirmation email.`);
         } else {
-            showPublicMessageBox('Success!', `Your booking for Room ${confirmedBooking.room} is confirmed! Booking ID: ${confirmedBooking.id}. A confirmation email has been sent to ${bookingData.guestEmail}.`, false);
+                   showPublicMessageBox('Success!', `Booking confirmed! Room(s): ${bookedRoomNumbers}. A confirmation email has been sent.`);
+
         }
 
         // Reset the form and hide sections after successful booking
