@@ -47,6 +47,11 @@
         </div>
 
         <div id="guestDetailsForm" class="guest-details-form">
+            <div id="selectedRoomsCart" style="display:none; margin-bottom: 20px; border: 1px solid #ddd; padding: 15px; border-radius: 8px;">
+    <h3>Your Selection</h3>
+    <ul id="cartList"></ul>
+    <button class="btn-primary" id="addMoreRoomsBtn">Add Another Room</button>
+</div>
             <h3>Details for <span id="selectedRoomTypeDisplay"></span></h3>
             <form id="publicBookingForm">
                 <input type="hidden" id="bookingCheckIn">
@@ -70,6 +75,7 @@
                 <button class="btn-primary" type="submit">Confirm Booking</button>
                 <button type="button" id="cancelBookingBtn" style="background: #95a5a6; color: white; border: none; padding: 10px; margin-top: 10px; border-radius: 8px; width: 100%;">Cancel</button>
             </form>
+
         </div>
 
         <div id="publicMessageBox" class="message-box">
@@ -311,18 +317,89 @@ cancelBookingBtn.addEventListener('click', () => {
 
         // --- Guest Details and Booking Submission ---
 
+
+        function showPublicMessageBox(title, message, isError = false) {
+                publicMessageBoxContent.textContent = message;
+    
+    publicMessageBox.classList.remove('error-message', 'success-message');
+    if (isError) {
+        publicMessageBox.classList.add('error-message');
+    } else {
+        publicMessageBox.classList.add('success-message');
+    }
+    publicMessageBox.style.display = 'block';
+}
+
+ let selectedRoomsCart = []; // To store { type, people, price }
+
+function handleBookNow(type) {
+    const people = document.getElementById('numberOfPeople').value;
+    const checkInStr = document.getElementById('checkInDate').value;
+    const checkOutStr = document.getElementById('checkOutDate').value;
+    const nights = calculateNights(checkInStr, checkOutStr);
+
+    const priceList = { "Delux 1": 100, "Delux 2": 150, "Junior suit": 200, "Delux suit": 250 };
+    const rate = priceList[type] || 100;
+
+    // Add to cart
+    selectedRoomsCart.push({
+        type: type,
+        people: parseInt(people),
+        price: rate * nights
+    });
+
+    renderCart();
+}
+
+function renderCart() {
+    const cartList = document.getElementById('cartList');
+    const cartSection = document.getElementById('selectedRoomsCart');
+    cartList.innerHTML = '';
+    
+    let total = 0;
+    selectedRoomsCart.forEach((item, index) => {
+        total += item.price;
+        cartList.innerHTML += `<li>${item.type} (${item.people} guests) - $${item.price} 
+            <button onclick="removeFromCart(${index})" style="color:red; border:none; background:none; cursor:pointer;">[Remove]</button></li>`;
+    });
+
+    document.getElementById('finalTotalDue').textContent = total.toFixed(2);
+    cartSection.style.display = 'block';
+    document.getElementById('guestDetailsForm').style.display = 'block';
+    document.getElementById('availabilityResults').style.display = 'none';
+}
+
+function removeFromCart(index) {
+    selectedRoomsCart.splice(index, 1);
+    if(selectedRoomsCart.length === 0) {
+        document.getElementById('guestDetailsForm').style.display = 'none';
+        document.getElementById('selectedRoomsCart').style.display = 'none';
+        document.getElementById('availabilityResults').style.display = 'block';
+    } else {
+        renderCart();
+    }
+}
+
+// Logic for "Add Another Room"
+document.getElementById('addMoreRoomsBtn').addEventListener('click', () => {
+    document.getElementById('availabilityResults').style.display = 'block';
+    document.getElementById('guestDetailsForm').style.display = 'none';
+});
+
+// Update the Form Submission
 publicBookingForm.addEventListener('submit', async (event) => {
     event.preventDefault();
 
     const bookingData = {
         name: document.getElementById('guestName').value,
-        guestEmail: document.getElementById('guestEmail').value, // Added email field
-        checkIn: bookingCheckInInput.value,
-        checkOut: bookingCheckOutInput.value,
-        people: parseInt(bookingPeopleInput.value),
+        guestEmail: document.getElementById('guestEmail').value,
         phoneNo: document.getElementById('guestPhoneNo').value,
+        checkIn: document.getElementById('checkInDate').value,
+        checkOut: document.getElementById('checkOutDate').value,
+        roomsRequested: selectedRoomsCart // Sending the array
     };
-    // More client-side validation for guest details
+
+// More client-side validation for guest details
     if (!bookingData.name || !bookingData.phoneNo || !bookingData.guestEmail) { // Added email validation
         showPublicMessageBox('Validation Error', 'Full Name, Email Address, and Phone Number are required.', true);
         return;
@@ -334,15 +411,14 @@ publicBookingForm.addEventListener('submit', async (event) => {
     }
 
     showPublicMessageBox('Booking...', 'Confirming your booking and sending confirmation. Please wait...');
-
     try {
         const response = await fetch(`${API_BASE_URL}/public/bookings`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(bookingData)
         });
-
-        if (!response.ok) {
+        
+         if (!response.ok) {
             const errorData = await response.json();
             throw new Error(errorData.message || `HTTP error! status: ${response.status}`);
         }
@@ -380,23 +456,12 @@ publicBookingForm.addEventListener('submit', async (event) => {
         guestDetailsFormSection.style.display = 'none';
         availabilityResultsSection.style.display = 'none';
 
+    
     } catch (error) {
-        console.error('Error confirming booking:', error);
-        showPublicMessageBox('Booking Failed', `Failed to confirm booking: ${error.message}. Please try again.`, true);
+        console.error(error);
     }
 });
 
-        function showPublicMessageBox(title, message, isError = false) {
-                publicMessageBoxContent.textContent = message;
-    
-    publicMessageBox.classList.remove('error-message', 'success-message');
-    if (isError) {
-        publicMessageBox.classList.add('error-message');
-    } else {
-        publicMessageBox.classList.add('success-message');
-    }
-    publicMessageBox.style.display = 'block';
-}
 
 
     </script>
