@@ -299,7 +299,7 @@ function renderCart() {
                 ${item.people} ${item.people > 1 ? 'Guests' : 'Guest'}
             </span>
             <span class="text-xs text-slate-400">|</span>
-            <span class="text-sm font-medium text-indigo-600">$${item.price}</span>
+            <span class="text-sm font-medium text-indigo-600">UGX ${item.price}</span>
         </div>
     </div>
     
