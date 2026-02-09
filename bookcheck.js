@@ -250,6 +250,8 @@ cancelBookingBtn.addEventListener('click', () => {
 
 
         function showPublicMessageBox(title, message, isError = false) {
+                        publicMessageBox.classList.remove('hidden');
+
                 publicMessageBoxContent.textContent = message;
     
     publicMessageBox.classList.remove('error-message', 'success-message');
