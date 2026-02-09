@@ -358,7 +358,7 @@ publicBookingForm.addEventListener('submit', async (event) => {
         return;
     }
 
-    showPublicMessageBox('Booking...', 'Confirming your booking and sending confirmation. Please wait...');
+    /*showPublicMessageBox('Booking...', 'Confirming your booking and sending confirmation. Please wait...');?*/
     try {
         const response = await fetch(`${API_BASE_URL}/public/bookings`, {
             method: 'POST',
