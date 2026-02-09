@@ -113,15 +113,25 @@
 
         
     </div>
-    <div id="publicMessageBox" class=" hidden fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center p-4" style="display: none;">
-            <div class="bg-white rounded-2xl p-8 max-w-sm w-full text-center shadow-2xl">
-                <div class="w-16 h-16 bg-green-100 text-green-600 rounded-full flex items-center justify-center mx-auto mb-4">
-                    <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
-                </div>
-                <p id="publicMessageBoxContent" class="text-slate-600 mb-6 font-medium"></p>
-                <button onclick="closePublicMessageBox()" class="w-full bg-slate-900 text-white py-3 rounded-lg hover:bg-black transition-colors">Acknowledge</button>
-            </div>
+    <div id="publicMessageBox"
+     class="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/60 backdrop-blur-sm p-4">
+    
+    <div class="bg-white rounded-2xl p-8 max-w-sm w-full text-center shadow-2xl">
+        <div class="w-16 h-16 bg-green-100 text-green-600 rounded-full flex items-center justify-center mx-auto mb-4">
+            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                      d="M5 13l4 4L19 7"></path>
+            </svg>
         </div>
+
+        <p id="publicMessageBoxContent" class="text-slate-600 mb-6 font-medium"></p>
+
+        <button onclick="closePublicMessageBox()"
+                class="w-full bg-slate-900 text-white py-3 rounded-lg hover:bg-black transition-colors">
+            Acknowledge
+        </button>
+    </div>
+</div>
 
     <script src="bookcheck.js"></script>
     <script>
