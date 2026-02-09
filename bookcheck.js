@@ -269,8 +269,8 @@ function handleBookNow(type) {
     const checkOutStr = document.getElementById('checkOutDate').value;
     const nights = calculateNights(checkInStr, checkOutStr);
 
-    const priceList = { "Delux 1": 100, "Delux 2": 150, "Junior suit": 200, "Delux suit": 250 };
-    const rate = priceList[type] || 100;
+    const priceList = { "Delux 1": 80,000, "Delux 2": 120,000, "Junior suit": 130,000, "Delux suit": 160,000 };
+    const rate = priceList[type] || 80,000;
 
     // Add to cart
     selectedRoomsCart.push({
