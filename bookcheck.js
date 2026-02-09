@@ -290,8 +290,27 @@ function renderCart() {
     let total = 0;
     selectedRoomsCart.forEach((item, index) => {
         total += item.price;
-        cartList.innerHTML += `<li>${item.type} (${item.people} guests) - $${item.price} 
-            <button onclick="removeFromCart(${index})" style="color:red; border:none; background:none; cursor:pointer;">[Remove]</button></li>`;
+       cartList.innerHTML += `
+<li class="flex items-center justify-between p-4 bg-white border border-slate-200 rounded-lg mb-2 shadow-sm animate-in fade-in slide-in-from-bottom-2">
+    <div class="flex flex-col">
+        <span class="font-semibold text-slate-800">${item.type}</span>
+        <div class="flex items-center gap-2 mt-1">
+            <span class="text-xs px-2 py-0.5 bg-slate-100 text-slate-600 rounded-full font-medium">
+                ${item.people} ${item.people > 1 ? 'Guests' : 'Guest'}
+            </span>
+            <span class="text-xs text-slate-400">|</span>
+            <span class="text-sm font-medium text-indigo-600">$${item.price}</span>
+        </div>
+    </div>
+    
+    <button onclick="removeFromCart(${index})" 
+            class="p-2 text-slate-400 hover:text-red-600 hover:bg-red-50 rounded-full transition-all group"
+            title="Remove room">
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+        </svg>
+    </button>
+</li>`;
     });
 
     document.getElementById('finalTotalDue').textContent = total.toFixed(2);
