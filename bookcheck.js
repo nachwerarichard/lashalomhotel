@@ -249,19 +249,15 @@ cancelBookingBtn.addEventListener('click', () => {
         // --- Guest Details and Booking Submission ---
 
 
-        function showPublicMessageBox(title, message, isError = false) {
-                        publicMessageBox.classList.remove('hidden');
+       function showPublicMessageBox(title, message, isError = false) {
+    publicMessageBox.classList.remove('hidden');
 
-                publicMessageBoxContent.textContent = message;
-    
+    publicMessageBoxContent.textContent = message;
+
     publicMessageBox.classList.remove('error-message', 'success-message');
-    if (isError) {
-        publicMessageBox.classList.add('error-message');
-    } else {
-        publicMessageBox.classList.add('success-message');
-    }
-    publicMessageBox.style.display = 'block';
+    publicMessageBox.classList.add(isError ? 'error-message' : 'success-message');
 }
+
 
  let selectedRoomsCart = []; // To store { type, people, price }
 
