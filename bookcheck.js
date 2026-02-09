@@ -62,20 +62,38 @@ keys.forEach(type => {
     // Get the image URL from our mapping, or use a default placeholder
     const imageUrl = roomImages[type] || "multimedia/pics/room_1_a.jpg";
 
-    if (rooms.length > 0) {
-        const card = document.createElement('div');
-        card.className = 'room-type-card';
-        card.innerHTML = `
-            <img src="${imageUrl}" class="room-image" alt="${type}">
-            <h4>${type}</h4>
-            <p> <strong>${rooms.length} rooms Available</strong></p>
-<p style="font-size: 0.8em; color: #7f8c8d; display: flex; align-items: center; gap: 4px;">
-  <span>👤</span> <span>max. 2</span>
-</p>
-            <button class="btn-primary book-now-btn" data-type="${type}" style="margin-top:15px">Select Room</button>
-        `;
-        container.appendChild(card);
-    }
+   if (rooms.length > 0) {
+    const card = document.createElement('div');
+    // Flex-shrink-0 ensures cards don't squish in the horizontal scroll
+    card.className = 'min-w-[280px] sm:min-w-[320px] bg-white border border-slate-200 rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-all duration-300 snap-start flex-shrink-0 group';
+    
+    card.innerHTML = `
+        <div class="relative overflow-hidden">
+            <img src="${imageUrl}" class="w-full h-48 object-cover transition-transform duration-500 group-hover:scale-105" alt="${type}">
+            <div class="absolute top-3 right-3 bg-white/90 backdrop-blur px-2 py-1 rounded-md shadow-sm">
+                 <p class="text-[10px] font-bold uppercase tracking-wider text-slate-700">${rooms.length} Available</p>
+            </div>
+        </div>
+        
+        <div class="p-5">
+            <h4 class="text-lg font-semibold text-slate-900 mb-1">${type}</h4>
+            
+            <div class="flex items-center gap-4 mb-5">
+                <div class="flex items-center text-slate-500 text-sm">
+                    <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
+                    </svg>
+                    <span>Up to 2 Guests</span>
+                </div>
+            </div>
+
+            <button class="book-now-btn w-full bg-slate-900 hover:bg-indigo-600 text-white text-sm font-medium py-2.5 rounded-lg transition-colors shadow-sm" data-type="${type}">
+                Select Room
+            </button>
+        </div>
+    `;
+    container.appendChild(card);
+}
 });
                     document.querySelectorAll('.book-now-btn').forEach(btn => {
                         btn.addEventListener('click', (e) => handleBookNow(e.target.dataset.type));
