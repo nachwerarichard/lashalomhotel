@@ -40,52 +40,49 @@ const publicMessageBoxContent = document.getElementById('publicMessageBoxContent
 
             if (!checkIn || !checkOut) return alert("Please select dates");
 
-            try {
-                const response = await fetch(`${API_BASE_URL}/public/rooms/available?checkIn=${checkIn}&checkOut=${checkOut}&roomType=${roomType}&people=${people}`);
-                availableRoomsBySelectedType = await response.json();
+            checkAvailabilityBtn.addEventListener('click', async () => {
+    // ... (your existing date/people fetching code)
 
-                container.innerHTML = '';
-                const keys = Object.keys(availableRoomsBySelectedType);
+    try {
+        const response = await fetch(`${API_BASE_URL}/public/rooms/available?checkIn=${checkIn}&checkOut=${checkOut}&roomType=${roomType}&people=${people}`);
+        availableRoomsBySelectedType = await response.json();
 
-                if (keys.length > 0) {
-                    availabilityResultsSection.style.display = 'block';
-                    // Add a simple mapping object
-const roomImages = {
-    "Delux 1": "multimedia/pics/room_1_a.jpg",
-    "Delux 2": "multimedia/pics/room_2_a.jpg",
-    "Junior suit": "multimedia/pics/room_2_b.jpg",
-    "Delux suit": "multimedia/pics/room_2_b.jpg"
-};
+        container.innerHTML = '';
+        const keys = Object.keys(availableRoomsBySelectedType);
 
-keys.forEach(type => {
-    const rooms = availableRoomsBySelectedType[type];
-    // Get the image URL from our mapping, or use a default placeholder
-    const imageUrl = roomImages[type] || "multimedia/pics/room_1_a.jpg";
+        if (keys.length > 0) {
+            availabilityResultsSection.style.display = 'block';
 
-    if (rooms.length > 0) {
-        const card = document.createElement('div');
-        card.className = 'room-type-card';
-        card.innerHTML = `
-            <img src="${imageUrl}" class="room-image" alt="${type}">
-            <h4>${type}</h4>
-            <p>Available: <strong>${rooms.length} rooms</strong></p>
-            <p style="font-size: 0.8em; color: #7f8c8d;">Perfect for ${people} guests</p>
-            <button class="btn-primary book-now-btn" data-type="${type}" style="margin-top:15px">Select Room</button>
-        `;
-        container.appendChild(card);
+            keys.forEach(type => {
+                const data = availableRoomsBySelectedType[type];
+                // Use the image URL provided by the BACKEND
+                const imageUrl = data.imageUrl; 
+
+                if (data.rooms.length > 0) {
+                    const card = document.createElement('div');
+                    card.className = 'room-type-card'; // Use your existing classes
+                    card.innerHTML = `
+                        <img src="${imageUrl}" class="room-image" alt="${type}">
+                        <h4>${type}</h4>
+                        <p>Available: <strong>${data.rooms.length} rooms</strong></p>
+                        <p>Price: <strong>UGX ${data.price.toLocaleString()}</strong></p>
+                        <button class="btn-primary book-now-btn" data-type="${type}" style="margin-top:15px">Select Room</button>
+                    `;
+                    container.appendChild(card);
+                }
+            });
+            
+            // Attach listeners to new buttons
+            document.querySelectorAll('.book-now-btn').forEach(btn => {
+                btn.addEventListener('click', (e) => handleBookNow(e.target.dataset.type));
+            });
+        } else {
+            document.getElementById('noAvailabilityMessage').style.display = 'block';
+        }
+    } catch (error) {
+        console.error(error);
     }
 });
-                    document.querySelectorAll('.book-now-btn').forEach(btn => {
-                        btn.addEventListener('click', (e) => handleBookNow(e.target.dataset.type));
-                    });
-                } else {
-                    document.getElementById('noAvailabilityMessage').style.display = 'block';
-                }
-            } catch (error) {
-                console.error(error);
-            }
-        });
-
 function calculateNights(checkInStr, checkOutStr) {
     const checkIn = new Date(checkInStr);
     const checkOut = new Date(checkOutStr);
