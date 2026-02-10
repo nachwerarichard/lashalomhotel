@@ -40,9 +40,7 @@ const publicMessageBoxContent = document.getElementById('publicMessageBoxContent
 
             if (!checkIn || !checkOut) return alert("Please select dates");
 
-            checkAvailabilityBtn.addEventListener('click', async () => {
-    // ... (your existing date/people fetching code)
-
+        
     try {
         const response = await fetch(`${API_BASE_URL}/public/rooms/available?checkIn=${checkIn}&checkOut=${checkOut}&roomType=${roomType}&people=${people}`);
         availableRoomsBySelectedType = await response.json();
