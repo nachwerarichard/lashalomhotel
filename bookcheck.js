@@ -124,17 +124,7 @@ function calculateNights(checkInStr, checkOutStr) {
     renderCart();
 }
         // Initialize room types (Simplified for brevity)
-        async function init() {
-            const res = await fetch(`${API_BASE_URL}/public/room-types`);
-            const types = await res.json();
-            const select = document.getElementById('roomTypeSelect');
-            types.forEach(t => {
-                const opt = document.createElement('option');
-                opt.value = t; opt.textContent = t;
-                select.appendChild(opt);
-            });
-        }
-        init();
+       
 
         function closePublicMessageBox() { document.getElementById('publicMessageBox').style.display = 'none'; }
         
@@ -180,29 +170,42 @@ cancelBookingBtn.addEventListener('click', () => {
     populateRoomTypeDropdown();
 });
 
-        async function populateRoomTypeDropdown() {
+// REPLACE your current populateRoomTypeDropdown with this one:
+async function populateRoomTypeDropdown() {
+    const roomTypeSelect = document.getElementById('roomTypeSelect');
+    if (!roomTypeSelect) return;
+
     try {
         const response = await fetch(`${API_BASE_URL}/public/room-types`);
-        if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);
+        if (!response.ok) throw new Error(`Status: ${response.status}`);
+        
+        const data = await response.json(); 
+        
+        // Handle both object-based data and simple string arrays
+        if (data.length > 0 && typeof data[0] === 'object') {
+            roomTypeDetails = data; // Save objects for price/image lookup
+        } else {
+            // If backend sends strings, map them to objects so your other code doesn't break
+            roomTypeDetails = data.map(name => ({ name: name, basePrice: 0 }));
         }
-        const types = await response.json();
-        allRoomTypes = types; // Store all room types
 
-        roomTypeSelect.innerHTML = '<option value="Any">Any Type</option>'; // Keep "Any Type" option
-        types.forEach(type => {
+        roomTypeSelect.innerHTML = '<option value="Any">Any Type</option>';
+        
+        roomTypeDetails.forEach(typeObj => {
             const option = document.createElement('option');
-            option.value = type;
-            option.textContent = type;
+            option.value = typeObj.name; 
+            option.textContent = typeObj.name;
             roomTypeSelect.appendChild(option);
         });
+        
+        console.log("Room types populated successfully:", roomTypeDetails);
     } catch (error) {
         console.error('Error fetching room types:', error);
-        showPublicMessageBox('Error', 'Failed to load room types. Please try again later.', true);
+        if (typeof showPublicMessageBox === 'function') {
+            showPublicMessageBox('Error', 'Failed to load room types.', true);
+        }
     }
 }
-
-        // --- Guest Details and Booking Submission ---
 
 
        function showPublicMessageBox(title, message, isError = false) {
