@@ -91,16 +91,7 @@ const publicMessageBoxContent = document.getElementById('publicMessageBoxContent
         console.error(error);
     }
 });
-                    document.querySelectorAll('.book-now-btn').forEach(btn => {
-                        btn.addEventListener('click', (e) => handleBookNow(e.target.dataset.type));
-                    });
-                } else {
-                    document.getElementById('noAvailabilityMessage').style.display = 'block';
-                }
-            } catch (error) {
-                console.error(error);
-            }
-        });
+
 
 function calculateNights(checkInStr, checkOutStr) {
     const checkIn = new Date(checkInStr);
