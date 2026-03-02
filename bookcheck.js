@@ -21,7 +21,27 @@ const publicMessageBoxContent = document.getElementById('publicMessageBoxContent
         const checkOutDateInput = document.getElementById('checkOutDate');
        const numberOfPeopleInput = document.getElementById('numberOfPeople');
 
+// Function to get Hotel ID from the request source
+async function getHotelIdFromRequest(req) {
+    // 1. Check if it's passed manually in the query (for testing)
+    if (req.query.hotelId) return req.query.hotelId;
 
+    // 2. Get the Referer (e.g., https://bluenilehotel.com/reserve)
+    const referer = req.get('referer');
+    if (!referer) return null;
+
+    try {
+        const url = new URL(referer);
+        const domain = url.hostname; // Extracts "bluenilehotel.com"
+
+        // 3. Find the hotel in your database with this domain
+        const hotel = await Hotel.findOne({ domainName: domain });
+        return hotel ? hotel._id : null;
+    } catch (err) {
+        console.error("Domain parsing error:", err);
+        return null;
+    }
+}
 function getHotelContext() {
     const urlParams = new URLSearchParams(window.location.search);
     return urlParams.get('hotelId') || window.localStorage.getItem('currentHotelId');
