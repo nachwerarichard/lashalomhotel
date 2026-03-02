@@ -22,7 +22,10 @@ const publicMessageBoxContent = document.getElementById('publicMessageBoxContent
        const numberOfPeopleInput = document.getElementById('numberOfPeople');
 
 
-
+function getHotelContext() {
+    const urlParams = new URLSearchParams(window.location.search);
+    return urlParams.get('hotelId') || window.localStorage.getItem('currentHotelId');
+}
         // Carousel Scroll Logic
         prevBtn.addEventListener('click', () => {
             container.scrollLeft -= 300;
@@ -42,7 +45,7 @@ const publicMessageBoxContent = document.getElementById('publicMessageBoxContent
             if (!checkIn || !checkOut) return alert("Please select dates");
 
     try {
-        const response = await fetch(`${API_BASE_URL}/public/rooms/available?checkIn=${checkIn}&checkOut=${checkOut}&roomType=${roomType}&people=${people}`);
+        const response = await fetch(`${API_BASE_URL}/public/rooms/available?checkIn=${checkIn}&checkOut=${checkOut}&roomType=${roomType}&people=${people}&hotelId=${hId}`);
         availableRoomsBySelectedType = await response.json();
 
         container.innerHTML = '';
@@ -51,39 +54,49 @@ const publicMessageBoxContent = document.getElementById('publicMessageBoxContent
         if (keys.length > 0) {
             availabilityResultsSection.style.display = 'block';
 
-            keys.forEach(typeName => {
-                const roomData = availableRoomsBySelectedType[typeName];
-                
-                // FIND the details for this specific type from our saved array
-                const detail = roomTypeDetails.find(d => d.name === typeName) || {};
-                
-                // Use backend image or a placeholder if missing
-                const imageUrl = detail.imageUrl || "multimedia/pics/room_1_a.jpg";
-                const pricePerNight = detail.basePrice || 0;
+          // Inside checkAvailabilityBtn.addEventListener('click', ...)
+keys.forEach(typeName => {
+    const roomData = availableRoomsBySelectedType[typeName];
+    const detail = roomTypeDetails.find(d => d.name === typeName) || {};
+    
+    // NEW: Logic for multiple images
+    // 1. Try first image in array, 2. Fallback to defaultImage, 3. Final placeholder
+    const imageUrl = (detail.imageUrls && detail.imageUrls.length > 0) 
+        ? detail.imageUrls[0] 
+        : (detail.defaultImage || "multimedia/pics/room_1_a.jpg");
 
-                if (roomData.rooms.length > 0) {
-                    const card = document.createElement('div');
-                    card.className = 'min-w-[280px] sm:min-w-[320px] bg-white border border-slate-200 rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-all duration-300 snap-start flex-shrink-0 group';
-                    
-                    card.innerHTML = `
-                        <div class="relative overflow-hidden">
-                            <img src="${imageUrl}" class="w-full h-48 object-cover transition-transform duration-500 group-hover:scale-105" alt="${typeName}">
-                            <div class="absolute top-3 right-3 bg-white/90 backdrop-blur px-2 py-1 rounded-md shadow-sm">
-                                 <p class="text-[10px] font-bold uppercase tracking-wider text-slate-700">${roomData.rooms.length} Available</p>
-                            </div>
-                        </div>
-                        <div class="p-5">
-                            <h4 class="text-lg font-semibold text-slate-900 mb-1">${typeName}</h4>
-                            <p class="text-indigo-600 font-bold mb-4">UGX ${pricePerNight.toLocaleString()}</p>
-                            <button class="book-now-btn w-full bg-slate-900 hover:bg-indigo-600 text-white text-sm font-medium py-2.5 rounded-lg transition-colors shadow-sm" 
-                                    onclick="handleBookNow('${typeName}')">
-                                Select Room
-                            </button>
-                        </div>
-                    `;
-                    container.appendChild(card);
-                }
-            });
+    const pricePerNight = detail.basePrice || 0;
+
+    if (roomData.rooms.length > 0) {
+        const card = document.createElement('div');
+        card.className = '...'; // keep your existing Tailwind classes
+        
+        card.innerHTML = `
+            <div class="relative overflow-hidden group">
+                <img src="${imageUrl}" class="w-full h-48 object-cover transition-transform duration-500 group-hover:scale-110" alt="${typeName}">
+                
+                ${detail.imageUrls && detail.imageUrls.length > 1 ? `
+                    <div class="absolute bottom-2 right-2 bg-black/60 text-white text-[10px] px-2 py-1 rounded-md backdrop-blur-sm">
+                        +${detail.imageUrls.length - 1} Photos
+                    </div>
+                ` : ''}
+
+                <div class="absolute top-3 right-3 bg-white/90 backdrop-blur px-2 py-1 rounded-md shadow-sm">
+                     <p class="text-[10px] font-bold uppercase tracking-wider text-slate-700">${roomData.rooms.length} Available</p>
+                </div>
+            </div>
+            <div class="p-5">
+                <h4 class="text-lg font-semibold text-slate-900 mb-1">${typeName}</h4>
+                <p class="text-indigo-600 font-bold mb-4">UGX ${pricePerNight.toLocaleString()}</p>
+                <button class="book-now-btn w-full bg-slate-900 hover:bg-indigo-600 text-white text-sm font-medium py-2.5 rounded-lg transition-colors" 
+                        onclick="handleBookNow('${typeName}')">
+                    Select Room
+                </button>
+            </div>
+        `;
+        container.appendChild(card);
+    }
+});
         } else {
             document.getElementById('noAvailabilityMessage').style.display = 'block';
         }
@@ -176,7 +189,7 @@ async function populateRoomTypeDropdown() {
     if (!roomTypeSelect) return;
 
     try {
-        const response = await fetch(`${API_BASE_URL}/public/room-types`);
+        const response = await fetch(`${API_BASE_URL}/public/room-types?hotelId=${hId}`);
         if (!response.ok) throw new Error(`Status: ${response.status}`);
         
         const data = await response.json(); 
@@ -221,7 +234,7 @@ async function populateRoomTypeDropdown() {
 
 async function populateRoomTypeDropdown() {
     try {
-        const response = await fetch(`${API_BASE_URL}/public/room-types`);
+        const response = await fetch(`${API_BASE_URL}/public/room-types?hotelId=${hId}`);
         if (!response.ok) throw new Error(`Status: ${response.status}`);
         
         // Save the full objects (which now include name, basePrice, and imageUrl)
@@ -322,7 +335,7 @@ publicBookingForm.addEventListener('submit', async (event) => {
 
     /*showPublicMessageBox('Booking...', 'Confirming your booking and sending confirmation. Please wait...');?*/
     try {
-        const response = await fetch(`${API_BASE_URL}/public/bookings`, {
+        const response = await fetch(`${API_BASE_URL}/public/bookings?hotelId=${hId}`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(bookingData)
