@@ -1,199 +1,44 @@
-        const API_BASE_URL = 'https://patrinahhotelpms.onrender.com/api';
-       let availableRoomsBySelectedType = {};
+/**
+ * PREMIUM BOOKING EXPERIENCE - CORE ENGINE
+ * Integrated with: Cloudinary Images & Domain-based Multi-tenancy
+ */
+
+const API_BASE_URL = 'https://novouscloudpms-tz4s.onrender.com/api';
+let availableRoomsBySelectedType = {};
 let selectedRoomsCart = [];
-let roomTypeDetails = []; // NEW: To store the full objects (price, image)
-        // Elements
-        const container = document.getElementById('availableRoomTypesContainer');
-        const prevBtn = document.getElementById('prevBtn');
-        const nextBtn = document.getElementById('nextBtn');
-        const checkAvailabilityBtn = document.getElementById('checkAvailabilityBtn');
-        const availabilityResultsSection = document.getElementById('availabilityResults');
+let roomTypeDetails = []; 
 
-        const bookingCheckInInput = document.getElementById('bookingCheckIn');
-        const bookingCheckOutInput = document.getElementById('bookingCheckOut');
-        const bookingPeopleInput = document.getElementById('bookingPeople');
+// --- DOM ELEMENTS ---
+const container = document.getElementById('availableRoomTypesContainer');
+const prevBtn = document.getElementById('prevBtn');
+const nextBtn = document.getElementById('nextBtn');
+const checkAvailabilityBtn = document.getElementById('checkAvailabilityBtn');
+const availabilityResultsSection = document.getElementById('availabilityResults');
+const noAvailabilityMessage = document.getElementById('noAvailabilityMessage');
 
-        const publicMessageBox = document.getElementById('publicMessageBox');
-const publicMessageBoxTitle = document.getElementById('publicMessageBoxTitle');
+const checkInDateInput = document.getElementById('checkInDate');
+const checkOutDateInput = document.getElementById('checkOutDate');
+const numberOfPeopleInput = document.getElementById('numberOfPeople');
+const roomTypeSelect = document.getElementById('roomTypeSelect');
+
+const guestDetailsFormSection = document.getElementById('guestDetailsForm');
+const publicBookingForm = document.getElementById('publicBookingForm');
+const cancelBookingBtn = document.getElementById('cancelBookingBtn');
+const addMoreRoomsBtn = document.getElementById('addMoreRoomsBtn');
+
+const publicMessageBox = document.getElementById('publicMessageBox');
 const publicMessageBoxContent = document.getElementById('publicMessageBoxContent');
 
-        const checkInDateInput = document.getElementById('checkInDate');
-        const checkOutDateInput = document.getElementById('checkOutDate');
-       const numberOfPeopleInput = document.getElementById('numberOfPeople');
+// --- INITIALIZATION ---
+document.addEventListener('DOMContentLoaded', () => {
+    // Set min dates for calendars
+    const today = new Date().toISOString().split('T')[0];
+    checkInDateInput.min = today;
+    checkOutDateInput.min = today;
 
-// Function to get Hotel ID from the request source
-async function getHotelIdFromRequest(req) {
-    // 1. Check if it's passed manually in the query (for testing)
-    if (req.query.hotelId) return req.query.hotelId;
-
-    // 2. Get the Referer (e.g., https://bluenilehotel.com/reserve)
-    const referer = req.get('referer');
-    if (!referer) return null;
-
-    try {
-        const url = new URL(referer);
-        const domain = url.hostname; // Extracts "bluenilehotel.com"
-
-        // 3. Find the hotel in your database with this domain
-        const hotel = await Hotel.findOne({ domainName: domain });
-        return hotel ? hotel._id : null;
-    } catch (err) {
-        console.error("Domain parsing error:", err);
-        return null;
-    }
-}
-function getHotelContext() {
-    const urlParams = new URLSearchParams(window.location.search);
-    return urlParams.get('hotelId') || window.localStorage.getItem('currentHotelId');
-}
-        // Carousel Scroll Logic
-        prevBtn.addEventListener('click', () => {
-            container.scrollLeft -= 300;
-        });
-
-        nextBtn.addEventListener('click', () => {
-            container.scrollLeft += 300;
-        });
-
-        // Availability Logic
-        checkAvailabilityBtn.addEventListener('click', async () => {
-            const checkIn = document.getElementById('checkInDate').value;
-            const checkOut = document.getElementById('checkOutDate').value;
-            const roomType = document.getElementById('roomTypeSelect').value;
-            const people = document.getElementById('numberOfPeople').value;
-
-            if (!checkIn || !checkOut) return alert("Please select dates");
-
-    try {
-        const response = await fetch(`${API_BASE_URL}/public/rooms/available?checkIn=${checkIn}&checkOut=${checkOut}&roomType=${roomType}&people=${people}&hotelId=${hId}`);
-        availableRoomsBySelectedType = await response.json();
-
-        container.innerHTML = '';
-        const keys = Object.keys(availableRoomsBySelectedType);
-
-        if (keys.length > 0) {
-            availabilityResultsSection.style.display = 'block';
-
-          // Inside checkAvailabilityBtn.addEventListener('click', ...)
-keys.forEach(typeName => {
-    const roomData = availableRoomsBySelectedType[typeName];
-    const detail = roomTypeDetails.find(d => d.name === typeName) || {};
-    
-    // NEW: Logic for multiple images
-    // 1. Try first image in array, 2. Fallback to defaultImage, 3. Final placeholder
-    const imageUrl = (detail.imageUrls && detail.imageUrls.length > 0) 
-        ? detail.imageUrls[0] 
-        : (detail.defaultImage || "multimedia/pics/room_1_a.jpg");
-
-    const pricePerNight = detail.basePrice || 0;
-
-    if (roomData.rooms.length > 0) {
-        const card = document.createElement('div');
-        card.className = '...'; // keep your existing Tailwind classes
-        
-        card.innerHTML = `
-            <div class="relative overflow-hidden group">
-                <img src="${imageUrl}" class="w-full h-48 object-cover transition-transform duration-500 group-hover:scale-110" alt="${typeName}">
-                
-                ${detail.imageUrls && detail.imageUrls.length > 1 ? `
-                    <div class="absolute bottom-2 right-2 bg-black/60 text-white text-[10px] px-2 py-1 rounded-md backdrop-blur-sm">
-                        +${detail.imageUrls.length - 1} Photos
-                    </div>
-                ` : ''}
-
-                <div class="absolute top-3 right-3 bg-white/90 backdrop-blur px-2 py-1 rounded-md shadow-sm">
-                     <p class="text-[10px] font-bold uppercase tracking-wider text-slate-700">${roomData.rooms.length} Available</p>
-                </div>
-            </div>
-            <div class="p-5">
-                <h4 class="text-lg font-semibold text-slate-900 mb-1">${typeName}</h4>
-                <p class="text-indigo-600 font-bold mb-4">UGX ${pricePerNight.toLocaleString()}</p>
-                <button class="book-now-btn w-full bg-slate-900 hover:bg-indigo-600 text-white text-sm font-medium py-2.5 rounded-lg transition-colors" 
-                        onclick="handleBookNow('${typeName}')">
-                    Select Room
-                </button>
-            </div>
-        `;
-        container.appendChild(card);
-    }
-});
-        } else {
-            document.getElementById('noAvailabilityMessage').style.display = 'block';
-        }
-    } catch (error) {
-        console.error(error);
-    }
-});
-
-
-function calculateNights(checkInStr, checkOutStr) {
-    const checkIn = new Date(checkInStr);
-    const checkOut = new Date(checkOutStr);
-
-    if (checkIn && checkOut && checkOut > checkIn) {
-        const diffTime = Math.abs(checkOut - checkIn);
-        // Convert milliseconds to days
-        return Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-    }
-    return 0;
-}
-        
-       function handleBookNow(type) {
-    const people = document.getElementById('numberOfPeople').value;
-    const checkInStr = document.getElementById('checkInDate').value;
-    const checkOutStr = document.getElementById('checkOutDate').value;
-    const nights = calculateNights(checkInStr, checkOutStr);
-
-    // DYNAMIC PRICE LOOKUP
-    const detail = roomTypeDetails.find(d => d.name === type);
-    const rate = detail ? detail.basePrice : 0;
-
-    selectedRoomsCart.push({
-        type: type,
-        people: parseInt(people),
-        price: rate * nights
-    });
-
-    renderCart();
-}
-        // Initialize room types (Simplified for brevity)
-       
-
-        function closePublicMessageBox() { document.getElementById('publicMessageBox').style.display = 'none'; }
-        
-
-
-        // Add this logic to your script section
-const cancelBookingBtn = document.getElementById('cancelBookingBtn');
-const guestDetailsFormSection = document.getElementById('guestDetailsForm');
-
-cancelBookingBtn.addEventListener('click', () => {
-    // 1. Hide the guest details form
-    guestDetailsFormSection.style.display = 'none';
-
-    // 2. Show the room results (carousel) again
-    availabilityResultsSection.style.display = 'block';
-
-    // 3. Optional: Clear the guest form fields so they are fresh for next time
-    document.getElementById('publicBookingForm').reset();
-    
-    // 4. Scroll back to the room results smoothly
-    availabilityResultsSection.scrollIntoView({ behavior: 'smooth' });
-});
-
-        document.addEventListener('DOMContentLoaded', () => {
-            const checkInDateInput = document.getElementById('checkInDate');
-            const checkOutDateInput = document.getElementById('checkOutDate');
-    const today = new Date();
-    const todayFormatted = today.toISOString().split('T')[0];
-    checkInDateInput.min = todayFormatted;
-    checkOutDateInput.min = todayFormatted; // Check-out cannot be before check-in
-
-    // Update check-out min date when check-in changes
     checkInDateInput.addEventListener('change', () => {
         if (checkInDateInput.value) {
             checkOutDateInput.min = checkInDateInput.value;
-            // If check-out is earlier than new check-in, reset it
             if (checkOutDateInput.value && new Date(checkOutDateInput.value) < new Date(checkInDateInput.value)) {
                 checkOutDateInput.value = checkInDateInput.value;
             }
@@ -203,27 +48,25 @@ cancelBookingBtn.addEventListener('click', () => {
     populateRoomTypeDropdown();
 });
 
-// REPLACE your current populateRoomTypeDropdown with this one:
+// --- CORE FUNCTIONS ---
+
+/**
+ * Fetches Room Categories for the specific hotel based on the website domain
+ */
 async function populateRoomTypeDropdown() {
-    const roomTypeSelect = document.getElementById('roomTypeSelect');
     if (!roomTypeSelect) return;
 
     try {
-        const response = await fetch(`${API_BASE_URL}/public/room-types?hotelId=${hId}`);
+        // NOTE: No hotelId in URL; Backend uses 'Referer' header to identify hotel
+        const response = await fetch(`${API_BASE_URL}/public/room-types`);
         if (!response.ok) throw new Error(`Status: ${response.status}`);
         
         const data = await response.json(); 
         
-        // Handle both object-based data and simple string arrays
-        if (data.length > 0 && typeof data[0] === 'object') {
-            roomTypeDetails = data; // Save objects for price/image lookup
-        } else {
-            // If backend sends strings, map them to objects so your other code doesn't break
-            roomTypeDetails = data.map(name => ({ name: name, basePrice: 0 }));
-        }
+        // Save objects for price/image lookup
+        roomTypeDetails = data; 
 
         roomTypeSelect.innerHTML = '<option value="Any">Any Type</option>';
-        
         roomTypeDetails.forEach(typeObj => {
             const option = document.createElement('option');
             option.value = typeObj.name; 
@@ -231,105 +74,169 @@ async function populateRoomTypeDropdown() {
             roomTypeSelect.appendChild(option);
         });
         
-        console.log("Room types populated successfully:", roomTypeDetails);
     } catch (error) {
         console.error('Error fetching room types:', error);
-        if (typeof showPublicMessageBox === 'function') {
-            showPublicMessageBox('Error', 'Failed to load room types.', true);
-        }
+        showPublicMessageBox('Error', 'Failed to connect to the booking server.', true);
     }
 }
 
+/**
+ * Checks which rooms are free for the selected dates
+ */
+checkAvailabilityBtn.addEventListener('click', async () => {
+    const checkIn = checkInDateInput.value;
+    const checkOut = checkOutDateInput.value;
+    const roomType = roomTypeSelect.value;
+    const people = numberOfPeopleInput.value;
 
-       function showPublicMessageBox(title, message, isError = false) {
-    publicMessageBox.classList.remove('hidden');
+    if (!checkIn || !checkOut) {
+        showPublicMessageBox('Input Required', 'Please select Check-in and Check-out dates.', true);
+        return;
+    }
 
-    publicMessageBoxContent.textContent = message;
+    // Reset view
+    container.innerHTML = '';
+    noAvailabilityMessage.style.display = 'none';
 
-    publicMessageBox.classList.remove('error-message', 'success-message');
-    publicMessageBox.classList.add(isError ? 'error-message' : 'success-message');
-}
-
-
-
-async function populateRoomTypeDropdown() {
     try {
-        const response = await fetch(`${API_BASE_URL}/public/room-types?hotelId=${hId}`);
-        if (!response.ok) throw new Error(`Status: ${response.status}`);
-        
-        // Save the full objects (which now include name, basePrice, and imageUrl)
-        roomTypeDetails = await response.json(); 
+        // The backend uses 'getHotelIdFromRequest' to find the hotel via domain
+        const response = await fetch(`${API_BASE_URL}/public/rooms/available?checkIn=${checkIn}&checkOut=${checkOut}&roomType=${roomType}&people=${people}`);
+        availableRoomsBySelectedType = await response.json();
 
-        const roomTypeSelect = document.getElementById('roomTypeSelect');
-        roomTypeSelect.innerHTML = '<option value="Any">Any Type</option>';
-        
-        roomTypeDetails.forEach(typeObj => {
-            const option = document.createElement('option');
-            // Assuming backend returns { name: "Deluxe", basePrice: 150000, ... }
-            option.value = typeObj.name; 
-            option.textContent = typeObj.name;
-            roomTypeSelect.appendChild(option);
-        });
+        const keys = Object.keys(availableRoomsBySelectedType);
+
+        if (keys.length > 0) {
+            availabilityResultsSection.style.display = 'block';
+
+            keys.forEach(typeName => {
+                const roomData = availableRoomsBySelectedType[typeName];
+                const detail = roomTypeDetails.find(d => d.name === typeName) || {};
+                
+                // IMAGE LOGIC: 1. Cloudinary Array, 2. Default Image, 3. Placeholder
+                const imageUrl = (detail.imageUrls && detail.imageUrls.length > 0) 
+                    ? detail.imageUrls[0] 
+                    : (detail.defaultImage || "room_default.webp");
+
+                const pricePerNight = detail.basePrice || 0;
+
+                if (roomData.rooms.length > 0) {
+                    const card = document.createElement('div');
+                    card.className = 'min-w-[280px] sm:min-w-[320px] bg-white border border-slate-200 rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-all duration-300 snap-start flex-shrink-0 group';
+                    
+                    card.innerHTML = `
+                        <div class="relative overflow-hidden">
+                            <img src="${imageUrl}" class="w-full h-48 object-cover transition-transform duration-500 group-hover:scale-105" alt="${typeName}">
+                            
+                            ${detail.imageUrls && detail.imageUrls.length > 1 ? `
+                                <div class="absolute bottom-2 right-2 bg-black/60 text-white text-[10px] px-2 py-1 rounded-md backdrop-blur-sm">
+                                    +${detail.imageUrls.length - 1} Photos
+                                </div>
+                            ` : ''}
+
+                            <div class="absolute top-3 right-3 bg-white/90 backdrop-blur px-2 py-1 rounded-md shadow-sm">
+                                 <p class="text-[10px] font-bold uppercase tracking-wider text-slate-700">${roomData.rooms.length} Available</p>
+                            </div>
+                        </div>
+                        <div class="p-5">
+                            <h4 class="text-lg font-semibold text-slate-900 mb-1">${typeName}</h4>
+                            <p class="text-indigo-600 font-bold mb-4">UGX ${pricePerNight.toLocaleString()}</p>
+                            <button class="book-now-btn w-full bg-slate-900 hover:bg-indigo-600 text-white text-sm font-medium py-2.5 rounded-lg transition-colors shadow-sm" 
+                                    onclick="handleBookNow('${typeName}')">
+                                Select Room
+                            </button>
+                        </div>
+                    `;
+                    container.appendChild(card);
+                }
+            });
+            availabilityResultsSection.scrollIntoView({ behavior: 'smooth' });
+        } else {
+            noAvailabilityMessage.style.display = 'block';
+        }
     } catch (error) {
-        console.error('Error fetching room types:', error);
+        console.error("Availability check failed:", error);
     }
+});
+
+/**
+ * Handles adding a room type to the booking cart
+ */
+function handleBookNow(typeName) {
+    const people = numberOfPeopleInput.value;
+    const checkIn = checkInDateInput.value;
+    const checkOut = checkOutDateInput.value;
+    const nights = calculateNights(checkIn, checkOut);
+
+    const detail = roomTypeDetails.find(d => d.name === typeName);
+    const rate = detail ? detail.basePrice : 0;
+
+    selectedRoomsCart.push({
+        type: typeName,
+        people: parseInt(people),
+        price: rate * nights
+    });
+
+    renderCart();
 }
 
+function calculateNights(checkInStr, checkOutStr) {
+    const start = new Date(checkInStr);
+    const end = new Date(checkOutStr);
+    const diff = Math.abs(end - start);
+    return Math.ceil(diff / (1000 * 60 * 60 * 24)) || 1;
+}
+
+/**
+ * Visualizes the cart and guest details form
+ */
 function renderCart() {
     const cartList = document.getElementById('cartList');
     const cartSection = document.getElementById('selectedRoomsCart');
-    cartList.innerHTML = '';
+    const finalTotalDisplay = document.getElementById('finalTotalDue');
     
+    cartList.innerHTML = '';
     let total = 0;
+
     selectedRoomsCart.forEach((item, index) => {
         total += item.price;
-       cartList.innerHTML += `
-<li class="flex items-center justify-between p-4 bg-white border border-slate-200 rounded-lg mb-2 shadow-sm animate-in fade-in slide-in-from-bottom-2">
-    <div class="flex flex-col">
-        <span class="font-semibold text-slate-800">${item.type}</span>
-        <div class="flex items-center gap-2 mt-1">
-            <span class="text-xs px-2 py-0.5 bg-slate-100 text-slate-600 rounded-full font-medium">
-                ${item.people} ${item.people > 1 ? 'Guests' : 'Guest'}
-            </span>
-            <span class="text-xs text-slate-400">|</span>
-            <span class="text-sm font-medium text-indigo-600">UGX ${item.price}</span>
-        </div>
-    </div>
-    
-    <button onclick="removeFromCart(${index})" 
-            class="p-2 text-slate-400 hover:text-red-600 hover:bg-red-50 rounded-full transition-all group"
-            title="Remove room">
-        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
-        </svg>
-    </button>
-</li>`;
+        cartList.innerHTML += `
+            <li class="flex items-center justify-between p-4 bg-white border border-slate-200 rounded-lg mb-2 shadow-sm animate-in fade-in slide-in-from-bottom-2">
+                <div class="flex flex-col">
+                    <span class="font-semibold text-slate-800">${item.type}</span>
+                    <div class="flex items-center gap-2 mt-1">
+                        <span class="text-xs px-2 py-0.5 bg-slate-100 text-slate-600 rounded-full font-medium">
+                            ${item.people} Guest(s)
+                        </span>
+                        <span class="text-sm font-medium text-indigo-600">UGX ${item.price.toLocaleString()}</span>
+                    </div>
+                </div>
+                <button onclick="removeFromCart(${index})" class="p-2 text-slate-400 hover:text-red-600 transition-all">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                    </svg>
+                </button>
+            </li>`;
     });
 
-    document.getElementById('finalTotalDue').textContent = total.toFixed(2);
+    finalTotalDisplay.textContent = total.toLocaleString(undefined, {minimumFractionDigits: 2});
     cartSection.style.display = 'block';
-    document.getElementById('guestDetailsForm').style.display = 'block';
-    document.getElementById('availabilityResults').style.display = 'none';
+    guestDetailsFormSection.style.display = 'block';
+    availabilityResultsSection.style.display = 'none';
+    guestDetailsFormSection.scrollIntoView({ behavior: 'smooth' });
 }
 
 function removeFromCart(index) {
     selectedRoomsCart.splice(index, 1);
     if(selectedRoomsCart.length === 0) {
-        document.getElementById('guestDetailsForm').style.display = 'none';
-        document.getElementById('selectedRoomsCart').style.display = 'none';
-        document.getElementById('availabilityResults').style.display = 'block';
+        guestDetailsFormSection.style.display = 'none';
+        availabilityResultsSection.style.display = 'block';
     } else {
         renderCart();
     }
 }
 
-// Logic for "Add Another Room"
-document.getElementById('addMoreRoomsBtn').addEventListener('click', () => {
-    document.getElementById('availabilityResults').style.display = 'block';
-    document.getElementById('guestDetailsForm').style.display = 'none';
-});
+// --- FORM SUBMISSION ---
 
-// Update the Form Submission
 publicBookingForm.addEventListener('submit', async (event) => {
     event.preventDefault();
 
@@ -337,60 +244,67 @@ publicBookingForm.addEventListener('submit', async (event) => {
         name: document.getElementById('guestName').value,
         guestEmail: document.getElementById('guestEmail').value,
         phoneNo: document.getElementById('guestPhoneNo').value,
-        checkIn: document.getElementById('checkInDate').value,
-        checkOut: document.getElementById('checkOutDate').value,
-        roomsRequested: selectedRoomsCart // Sending the array
+        checkIn: checkInDateInput.value,
+        checkOut: checkOutDateInput.value,
+        roomsRequested: selectedRoomsCart 
     };
 
-// More client-side validation for guest details
-    if (!bookingData.name || !bookingData.phoneNo || !bookingData.guestEmail) { // Added email validation
-        showPublicMessageBox('Validation Error', 'Full Name, Email Address, and Phone Number are required.', true);
-        return;
-    }
-    // Basic email format validation
+    // Validations
     if (!/\S+@\S+\.\S+/.test(bookingData.guestEmail)) {
         showPublicMessageBox('Validation Error', 'Please enter a valid email address.', true);
         return;
     }
 
-    /*showPublicMessageBox('Booking...', 'Confirming your booking and sending confirmation. Please wait...');?*/
     try {
-        const response = await fetch(`${API_BASE_URL}/public/bookings?hotelId=${hId}`, {
+        const response = await fetch(`${API_BASE_URL}/public/bookings`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(bookingData)
         });
         
-         if (!response.ok) {
+        if (!response.ok) {
             const errorData = await response.json();
-            throw new Error(errorData.message || `HTTP error! status: ${response.status}`);
+            throw new Error(errorData.message || "Booking failed");
         }
 
-        const result = await response.json();
-        const confirmedBookings = result.bookings; // Note the 's' - it's an array
+        showPublicMessageBox('Success!', `Your reservation is confirmed! We have sent a confirmation to ${bookingData.guestEmail}.`);
 
-// Create a string of all room numbers booked
-        const bookedRoomNumbers = confirmedBookings.map(b => b.room).join(', ');
-
-        // --- Send Email Confirmation ---
-        // We'll use the /public/send-booking-confirmation endpoint
-        // This endpoint expects the entire booking object in its body,
-        // which matches the `confirmedBooking` structure.
-        
-                   showPublicMessageBox('Success!', `Booking confirmed! We look forward to seeing you.`);
-
-        // Reset the form and hide sections after successful booking
+        // Reset UI
         publicBookingForm.reset();
-        checkInDateInput.value = '';
-        checkOutDateInput.value = '';
-        roomTypeSelect.value = 'Any';
-        numberOfPeopleInput.value = '1';
-
+        selectedRoomsCart = [];
         guestDetailsFormSection.style.display = 'none';
         availabilityResultsSection.style.display = 'none';
+        window.scrollTo({ top: 0, behavior: 'smooth' });
 
-    
     } catch (error) {
         console.error(error);
+        showPublicMessageBox('Booking Error', error.message, true);
     }
 });
+
+// --- UI HELPERS ---
+
+function showPublicMessageBox(title, message, isError = false) {
+    publicMessageBox.style.display = 'flex';
+    publicMessageBox.classList.remove('hidden');
+    publicMessageBoxContent.textContent = message;
+    // You could also update a title element if you have publicMessageBoxTitle
+}
+
+function closePublicMessageBox() { 
+    publicMessageBox.style.display = 'none'; 
+}
+
+cancelBookingBtn.addEventListener('click', () => {
+    guestDetailsFormSection.style.display = 'none';
+    availabilityResultsSection.style.display = 'block';
+});
+
+addMoreRoomsBtn.addEventListener('click', () => {
+    availabilityResultsSection.style.display = 'block';
+    guestDetailsFormSection.style.display = 'none';
+});
+
+// Carousel Scroll
+prevBtn.addEventListener('click', () => { container.scrollLeft -= 300; });
+nextBtn.addEventListener('click', () => { container.scrollLeft += 300; });
